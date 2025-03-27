@@ -1,0 +1,166 @@
+<html>
+<head>
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="format-detection" content="telephoner=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<title>手机用户列表</title>
+    <script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/fastclick.js"></script>
+    <script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/fiesc/js/aes.js"></script>
+    <script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/md5.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/css/alert.css">
+	<link rel="stylesheet" href="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/fiesc/css/phoneUsers.css">
+	<script type="text/javascript">
+		document.write('<script type="text/javascript" src="./js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="./js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+	</script>
+	<script type="text/javascript">
+
+		window.addEventListener('load', function() {
+			FastClick.attach(document.body);
+		}, false);
+
+		var obj = DynLoading.hall(BaseUrl + '/home1/index');
+		if(obj.result != 0){
+		  alert(obj.result_message);
+		  var return_url = window.location.href;
+		  console.log(return_url);
+		  window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+		}
+
+		var newNum = "";
+		var per = window.innerWidth / 530;
+		var globalData = {
+			"baseUrl": BaseUrl + "/",
+            "fileUrl": obj.data.file_url,
+			"hallName": obj.data.platfrom_name,
+		};
+		var userData = {
+			"accountId":obj.data.user.account_id,
+            "nickname":obj.data.user.nickname,
+            "avatar":obj.data.user.headimgurl,
+		};
+		var configData = {
+			"appId":obj.data.config_ary.appId,
+            "timestamp":obj.data.config_ary.timestamp,
+            "nonceStr":obj.data.config_ary.nonceStr,
+            "signature":obj.data.config_ary.signature,
+		};
+
+	</script>
+
+<style type="text/css">
+    .gameItem{position: absolute;background-color: #291c4d;}
+</style>
+
+</head>
+
+<body style="background:url(http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images/redpackage/redpackage_bg.jpg)">
+
+    <div id="loading" style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" >
+        <img src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images/common/loading.gif" style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;" />
+    </div>
+
+    <div class="main" id="app-main" style="position: absolute; width: 100%;margin: 0 auto; background: #0e0226; display: none;">
+        
+        <!-- 提示框 -->
+        <div class="alert" id="valert" v-show="isShowAlert" style="display: none;">
+            <div class="alertBack"></div>
+            <div class="mainPart">
+                <div class="backImg">
+                    <div class="blackImg"></div>
+                </div>
+                <div class="alertText">{{alertText}}</div>              
+                <div v-show="alertType==3">
+                    <div class="buttonLeft" v-on:click="closeAlert">确定</div>
+                    <div class="buttonRight" v-on:click="closeAlert">取消</div>
+                </div>          
+                <div v-show="alertType==7">
+                    <div class="buttonMiddle" v-on:click="closeAlert">确定</div>
+                </div>  
+                <div v-show="alertType==8">
+                </div>          
+            </div>
+        </div>
+
+        <!-- 短提示  -->
+        <div class="shortAlert" v-show="alert.isShow">
+            <div class="back"></div>
+            <div class="text">{{alert.text}}</div>
+        </div>
+
+        <div style="position: absolute;top: 1.5vw;left: 0;width: 100%;height: 12vw;background-color: #622318;font-size: 2.5vh;line-height: 12vw;text-align: left;color: #fff;">
+            <div style="position: absolute;left: 4vw">
+                昵称
+            </div>
+            <div style="position: absolute;left: 70vw">
+                门票
+            </div>
+        </div>
+
+        <div id="memberDiv" v-bind:style="'position: absolute;top: 14vw;left: 0;width: 100%;height: ' + (height - 0.14 * width) + 'px;overflow-x: hidden;'" >
+            <div style="position: relative;">
+                <div v-for="item in members" style="position: relative;width: 100%;height: 15vw;line-height: 15vw;background-color: #622318;text-align: center;margin-top: 0.3vh;color: white;overflow:hidden;">
+                    <div style="position: absolute;top: 1vw;left: 4vw;" >
+                        <img v-bind:src="item.avatar" style="position: absolute;top: 0;left: 0;margin-left: 0;width: 8vh;height: 8vh;border-radius: 1vh;">
+                    </div>
+                    
+                    <div style="position: absolute;left: 22vw;width: 50vw;height: 15vw;line-height: 15vw;font-size: 2.2vh;text-align: left;">
+                        {{item.name}}
+                    </div>
+                    <div style="position: absolute;left: 70vw;width: 15vw;height: 15vw;line-height: 15vw;font-size: 2.2vh;text-align: left;color: #fff">
+                        {{item.ticket}}
+                    </div>
+
+                    <div style="position: absolute;top: 2.5vw;left: 85vw;width: 10vw;height: 10vw;line-height: 4.5vw;font-size: 1.5vh;text-align:center;color: #33ddff;border: solid .5vw;border-radius: 50%;" v-show="item.is_cantransfer" v-on:click="clickShowTranfer(item)">
+                        <span style="position: relative;top: 1vw">转移<br>门票</span>
+                    </div>
+
+                </div>
+                <div id="moretext" style="position: relative;background-color: white;color: black;height: 10vw;text-align: center;line-height: 10vw;font-size: 2.2vh;" >
+                    上拉加载更多
+                </div>
+            </div>
+        </div>
+
+        <!-- 转移至 -->
+        <div style="display: none;" v-show="showTranfer">
+            <div class="transferMask" style="" v-on:click="hideTranfer"></div>
+            <div class="transferFrame" style="">
+                <div style="height: 2.2vw;"></div>
+                <div class="title" >将{{selectedItem.name}}的门票转移至：</div>
+
+                <div style="height: 2.2vw;border-bottom: solid #ccc 0.2vh;"></div>
+
+                <div style="height: 80vw;overflow-x: hidden;" >
+
+                        <div v-for="toitem in tMembers" class="toRow">
+                            <div class="avatar" ><img v-bind:src="toitem.avatar"></div>
+                            
+                            <div class="name">{{toitem.name}}</div>
+                            <div class="select"  v-on:click="clickTMember(toitem)">
+                                <img src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images/activity/icon_checked.png" v-show="toitem.checked">
+                                <img src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images/activity/icon_unchecked.png" v-show="!toitem.checked">
+                            </div>
+                        </div>
+
+                </div>
+                
+                <div style="height: 2.2vw;border-top: solid #ccc 0.2vh;"></div>
+                <div class="transferConfirm" v-on:click="confirmTranfer()">
+                    <div class="confirm">确定转移</div>
+                </div>
+                <div style="height:4vw;"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/bscroll.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/vue.min.js" ></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/vue-resource.min.js" ></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/phoneUsers.js"></script>
+</html>

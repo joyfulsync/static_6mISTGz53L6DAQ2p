@@ -1,0 +1,150 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>开房记录查询</title>
+    <script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/fastclick.js"></script>
+    <script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/rem.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/css2/alert.css">
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="./js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+    <script type="text/javascript" src="./js/load.js"></script>
+
+   <link rel="stylesheet" href="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/fiesc/css2/roomList.css">
+    <script type="text/javascript">
+			//
+			window.addEventListener('load', function () {
+				FastClick.attach(document.body);
+			}, false);
+
+			var obj = DynLoading.hall(BaseUrl + '/home1/index');
+			if(obj.result != 0){
+				alert(obj.result_message);
+				var return_url = window.location.href;
+				console.log(return_url);
+				window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+			}
+			console.log(obj);
+
+			var newNum = "";
+			var per = window.innerWidth / 530;
+			var globalData = {
+				"baseUrl": BaseUrl + "/",
+				"fileUrl": obj.data.file_url,
+				"cfileUrl": obj.data.cfile_url,
+				"gameList": [
+					{"game_type": "1", "game_name": "拼十", "game_icon": "1.png"},
+					{"game_type": "4", "game_name": "炸金花", "game_icon": "4.png"},
+					{"game_type": "5", "game_name": "三公", "game_icon": "5.png"},
+					{"game_type": "10", "game_name": "小天九", "game_icon": "10.png"},
+					{"game_type": "17", "game_name": "超级三加一", "game_icon": "17.png"},
+					{"game_type": "18", "game_name": "大天九", "game_icon": "18.png"},
+					{"game_type": "43", "game_name": "至尊牛", "game_icon": "43.png"},
+					{"game_type": "12", "game_name": "开船牛牛", "game_icon": "12.png"},
+					{"game_type": "13", "game_name": "开船三公", "game_icon": "13.png"}
+				],
+				 "hallPath":"/index.html",
+				 "hallName": obj.data.platfrom_name,
+			};
+			globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+		var userData = {
+			"accountId": obj.data.account_id,
+			"nickname": obj.data.user.nickname,
+			"avatar": obj.data.user.headimgurl,
+		};
+		var configData = {
+			"appId": obj.data.config_ary.appId,
+			"timestamp": obj.data.config_ary.timestamp,
+			"nonceStr": obj.data.config_ary.noncestr,
+			"signature": obj.data.config_ary.signature,
+		};
+		// 修改浏览器title
+		var new_userName = "";
+		var old_userNname = obj.data.user.nickname;
+		if (old_userNname.length > 8) {
+		    new_userName = old_userNname.substring(0, 7);
+		    new_userName += "..."
+		}
+		else {
+		    new_userName = old_userNname;
+		}
+		document.getElementsByTagName("title")[0].innerText = new_userName + "|" + globalData.hallName;
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            // 通过下面这个API隐藏右上角按钮
+            WeixinJSBridge.call('hideOptionMenu');
+        });
+    </script>
+</head>
+
+<body style="position: fixed; width: 100%;margin: 0 auto;background: url(http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/package/bg.jpg);background-size: 100vw 100vh;">
+
+<div id="loading" style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000">
+    <img src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/common/loading.gif"
+         style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;"/>
+</div>
+<div class="main" id="app-main" style="position: relative; width: 100%;margin: 0 auto; display: none;">
+    <div class="box" >
+
+        <img style="position: fixed;width: 14vw;top: 2vh;left: 10px;z-index: 1;" class="bottomHome"
+             src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/common/back2.png" v-on:click="gotoHall()"/>
+
+        <div style="color: #fefeba;font-size: 0.8rem;text-align: center;line-height: 10vh;height: 10vh;">开房记录</div>
+
+        <div style="overflow-x: scroll;">
+            <div style="width: 164vw;">
+                <img @click="clickGame(item)" style="width: 16vw; margin: 2vw 1vw;" :class="selectedGame==item.game_type?'selectBorder':''" :src="'http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/log/'+item.game_icon" v-for="item in globalData.gameList">
+            </div>
+        </div>
+        <div class="scoreRow" style="overflow-y: scroll;height: 78vh;">
+            <div class="backcolor"></div>
+            <div style="position: relative;">
+                <div v-for="(item, index) in gameScoreList" style="position: relative;width: 100%;height: 12vh;line-height: 13vw;text-align: center;margin-top: 2px;color: white;overflow:hidden;background: url(http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/page/item-bg.png);background-size: 100% 100%;" v-on:click="clickScoreItem(item)">
+                    <div style="background: url(http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/page/avatar_box.png);background-size: 100% 100%;    width: 18vw;height: 18vw;position: relative;top: 50%;transform: translateY(-50%);left: 2vw;">
+                        <img :src="'http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/log/'+item.game_type+'.png'" style="position: absolute;left: 1vw;top: 1vw;border-radius: 1vw;width: 16.5vw;height: 16.5vw;">
+                    </div>
+                    <div style="position: absolute;left: 23vw;font-size: 14pt;color: rgb(0, 0, 0);text-align: left;top: 1vw;">
+                        房间号: {{item.number}}
+                    </div>
+                    <div style="    position: absolute;width: 100%;left: 23vw;font-size: 12pt;color: rgb(0, 0, 0);text-align: left;bottom: 1vw;">
+                        {{item.time}}
+                    </div>
+                    <div style="color:rgb(76,205,59);position: absolute;top: 50%;transform: translateY(-50%);right: 10vw;font-size: 0.5rem;">
+                        已结束
+                    </div>
+                    <img src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/images2/daoyou/page/arrow.png" style="position: absolute;right: 2vw;top: 50%;transform: translateY(-50%);width: 6vw;">
+                </div>
+                <div id="moretext" v-if="selectedGame"
+                     style="position: relative;margin-top: 4px;color: #39d7ff;height: 13vw;text-align: center;line-height: 13vw;font-size: 2.2vh;"
+                     v-on:click="clickMore(selectedGame)">
+                    <div class="backcolor"></div>
+                    点击加载更多
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/bscroll.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/vue.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="http://dyxdy8.oss-cn-hangzhou.aliyuncs.com/files/js/roomList_daoyou1.js?v=12"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+<script>
+    $(document).on('click', 'img', function (e) {
+        e.preventDefault();
+    })
+</script>
+
+</html>

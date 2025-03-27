@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>大厅</title>
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+
+    <script type="text/javascript" src="./files/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="./files/js/rem.js"></script>
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+    <script type="text/javascript" src="./files/js/vue-resource.min.js"></script>
+    <script type="text/javascript" src="./files/js/vconsole.min.js?v=12"></script>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+        //var vConsole = new VConsole();
+        //var vConsole = new window.VConsole();
+    </script>
+
+    <script>
+        var return_url = DynLoading.getUrlParam('return_url');
+        if(typeof return_url !== "undefined" && return_url) {
+            window.localStorage.setItem('return_url', return_url);
+        }else{
+            return_url = window.localStorage.getItem('return_url');
+        }
+        var apiUrl = BaseUrl + '/userapi/';
+        var apiUrl2 = BaseUrl + '/site1/';
+    </script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, Arial, sans-serif;
+            cursor: default;
+            margin: 0 auto;
+            background-color: #f0f1f5;
+            height: 100%;
+            max-width: 768px;
+            color: #000;
+            font-size: 0.32rem;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        input {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #848484;
+        }
+
+        ul, li, h1, h2, dl, dt, dd, a, div, p, dd, dt, dl {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a, a:visited {
+            text-decoration: none;
+        }
+
+        img {
+            border: 0;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .f-cb:after {
+            display: block;
+            visibility: hidden;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            content: '.';
+        }
+
+        #app {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        .userFrame, .creatUser {
+            position: absolute;
+            z-index: 99;
+            width: 90%;
+            min-height: 300px;
+            top: 55%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -65%);
+            transform: translate(-50%, -65%);
+            background-color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            opacity: 1;
+            padding: 0.8rem 0 0.8rem 0;
+        }
+
+        .creatUser {
+            opacity: 0;
+            left: -50%;
+        }
+
+
+        .closeBtn {
+            position: absolute;
+            z-index: 99;
+            width: 0.8rem;
+            top: -3%;
+            left: 92%;
+            display: none;
+        }
+
+        .title {
+            font-size: 0.4rem;
+            padding-bottom: 0.5rem;
+            word-wrap: break-word;
+            word-break: break-all;
+            color: #000;
+            background-color: white;
+        }
+
+        .input input {
+            line-height:normal;
+            padding:10px 10px;
+            height:1rem;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 0.1rem;
+            border-color: rgb(240, 240, 240);
+            font-size: 0.3rem;
+            -webkit-appearance: none;
+            background-color: rgb(240, 240, 240);
+            box-sizing: border-box;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .item {
+            margin: 0 auto 0.5rem auto;
+            width: 86%;
+        }
+
+        .item .label {
+            float: left;
+            color: #000;
+            width: 30%;
+            font-size: 0.32rem;
+            line-height: 1rem;
+        }
+
+        .item .input {
+            float: right;
+            width: 68%;
+        }
+
+        .enterBtn {
+            width: 90%;
+            line-height: 1.2rem;
+            border-radius: 0.1rem;
+            font-size: 0.36rem;
+            background-color: rgb(64, 112, 251);
+            color: #fff;
+            margin: 0.8rem auto 0 auto;
+        }
+
+        .backBtn {
+            width: 50%;
+            position: absolute;
+            left: 50%;
+            bottom: 5%;
+            margin-left: -25%;
+            opacity: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 0.34rem;
+            line-height: 1.2rem;
+            border-radius: 0.1rem;
+            background-color: #6d7dd4;
+        }
+
+        .clearShowBtn {
+            margin-top: 2vh;
+            margin-right: 6%;
+            width: 16%;
+            float: right;
+            text-align: right;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+
+        .wxShowBtn {
+            margin-top: 2vh;
+            margin-left: 6%;
+            width: 16%;
+            float: left;
+            text-align: left;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+
+        .creatUserShowBtn {
+            margin-top: 2vh;
+            margin-left: 20%;
+            width: 16%;
+            float: left;
+            text-align: center;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div id='app' style="display: none;">
+    <div class="userFrame">
+        <img src="./files/images/activity/common_close.png" class='closeBtn'>
+        <div class="title">账号登录</div>
+
+        <div class='item f-cb'>
+            <div class='label'>账号：</div>
+            <div class='input'><input placeholder="输入手机号或账号" v-model="account"></div>
+        </div>
+
+        <div class='item f-cb'>
+            <div class='label'>密码：</div>
+            <div class='input'><input placeholder="输入6-18位英文或数字密钥" v-model="passWord"></div>
+        </div>
+
+
+        <div style='width:80%;margin:0 auto;' class='f-cb'>
+
+
+        </div>
+        <div v-if="isShowTip" style="color: red;">{{tipText}}</div>
+        <div class='enterBtn' @click='enterBtn'>进入游戏</div>
+
+
+        <div class='wxShowBtn' @click='enterWxBtn' v-if="isWxBtn">微信进入</div>
+        <div class='creatUserShowBtn' @click='creatUserShowBtn' v-if="isCreat">账号注册</div>
+        <div class='clearShowBtn' @click='clearLogin'>清理缓存</div>
+    </div>
+
+    <div class="creatUser">
+        <img src="./files/images/activity/common_close.png" class='closeBtn'>
+        <div class="title">账号注册</div>
+
+        <div class="item f-cb">
+            <van-uploader :after-read="Uploader" >
+                 <img width="50px" style="border-radius: 50%;" :src="avatar" alt="">
+                 <van-button icon="plus" type="info" size="mini" block>上传头像</van-button>
+            </van-uploader>
+        </div>
+        <div class="item f-cb" v-if="isLobby">
+            <van-dropdown-menu active-color="#1989fa">
+                <van-dropdown-item v-model="hallName" :options="series" />
+            </van-dropdown-menu>
+        </div>
+        <div class="item f-cb">
+            <div class="label">用户名：</div>
+            <div class="input"><input placeholder="输入用户名" v-model="nickname"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">账号：</div>
+            <div class="input"><input placeholder="输入账号" v-model="account1"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">设置密码：</div>
+            <div class="input"><input placeholder="设置登录密码" type="password" v-model="passWord_phone"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">密码确认：</div>
+            <div class="input"><input placeholder="确认登录密码" type="password" v-model="passWord_phone_en"></div>
+        </div>
+
+        <div v-if="isShowTip" style="color: red;">{{tipText}}</div>
+        <div class="enterBtn" @click="enterBtn_phone">注册</div>
+    </div>
+
+    <div class='backBtn' @click='backBtn'>返回</div>
+</div>
+<script>
+    const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+    const regex = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+    const emailReg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            account: '',
+            passWord: '',
+            account1: '', //用户注册
+            nickname: '',
+            passWord_phone: '',
+            passWord_phone_en: '',
+            isShowTip: false,
+            tipText: '',
+            isWeixin: false,
+            acode: '',
+            wxUrl: '',
+            isLobby: false,
+            isCreat: false,
+            isWxBtn: true,
+            avatar: './files/images/avatar.jpeg',
+            file: '',
+            hallName: '',
+            series: [],
+        },
+        created: function () {
+            if (DynLoading.isWeiXin()) {
+                var code = DynLoading.getUrlParam("code");
+                if(code) {
+                    this.toWxlogin(code);
+                }else{
+                    this.isWeixin = true;
+                }
+            }
+            obj = DynLoading.hall(BaseUrl + '/site1/wlogin?group_id='+GroupID);
+            if(obj.result != 0) {
+                this.acode = obj.data.acode;
+                this.wxUrl = obj.data.awxul;
+                if(obj.result == 1 && this.isWeixin) {
+                    this.enterWxBtn();
+                    return;
+                }
+                else if(obj.result == 3) {
+                    //this.isCreat = true;
+                }
+                $("#app").show();
+                this.isLobby = obj.data.is_share;
+                console.log(this.isLobby);
+                if(this.isLobby) {
+                    this.hallName = obj.data.series_deafult;
+                    this.series = obj.data.series;
+                }
+            }else{
+                vant.Toast('获取信息失败，暂时无法使用微信登录！');
+            }
+        },
+        methods: {
+            creatUserShowBtn: function() {
+                this.isShowTip = false;
+                $(".userFrame").animate({left: "-50%", opacity: "0"});
+                $(".creatUser").animate({left: "50%", opacity: "1"});
+                $('.backBtn').animate({opacity: "1"});
+            },
+            backBtn: function () {
+                this.isShowTip=false;
+                $('.backBtn').animate({opacity: "0"});
+                $(".userFrame").animate({left: "50%", opacity: "1"});
+                $(".creatUser").animate({left: "-50%", opacity: "0"});
+            },
+            Uploader: function (e) {
+                this.file = e.file;
+                this.avatar = e.content;
+            },
+            toWxlogin: function(code) {
+                obj = DynLoading.hall(BaseUrl + '/site1/wxlg?code=' + code);
+                if (obj.result == 0) {
+                    window.localStorage.removeItem('wwid');
+                    window.localStorage.removeItem('openid');
+                    window.localStorage.setItem('wwid', obj.data.wwid);
+                    window.localStorage.setItem("openid", obj.data.openid);
+                    var return_url = window.localStorage.getItem('return_url');
+                    if(typeof return_url === "undefined" || !return_url) {
+                        return_url = 'http://' + window.location.host + '/';
+                    }
+                    window.location.href = return_url;
+                }else{
+                    window.location.href = 'http://' + window.location.host + '/login.html';
+                }
+            },
+            enterWxBtn: function () {
+                if(!this.isWxBtn) {
+                    vant.Toast('获取信息失败，暂时无法使用微信登录！');
+                }else{
+                    var return_url = window.localStorage.getItem('return_url');
+                    if(typeof return_url === "undefined" || !return_url) {
+                        return_url = 'http://' + window.location.host + '/login.html';
+                    }
+                    window.location.href =  this.wxUrl + '?rurl=' + return_url + '&acode=' + this.acode;
+                }
+            },
+            login: function (account, passWord, callback) {
+                let that=this;
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'loginPwd',
+                    data: {'phone': account, 'password': passWord, 'h': this.hallName},
+                    dataType: "json",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    async: false,
+                    success: function (data) {
+                        that.isShowTip=true;
+                        that.tipText=data.result_message;
+                        console.log(data);
+                        callback(data);
+                    },
+                    error: function (jqXHR) {
+                        that.isShowTip=true;
+                        that.tipText=jqXHR.result_message;
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            loginLg: function (account_id, wwid, callback) {
+                let that=this;
+                $.ajax({
+                    type: "GET",
+                    url: apiUrl2 + 'lg',
+                    data: {'wwid': wwid, 'account_id': account_id},
+                    dataType: "json",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    async: false,
+                    success: function (data) {
+                        that.isShowTip=true;
+                        that.tipText=data.result_message;
+                        console.log(data);
+                        callback(data);
+                    },
+                    error: function (jqXHR) {
+                        that.isShowTip=true;
+                        that.tipText=jqXHR.result_message;
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            clearLogin: function (){
+                let that=this;
+                $.ajax({
+                    type: "GET",
+                    url: apiUrl2 + 'logout',
+                    data: {},
+                    dataType: "json",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    async: false,
+                    success: function (data) {
+                        window.localStorage.removeItem('wwid');
+                        window.localStorage.removeItem('openid');
+                        window.localStorage.removeItem('token');
+                        window.location.href = '/login.html';
+                        //window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            showTip: function(text){
+                this.isShowTip=true;
+                this.tipText=text;
+            },
+            enterBtn: function () {
+                this.isShowTip=false;
+                this.tipText='';
+                if (this.account.length == 0) {
+                    this.isShowTip=true;
+                    this.tipText='请输入账号';
+                    return;
+                }
+                if (this.passWord == '') {
+                    this.isShowTip=true;
+                    this.tipText='请输入密码';
+                    return;
+                }
+                let that = this;
+
+                this.login(this.account, this.passWord, function (value) {
+                    window.localStorage.setItem('token', value.data.code);
+                    if (value.result == 1) {
+                        //console.log('登录成功');
+                        that.isShowTip = true;
+                        that.tipText = value.result_message;
+                        window.localStorage.removeItem('wwid');
+                        window.localStorage.removeItem('openid');
+                        window.localStorage.setItem('wwid', value.data.wwid);
+                        window.localStorage.setItem("openid", value.data.openid);
+                        that.loginLg(value.data.account_id, value.data.wwid, function (res){
+                            var return_url = window.localStorage.getItem('return_url');
+                            if(typeof return_url === "undefined" || !return_url) {
+                                return_url = 'http://' + window.location.host + '/';
+                            }
+                            window.location.replace(return_url);
+                        });
+                    } else {
+                        that.isShowTip=true;
+                        that.tipText=value.result_message;
+                    }
+                })
+            },
+            enterBtn_phone: function() { //用户注册
+                this.isShowTip = false;
+                this.tipText = '';
+                let that = this;
+
+                if(!this.isCreat) {
+                    this.isShowTip = true;
+                    this.tipText = '未开启新建用户';
+                    return;
+                }
+
+                if (this.nickname.length = '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入用户名';
+                    return;
+                }
+
+                if (this.account1.length = '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入账号';
+                    return;
+                }
+
+                if (this.passWord_phone == '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入登陆密码';
+                    return;
+                }
+
+                if (!regex.test(this.passWord_phone)) {
+                    this.isShowTip = true;
+                    this.tipText = '密码格式为字母加数字组合，长度为6-18位';
+                    return;
+                }
+                   
+                if (this.passWord_phone_en == '') {
+                    this.isShowTip = true;
+                    this.tipText = '请确登陆认密码';
+                    return;
+                }
+                if (this.passWord_phone != this.passWord_phone_en) {
+                    this.isShowTip = true;
+                    this.tipText = '两次密码不一致';
+                    return;
+                }
+                if(!this.file) {
+                    this.isShowTip = true;
+                    this.tipText = '头像不能为空';
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("file", that.file); //加入文件对象
+                formData.append("account", that.account1);
+                formData.append("nickname", that.nickname);
+                formData.append("password", that.passWord_phone_en);
+                formData.append("h", this.hallName);
+                
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'reg',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "JSON",
+                    // xhrFields: {
+                    //     withCredentials: true
+                    // },
+                    // crossDomain: true,
+                    // async: false,
+                    success: function (data) {
+                        that.isShowTip=true;
+                        that.tipText=data.result_message;
+                        if (data.result == 1) {
+                            that.isShowTip=true;
+                            that.tipText='注册成功';
+                            window.localStorage.removeItem('wwid');
+                            window.localStorage.setItem('wwid', data.data.wwid);
+                            var return_url = window.localStorage.getItem('return_url');
+                            if(typeof return_url === "undefined" || !return_url) {
+                                return_url = 'http://' + window.location.host + '/';
+                            }
+                            window.location.replace(return_url);
+                        } else {
+                            that.isShowTip = true;
+                            that.tipText = data.result_message;
+                        }
+                    },
+                    error: function (jqXHR) {
+                        that.isShowTip=true;
+                        that.tipText=jqXHR.result_message;
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            }
+        }
+    })
+</script>
+<script>
+    $(document).on('click', 'img', function(e){
+        e.preventDefault();
+    })
+</script>
+
+</body>
+</html>
