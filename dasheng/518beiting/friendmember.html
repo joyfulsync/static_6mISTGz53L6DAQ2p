@@ -1,0 +1,275 @@
+<html>
+<head>
+<meta charset="utf-8" >
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<title>好友管理</title>
+
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/fastclick.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/css/alert.css">
+
+<style type="text/css">
+  a{text-decoration:none}
+ .buttonLeft2{position: absolute;width:100%;line-height: 3.3vh;height: 3.3vh;font-size: 2.5vh;width: 10vh;right:15vh;bottom:2.5vh;text-align:center;background:url("http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/common/button1.png");background-size:100%;}
+ .buttonRight2{position: absolute;width:100%;line-height:3.3vh;height: 3.3vh;font-size: 2.5vh;width: 10vh;right:3vh;bottom:2.5vh;text-align: center;background:url("http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/common/button2.png");background-size:100%;}
+ .rcIcon{position:absolute;top: 4.5vw;left: 3.5vw;width: auto;height: 7.375vw;}
+ .rcContent{position:absolute;top: 1vw;left: 16.375vw;width: 50vw;height: 13.75vw;color: white;font-size: 12pt;}
+ .btnOnOff{position:absolute;top: 4vw;left: 82vw;width: 15vw;}
+  #alertBox {
+        width: 2.2rem;
+        min-height: 1rem;
+        opacity: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -1.1rem;
+        transition: all 0.5s;
+        border-radius: 0.04rem;
+        padding-top: 0.96rem;
+        line-height: 0.16rem;
+        text-align: center;
+        font-size: 0.15rem;
+        color: rgba(0, 0, 0, 0.54);
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
+        z-index: 100000;
+    }
+
+    #alertBox.success {
+        background: #fff url(http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/newgame/alertBox_success.png) no-repeat center 0.384rem / 0.384rem 0.384rem;
+    }
+
+    #alertBox.error {
+        background: #fff url(http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/newgame/alertBox_error.png) no-repeat center 0.384rem / 0.384rem 0.384rem;
+    }
+
+    #alertBox.puncherror {
+        background: #fff url(http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/newgame/punch_caution.png) no-repeat center 0.384rem / 0.384rem 0.384rem;
+    }
+
+    #alertBox .context {
+        margin-bottom: 0.384rem;
+        padding: 0 0.1rem;
+    }
+
+    #alertBox .closed {
+        width: 50%;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        display: inline-block;
+        font-size: 0.145rem;
+        color: #b39851;
+        text-align: center;
+        border-top: 0.01rem solid #f5f5f5;
+    }
+</style>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="./js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+    document.write('<script type="text/javascript" src="./js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+</script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 360*100 + 'px';
+    window.addEventListener('load', function() {
+        FastClick.attach(document.body);
+    }, false);
+    var code = DynLoading.getUrlParam("code");
+    let token = window.localStorage.getItem('wwid');
+    if (!token) {
+        var return_url = window.location.href;
+        window.localStorage.removeItem('return_url');
+        window.localStorage.setItem('return_url', window.location.href);
+        if (DynLoading.isWeiXin()) {
+            if (code) {
+                DynLoading.loginWx(code);
+            } else {
+                DynLoading.gotoWx();
+            }
+        } else {
+            DynLoading.goto('login');
+        }
+    }
+    if (token) {
+        var req_url = BaseUrl + '/home1/index';
+        if (token == '{$token}' && code) {
+            req_url = BaseUrl + '/home1/index' + "?code=" + code;
+        }
+        var obj = DynLoading.hall(req_url);
+        if (obj.result != 0) {
+            alert(obj.result_message);
+            var return_url = window.location.href;
+            console.log(return_url);
+            DynLoading.goto('/');
+        }
+        console.log(obj);
+        if (code && obj.data.t != "") {
+            token = obj.data.t;
+        }
+    }
+    var newNum = "";
+    var per = window.innerWidth / 530;
+    room_number = obj.data.room_number;
+    var globalData = {
+        "baseUrl": BaseUrl+'/',
+        "fileUrl": obj.data.fileUrl,
+    };
+
+    globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+    var userData = {
+        "accountId":obj.data.user.account_id,
+        "nickname":obj.data.user.nickname,
+        "avatar":obj.data.user.headimgurl,
+        "isManageOn":obj.data.user.is_manage_on,
+    };
+    var configData = {
+        "appId":obj.data.config_ary.appId,
+            "timestamp":obj.data.config_ary.timestamp,
+            "nonceStr":obj.data.config_ary.nonceStr,
+            "signature":obj.data.config_ary.signature,
+    };
+    function gotoHall()
+        {
+            //window.location.href = "./index?wid="+globalData.wid;
+            window.location.href = "./index.html";
+
+        }
+  var win = {
+    width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+    height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+  }
+  $.alert = function (msg, fn, style, sec) {
+    style = style || 'success';
+    if (typeof(fn) == 'string') {
+        style = fn;
+    }
+    if (!sec) {
+        if (style == 'error' || style == 'puncherror') {
+            sec = 9;
+        } else {
+            sec = 0;
+        }
+    }
+    var box = $('<div>').addClass('resourceBox ' + style).attr('id', 'alertBox');
+    box.html('<div class="context">' + msg + '</div>');
+    box.appendTo('body');
+    var h = win.width / 360 * 100;
+    box.css({'opacity': 1, 'margin-top': -1 * (box.height() + h) / 2});
+    if (sec >= 9) {
+        var alertBoxLay = $('<div>').addClass('alertBoxLay').appendTo('body');
+        $('<a>').attr('href', 'javascript:void(0);').addClass('closed').appendTo(box).text('否');
+        $('<a>').attr('onclick', 'methods.finishManageOn()').addClass('closed').appendTo(box).text('是');
+        $('#alertBox a.closed, .alertBoxLay').click(function () {
+            box.css({'opacity': 0, 'margin-top': -1 * (box.height() + h)});
+            alertBoxLay.css('opacity', 0);
+            setTimeout(function () {
+                box.remove();
+                alertBoxLay.remove();
+                if (typeof(fn) == 'function') fn();
+            }, 500);
+        });
+    } else {
+        setTimeout(function () {
+            box.css({'opacity': 0, 'margin-top': -1 * (box.height() + h)});
+            setTimeout(function () {
+                box.remove();
+                if (typeof(fn) == 'function') fn();
+            }, 500);
+        }, 1000 + sec * 1000);
+    }
+};
+  function openNewManage()
+        {
+           $.alert("管理功能免费，是否开启？","error")
+        }
+</script>
+</head>
+
+<body style="background-color: #3A4254;margin:0">
+
+    <div id="loading" style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" >
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/common/loading.gif" style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;" />
+    </div>
+
+    <div class="main" id="app-main" style="position: relative; width: 100%;margin: 0 auto; background: #0e0226; display: none;">
+        
+        <!-- 提示框 -->
+        <div class="alert" id="valert" v-show="isShowAlert" style="display: none;">
+            <div class="alertBack"></div>
+            <div class="mainPart">
+                <div class="backImg">
+                    <div class="blackImg"></div>
+                </div>
+                <div class="alertText">{{alertText}}</div>              
+                <div v-show="alertType==3">
+                    <div class="buttonLeft" v-on:click="closeAlert">确定</div>
+                    <div class="buttonRight" v-on:click="closeAlert">取消</div>
+                </div>          
+                <div v-show="alertType==7">
+                    <div class="buttonMiddle" v-on:click="closeAlert">确定</div>
+                </div>  
+                <div v-show="alertType==8">
+                </div>
+                <div v-show="alertType==24">
+                    <div class="buttonLeft" v-on:click="finishManageOn()">确定</div>
+                    <div class="buttonRight" v-on:click="closeAlert">取消</div>
+                </div>                
+            </div>
+        </div>
+
+        <div style="position: fixed;z-index: 111;top: 0;left: 0; width: 100%;height: 18vw;background: url(http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/common/top.jpg) no-repeat 0 0/100% 100%" >
+            <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/common/hb-return.png" class="rcIcon" onclick="gotoHall()">
+            <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/activity/rc_group_close.png" class="btnOnOff"  onclick="openNewManage()" v-show="!userData.isManageOn">
+            <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/images/activity/rc_group_open.png"  class="btnOnOff"  v-on:click="closeManage" v-show="userData.isManageOn">
+            <p class="rcContent">开启好友管理功能</p>
+        </div>
+        
+        <div style="position: absolute;top: 18vw;left: 0; width: 100%;height: 18vw;">
+            <input v-model="searchText" type="text" name="mname" placeholder="输入玩家名字" style="padding:0 12px 0 12px;position: absolute;top: 4vw;left: 4vw;width: 76vw;height: 10vw;border-radius:  0.5vh 0 0 0.5vh;font-size: 2.5vh;">
+            <div style="position: absolute;top: 3.9vw;left: 80vw;width: 15vw;height: 10.2vw;line-height: 10.2vw;text-align: center;background-color: rgb(46,44,82);color: rgb(129,214,254);border-radius: 0 0.5vh 0.5vh 0;font-size: 2.5vh;" v-on:click="clickSearch">
+                搜索
+            </div>
+        </div>
+      
+        <div v-if="userData.isManageOn"  id="memberDiv" style="position: absolute;top: 36vw;left: 0;width: 100%;height:89vh;overflow-y: scroll; -webkit-overflow-scrolling: touch;padding-bottom: .1rem;" >
+            <div style="position: relative;">
+                <div v-for="item in members" style="position: relative;width: 100%;height: 15vw;line-height: 15vw;background-color: #2c3345;text-align: center;margin-top: 0.3vh;color: white;overflow:hidden;">
+                    <div style="position: absolute;top: 1vw;left: 4vw;" >
+                        <img v-bind:src="item.avatarUrl" style="position: absolute;top: 0;left: 0;margin-left: 0;width: 8vh;height: 8vh;border-radius: 1vh;">
+                    </div>
+                    
+                    <div style="position: absolute;left: 22vw;width: 79vw;height: 15vw;line-height: 15vw;font-size: 2.2vh;text-align: left;">
+                        (ID: {{item.user_code}}) {{item.name}}
+                    </div>
+
+                    <div v-show="item.status==0" class="buttonLeft2"  v-on:click="clickDealMember(item, 1)">同意</div>
+                    <div v-show="item.status==0" class="buttonRight2" v-on:click="clickDealMember(item, 2)">拒绝</div>
+                    <div v-show="item.status==1" class="buttonRight2" v-on:click="clickDealMember(item, 3)">踢出</div>
+
+                    <div v-show="item.status==2"  style="position: absolute;right: 0;width: 20%;height: 15vw;line-height: 15vw;font-size: 2.2vh;text-align: left;">已拒绝</div>
+                    <div v-show="item.status==3"  style="position: absolute;right: 0;width: 20%;height: 15vw;line-height: 15vw;font-size: 2.2vh;text-align: left;">已踢出</div>
+                </div>
+                <div id="moretext" style="position: relative;background-color: white;color: black;height: 10vw;text-align: center;line-height: 10vw;font-size: 2.2vh;display: none;" >
+                    上拉加载更多
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/bscroll.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/vue.min.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/vue-resource.min.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/tk518/commonxmz67/files/js/friendmember.js?v=1222"></script>
+
+</html>

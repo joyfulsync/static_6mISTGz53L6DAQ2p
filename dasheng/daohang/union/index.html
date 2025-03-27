@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <title>积分联盟</title>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+    <link href="/jono_common/css/union.css" rel="stylesheet" media="all">
+    <script type="text/javascript" src="/jono_common/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/jono_common/js/flexible.js"></script>
+    <script type="text/javascript" src="/files/js/vue_z.js"></script>
+    <script type="text/javascript" src="/fiesc/js/fastclick.js"></script>
+
+    <script>
+        var return_url = window.location.protocol+"//"+window.location.host+""+window.location.pathname;
+        window.localStorage.setItem('return_url', return_url);
+        if(DynLoading.isWeiXin()){
+            var code = DynLoading.getUrlParam("code");
+            if(code){
+                DynLoading.loginWx(code);
+            }
+        }
+        var token = window.localStorage.getItem("wwid");
+        if(typeof token === "undefined" || !token) {
+            DynLoading.gotoWx();
+        }
+        
+    </script>
+</head>
+<body style="overflow: hidden;">
+
+<div id="loading">
+    <img src="/jono_common/images/club/loading.gif"/>
+</div>
+
+<div id='app'>
+    <div style="width: 100%;height: 100%;position: fixed;top:0;left:0;background: url(/jono_common/images/club/bg.png?v=1);background-size:100vw 100vh;"></div>
+    <div class="club" v-show="is_show">
+        <div class="top-nav">
+            <div class="u-r">
+                <div class="u-r-r">
+                    <div class="avatar">
+                        <img :src="user.avatar" alt="">
+                    </div>
+                    <div class="id">ID:{{user.id}}</div>
+                </div>
+                <div class="u-r-l">
+                    <div class="nickname">{{user.nickname}}</div>
+                </div>
+            </div>
+            <div class="u-l">
+                <div class="u-l-t">积分
+                    <div class="jf">{{nowUnionList.score}}</div>
+                </div>
+                <div class="u-l-b">{{nowUnionList.name}}</div>
+            </div>
+        </div>
+
+
+        <!--用户表-->
+        <div class="list" v-show="list_show">
+            <div class="list-main">
+                <div @click="closeList()" class="close"></div>
+                <div class="list-title">
+                    <div>积分管理</div>
+                </div>
+                <div class="list-search">
+                    <input id="search" type="number" name="search" placeholder="输入用户ID" v-model="search_uid">
+                    <div @click="searchList('uid')">搜索</div>
+                    <div @click="searchList('all')">全部</div>
+                </div>
+                <div class="list-form-title">
+                    <div>头像</div>
+                    <div>昵称</div>
+                    <div>总分</div>
+                    <div>操作</div>
+                </div>
+                <div class="list-form-main" id="list">
+                    <div class="list-form-body" v-for="member in member_list">
+                        <div class="avatar">
+                            <img :src="member.avatar" alt="">
+                            <div class="id">{{member.member_id}}</div>
+                        </div>
+                        <div v-if='member.remark_name' class="n">{{member.nickname}}({{member.remark_name}})</div>
+                        <div v-if='!member.remark_name' class="n">{{member.nickname}}</div>
+                        <div class="j">{{member.jf}}</div>
+                        <div class="cz">
+                            <div @click="setJf('add',member)">增加</div>
+                            <div @click="setJf('sub',member)">减少</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="b" @click="journal()">日志详情</div>
+            </div>
+        </div>
+
+
+        <!--日志详情-->
+        <div class="journal_list" v-show="journal_show">
+            <div class="list-main">
+                <div @click="closeJournal()" class="close"></div>
+                <div class="list-title">
+                    <div>上下分日志</div>
+                </div>
+                <div class="list-search">
+                    <input type="number" name="search" placeholder="输入用户ID" v-model="journal_search_uid">
+                    <div @click="searchJournalList('uid')">搜索</div>
+                    <div @click="searchJournalList('all')">全部</div>
+                </div>
+                <div class="list-form-title">
+                    <div>头像</div>
+                    <div>操作人</div>
+                    <div>分数</div>
+                    <div>被操作ID</div>
+                    <div>操作时间</div>
+                </div>
+                <div class="list-form-main" id="journal">
+                    <div class="list-form-body" v-for="member in point_list">
+                        <div class="avatar">
+                            <img :src="member.avatar" alt="">
+                            <div class="id">{{member.member_id}}</div>
+                        </div>
+                        <div class="cz">{{member.nickname}}</div>
+                        <div class="cz">{{member.number > 0 ? "+" + member.number : member.number}}</div>
+                        <div class="cz">{{member.operator_uid}}</div>
+                        <div class="cz">{{member.created_time}}</div>
+                    </div>
+                </div>
+                <div class="b">
+                    <div class="bnt" @click="pointType(1)">上分查询</div>
+                    <div class="bnt" @click="pointType(2)">下分查询</div>
+                </div>
+            </div>
+        </div>
+
+        <!--名片-->
+        <div class="business_box" v-show="is_show_business">
+            <div class="box">
+                <div @click="closeBusinessBox()" class="close"></div>
+                <div class="business-title">
+                    <div>名片信息</div>
+                </div>
+                <div class="club">{{myInfo.name}}(ID:{{myInfo.club_id}})</div>
+                <div class="main">
+                    <div class="l">
+                        <div class="avatar">
+                            <img :src="myInfo.avatar" alt="">
+                        </div>
+                        <div class="u-info">
+                            <div>{{myInfo.nickname}}</div>
+                            <div>积分：{{myInfo.jf}}</div>
+                        </div>
+                    </div>
+                    <div class="r">
+                        <div @click="showDetailed()" class="btn">积分明细</div>
+                        <div v-if="myInfo.is_owner==1" @click="showDevote()" class="btn">贡献列表</div>
+                        <div @click="showGiveBox()" class="btn">搜索与赠送</div>
+                        <div v-if="myInfo.is_owner==1" @click="closeJfModel()" class="btn">关闭积分模式</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--明细-->
+        <div class="detailed" v-show="is_show_detailed">
+            <div class="detailed-main">
+                <div @click="closeDetailed()" class="close"></div>
+                <div class="detailed-title">
+                    <div>积分明细</div>
+                </div>
+                <div class="detailed-form-title">
+                    <div>剩余积分</div>
+                    <div>积分变动</div>
+                    <div>类型描述</div>
+                </div>
+                <div class="detailed-form-main" id="detailed">
+                    <div class="list-form-body" v-for="member in my_point_list">
+                        <div>{{member.balance}}</div>
+                        <div>{{member.description}}</div>
+                        <div>{{member.number > 0 ? "+" + member.number : member.number}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--贡献列表-->
+        <div class="devote" v-show="is_show_devote">
+            <div class="detailed-main">
+                <div @click="closeDevote()" class="close"></div>
+                <div class="detailed-title">
+                    <div>贡献纪录</div>
+                </div>
+                <div class="detailed-form-title">
+                    <div>头像</div>
+                    <div>昵称</div>
+                    <div>贡献值</div>
+                    <div>时间</div>
+                </div>
+                <div class="detailed-form-main" id="devote">
+                    <div class="list-form-body" v-for="member in devote_list">
+                        <div class="avatar">
+                            <img :src="member.avatar" alt="">
+                            <div class="id">{{member.member_id}}</div>
+                        </div>
+                        <div>{{member.nickname}}</div>
+                        <div>{{"+" + member.number}}</div>
+                        <div>{{member.created_time}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="list_jf_box" v-show="is_show_num_list">
+            <div class="box">
+                <div @click="closeListJfBox()" class="close"></div>
+                <div class="m-s">
+                    <div class="u-info">
+                        <div class="u-info-s">
+                            <div class="t">
+                                <img :src="numListUser.avatar" alt="">
+                            </div>
+                            <div class="info">
+                                <div>{{numListUser.nickname}}</div>
+                                <div>编号:{{numListUser.uid}}</div>
+                                <div>剩余积分:{{numListUser.jf}}</div>
+                            </div>
+                        </div>
+                        <div class="u-info-x">
+                            {{numListMsg}}
+                            <input type="number" placeholder="0" v-model="number_info" readonly="readonly">
+                            <div @click="setNumberJf()" class="btn">确定</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-x">
+                    <div class="number-list">
+                        <div class="item">
+                            <div @click="setNumberInfo('1')" class="num-btn">1</div>
+                            <div @click="setNumberInfo('2')" class="num-btn">2</div>
+                            <div @click="setNumberInfo('3')" class="num-btn">3</div>
+                        </div>
+                        <div class="item">
+                            <div @click="setNumberInfo('4')" class="num-btn">4</div>
+                            <div @click="setNumberInfo('5')" class="num-btn">5</div>
+                            <div @click="setNumberInfo('6')" class="num-btn">6</div>
+                        </div>
+                        <div class="item">
+                            <div @click="setNumberInfo('7')" class="num-btn">7</div>
+                            <div @click="setNumberInfo('8')" class="num-btn">8</div>
+                            <div @click="setNumberInfo('9')" class="num-btn">9</div>
+                        </div>
+                        <div class="item">
+                            <div @click="setNumberInfo('@')" class="num-btn">重输</div>
+                            <div @click="setNumberInfo('0')" class="num-btn">0</div>
+                            <div @click="setNumberInfo('-')" class="num-btn">删除</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--设置-->
+        <div v-show="setBos_show" class="setBos">
+            <div class="setBos-main">
+                <div @click="closeSetBos()" class="close"></div>
+                <div class="setBos-title">
+                    <div>参数设置</div>
+                </div>
+                <div class="form_list">
+                    <div class="item1">
+                        <span>入场积分</span>
+                        <div>
+                            <select v-model="setInfo.join_limit">
+                                <option v-for="(options,df) in join_limit_list" :key="df" :value="options.df">
+                                    {{options.title}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item2">
+                        <span>抢庄积分</span>
+                        <div>
+                            <select v-model="setInfo.bank_limit">
+                                <option v-for="(options,df) in bank_limit_list" :key="df" :value="options.df">
+                                    {{options.title}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item3">
+                        <span>所有赢的玩家消耗</span>
+                        <div>
+                            <label v-for="(item, index) in radioData" :key="index">
+                                <input
+                                        type="radio"
+                                        v-model="setInfo.is_all"
+                                        :value="item.value"
+                                />
+                                {{item.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item4">
+                        <span>计算消耗标准</span>
+                        <div>
+                            <label v-for="(item, index) in typeRadioData" :key="index">
+                                <input
+                                        type="radio"
+                                        v-model="setInfo.type"
+                                        :value="item.value"
+                                />
+                                {{item.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item5">
+                        <span>最低起扣分</span>
+                        <div>
+                            <input @change="authLowerLimit()" type="number" v-model="setInfo.lower_limit"> 分
+                            <p v-if="setInfo.type==1 && setInfo.is_all==1" style="margin: 0;color: red">
+                                最低起扣分必须大于消耗标准 </p>
+                        </div>
+                    </div>
+
+                    <div v-if="setInfo.type==0 && setInfo.is_all==1" class="item6">
+                        <span>消耗标准</span>
+                        <div>
+                            <input @change="authLowerLimit()" type="number" v-model="setInfo.point"> 分
+                        </div>
+                    </div>
+
+                    <div v-if="setInfo.type==1 && setInfo.is_all==1" class="item6">
+                        <span>消耗标准</span>
+                        <div>
+                            <input @change="authRatio()" type="number" v-model="setInfo.ratio"> %
+                            <p style="margin: 0;color: red">范围0-100%</p>
+                        </div>
+                    </div>
+
+                    <div v-if="setInfo.type==1 && setInfo.is_all==0" class="item6">
+                        <span>第一赢家比例</span>
+                        <div>
+                            <input @change="authRatio()" type="number" v-model="setInfo.ratio1"> %
+                        </div>
+                    </div>
+                    <div v-if="setInfo.type==1 && setInfo.is_all==0" class="item6">
+                        <span>第二赢家比例</span>
+                        <div>
+                            <input @change="authRatio()" type="number" v-model="setInfo.ratio2"> %
+                        </div>
+                    </div>
+                    <div v-if="setInfo.type==1 && setInfo.is_all==0" class="item6">
+                        <span>第三赢家比例</span>
+                        <div>
+                            <input @change="authRatio()" type="number" v-model="setInfo.ratio3"> %
+                            <p style="margin: 0;color: red">范围0-100%并且第1名>=第2名>=第3名</p>
+                        </div>
+                    </div>
+
+                    <div v-if="setInfo.type==0 && setInfo.is_all==0" class="item6">
+                        <span>第一赢家比例</span>
+                        <div>
+                            <input @change="authPoint()" type="number" v-model="setInfo.point1"> 分
+                        </div>
+                    </div>
+                    <div v-if="setInfo.type==0 && setInfo.is_all==0" class="item6">
+                        <span>第二赢家比例</span>
+                        <div>
+                            <input @change="authPoint()" type="number" v-model="setInfo.point2"> 分
+                        </div>
+                    </div>
+                    <div v-if="setInfo.type==0 && setInfo.is_all==0" class="item6">
+                        <span>第三赢家比例</span>
+                        <div>
+                            <input @change="authPoint()" type="number" v-model="setInfo.point3"> 分
+                            <p style="margin: 0;color: red">最低起扣分第1名>=第2名>=第3名</p>
+                        </div>
+                    </div>
+
+                    <div class="item7">
+                        <span>显示消耗规则</span>
+                        <div>
+                            <label v-for="(item, index) in radioData" :key="index">
+                                <input
+                                        type="radio"
+                                        v-model="setInfo.show_message"
+                                        :value="item.value"
+                                />
+                                {{item.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div @click="submit()" class="btn">确定</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--搜索与赠送-->
+        <div class="give_box" v-show="is_show_give_box">
+            <div class="box">
+                <div @click="closeGiveBox()" class="close"></div>
+                <div class="business-title">
+                    <div>搜索与赠送</div>
+                </div>
+                <div class="list-search">
+                    <input type="number" name="search" placeholder="输入用户ID" v-model="give_search_uid">
+                    <div @click="searchGiveUid()">搜索</div>
+                </div>
+                <div class="main" v-show="showGiveUid">
+                    <div class="l">
+                        <div class="avatar">
+                            <img :src="giveUser.avatar" alt="">
+                        </div>
+                        <div class="u-info">
+                            <div>{{giveUser.nickname}}</div>
+                            <div>编号:{{giveUser.member_id}}</div>
+                        </div>
+                    </div>
+                    <div class="list-search">
+                        <input type="number" name="search" placeholder="输入赠送积分" v-model="givePoint">
+                        <div @click="give()">确定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <!--            <div><img src="/jono_common/images/club/hhr.png" alt=""></div>-->
+            <div v-if="nowUnionList.is_own==1" @click="showList()"><img src="/jono_common/images/club/jf.png" alt=""></div>
+            <div @click="showBusiness()"><img src="/jono_common/images/club/mp.png" alt=""></div>
+            <div v-if="nowUnionList.is_own==1" @click="showSetBox()"><img src="/jono_common/images/club/sz.png" alt=""></div>
+            <div @click="help()"><img src="/jono_common/images/club/bz.png" alt=""></div>
+        </div>
+    </div>
+
+    <div class="popup-jono" v-show="on_union">
+        <div class="popup-main">
+            <div class="popup-title">开通积分模式</div>
+            <div class="popup-msg">您的俱乐部是否要开启积分模式</div>
+            <div class="popup-btn">
+                <div @click="onUnion()">开通</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="popup-jono" v-show="close_union">
+        <div class="popup-main">
+            <div class="popup-title">关闭积分模式</div>
+            <div class="popup-msg">是否要关闭积分模式</div>
+            <div class="popup-btn">
+                <div @click="closeUnion()">确定</div>
+                <div @click="closeBox()">取消</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="switch" @click="switchClub()">切换俱乐部</div>
+
+
+    <!--切换俱乐部-->
+    <div class="switch-club" v-show="switch_club">
+        <div class="list-main">
+            <div @click="closeSwitchClub()" class="close"></div>
+            <div class="list-title">
+                <div>切换俱乐部</div>
+            </div>
+            <div class="list-form-main">
+                <div class="list-form-body" v-for="union in unionList">
+                    <div class="club-name">{{union.name}}</div>
+                    <div @click="choice(union.club_no)" class="btn">选择</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tip-jono" v-show="is_show_tip">{{tip_msg}}</div>
+</div>
+</body>
+<script type="text/javascript" src="/jono_common/js/union.js"></script>
+</html>
+

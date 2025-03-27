@@ -1,0 +1,224 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>邀请函</title>
+    <script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/fastclick.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/css/activity.css">
+    <link rel="stylesheet" type="text/css" href="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/css/alert.css">
+    <link rel="stylesheet" href="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/css/vant-index.css">
+    <script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/fiesc/js/aes.js"></script>
+    <script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/md5.js"></script>
+	<script type="text/javascript">
+		document.write('<script type="text/javascript" src="./js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+		document.write('<script type="text/javascript" src="./js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+	</script>
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 360 * 100 + 'px';
+        window.addEventListener('load', function () {
+            FastClick.attach(document.body);
+        }, false);
+		var obj = DynLoading.hall(BaseUrl + '/home1/index');
+		if(obj.result != 0){
+		  alert(obj.result_message);
+		  var return_url = window.location.href;
+		  console.log(return_url);
+		  window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+		}
+		console.log(obj);
+        var newNum = "";
+        var per = window.innerWidth / 530;
+        var globalData = {
+            "baseUrl":  BaseUrl + "/",
+            "fileUrl": obj.data.fileUrl,
+            //"userCode": '//',
+            "isWechat": obj.data.is_weixin,
+            "isXianliao": obj.data.is_xianliao,
+            "tk": obj.data.tk,
+            //"socket":"//",
+            "socket": obj.data.ws_host,
+            "shareTitle":'',
+        };
+        globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+        var userData = {
+		   "accountId":obj.data.user.account_id,
+		   "nickname":obj.data.user.nickname,
+		   "avatar":obj.data.user.headimgurl,
+        };
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideOptionMenu');
+        }
+
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            // 通过下面这个API隐藏右上角按钮
+            WeixinJSBridge.call('hideOptionMenu');
+        });
+    </script>
+    <style>
+        .copy-tip {
+            background: rgba(0, 0, 0, .6);
+            color: #fff;
+            position: fixed;
+            bottom: .6rem;
+            font-size: .15rem;
+            border-radius: 5px;
+            padding: 10px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            z-index: 89;
+        }
+
+        #room_str {
+            position: fixed;
+            top: -300px;
+        }
+
+        .zhuonuo {
+            position: fixed;
+            right: 0;
+            width: .8rem;
+            z-index: 89;
+            top: .1rem;
+        }
+
+        #dialog {
+            position: fixed;
+            width: 300px;
+            height: 150px;
+            padding: 10px;
+            box-sizing: border-box;
+            background: #fff;
+            font-size: 16px;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -75px;
+            border-radius: 10px;
+            z-index: 99;
+        }
+
+        #dialog .main {
+            word-wrap: break-word;
+            word-break: normal;
+        }
+
+        #dialog .other {
+            text-align: center;
+            margin-top: 38px
+        }
+
+        #dialog img {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 35px;
+        }
+    </style>
+</head>
+
+<body style="background: #000;" >
+<div id="dialog" style="display:none">
+    <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/common/cancel.png" onclick="fuzhiMain.closeDialog()">
+    <p id="main" class="main">
+    </p>
+    <p class="other">
+        请手动复制
+    </p>
+</div>
+
+<span class="copy-tip" id="tips" style="display:none">已复制到剪贴板</span>
+<img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/common/33fz.png" class="needsclick zhuonuo copyUrl" data-clipboard-action="copy" id="copy_btn" onclick="fuzhiMain.link()"/>
+<textarea id="room_str" readonly="readonly"></textarea>
+<div style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" id="loading">
+    <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/common/loading.gif" style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;"/>
+</div>
+<div class="main" style="display: none;" id="app-main">
+    <!-- <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/common/33fz.png" class="needsclick zhuonuo" @click="copyClubUrl"/> -->
+
+    <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/index/common_back.png" style="position: fixed;bottom: 0;width: 100vw;height: 22vw;z-index: 1;" @click="goBack">
+
+    <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/redpackage/union_bg.jpg"
+         style="top: 0;left: 0;width: 100%;height: 100%;position: relative;">
+
+    <!-- 提示框 -->
+    <div class="alert" id="valert" v-show="isShowAlert">
+        <div class="alertBack"></div>
+        <div class="mainPart">
+            <div class="backImg">
+                <div class="blackImg"></div>
+            </div>
+            <div class="alertText">{{alertText}}</div>
+            <div v-show="alertType==3">
+                <div class="buttonLeft" @click="closeAlert()">确定</div>
+                <div class="buttonRight" @click="closeAlert()">取消</div>
+            </div>
+            <div v-show="alertType==7">
+                <div class="buttonMiddle" @click="closeAlert()">确定</div>
+            </div>
+            <div v-show="alertType==8">
+            </div>
+        </div>
+    </div>
+
+    <div style="position: absolute;top: 10vh;left: 50%;margin-left: -25vh;height: 80vh;width: 50vh;" v-if="inviteStatus==0">
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_card.jpg" style="position: absolute;top: 0;left: 1vh;width: 48vh;height: 100%;">
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_card_bottom.png" style="position: absolute;bottom: 0;width: 50vh;height: 35.25vh;">
+        <div class="imgOpen" @click="clickJoin()" style="position: absolute;bottom: 10vh;left: 50%;margin-left: -10vh;width: 20vh;height: 20vh;backface-visibility:hidden;">
+            <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_join.png" style="position: absolute;width: 20vh;height: 20vh;">
+        </div>
+
+        <img :src="userData.avatar" style="position: absolute;top: 6vh;left: 50%;margin-left: -6vh;width: 12vh;height: 12vh;border-radius: 6vh;">
+        <div style="position: absolute;top: 19vh;width: 100%;height: 5vh;line-height: 5vh;text-align: center;">
+            <p style="position: absolute;width: 100%;font-size: 2.5vh">
+                <span style="color: orange;">{{inviteName}}</span>
+                <span style="color: black">邀请你加入</span>
+            </p>
+        </div>
+
+        <div style="position: absolute;top: 25vh;width: 100%;height: 8vh;line-height: 8vh;font-size: 3vh;color: orange;text-align: center;">
+            公会
+        </div>
+
+        <div style="position: absolute;top: 35vh;left: 4vh;width: 42vh;height: 14vh;line-height: 3.5vh;font-size: 2.5vh;text-align: center;">
+        </div>
+
+    </div>
+
+    <div style="position: absolute;top: 10vh;left: 50%;margin-left: -25vh;height: 80vh;width: 50vh;" v-if="inviteStatus==2">
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_cardb.jpg"
+             style="position: absolute;top: 0;left: 0;width: 50vh;height: 100%;">
+    </div>
+
+    <div style="position: absolute;top: 10vh;left: 50%;margin-left: -25vh;height: 80vh;width: 50vh;" v-if="inviteStatus==1">
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_card.jpg" style="position: absolute;top: 0;left: 0;width: 50vh;height: 100%;">
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/images/activity/union_finish.png" style="position: absolute;top: 12vh;left: 50%;margin-left: -6vh;width: 12vh;height: 12vh;">
+        <div style="position: absolute;top: 25vh;width: 100%;height: 5vh;text-align: center;font-size: 3vh;color: orange;font-weight: bold;">加入成功</div>
+    </div>
+
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/fiesc/js/vue.min.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/fiesc/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/vant.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/inviteDetail_api.js?v=12"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/clipboard.min.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/hongdou/commonxmz67/files/js/fuzhi_xl.js?v=201809172"></script>
+</html>

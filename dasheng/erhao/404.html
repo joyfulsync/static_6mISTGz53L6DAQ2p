@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+    <script>
+        console.log(window.location.href);
+        console.log(window.location.pathname);
+        if(window.location.pathname && window.location.pathname === '/chat/index/chat/room'){
+            window.location.href = 'chat/index.html';
+        }
+    </script>
+</head>
+<body>
+<a href="/">返回</a>
+</body>
+</html>

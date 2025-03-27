@@ -1,0 +1,149 @@
+<html>
+<head>
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<title>开房查询</title>
+	<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/fastclick.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/css/alert.css">
+	<script type="text/javascript">
+		document.write('<script type="text/javascript" src="./js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+		document.write('<script type="text/javascript" src="./js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+	</script>
+	<script type="text/javascript">
+		window.addEventListener('load', function() {
+			FastClick.attach(document.body);
+		}, false);
+		// errors()
+		var obj = DynLoading.hall(BaseUrl + '/home1/index');
+		if(obj.result != 0){
+		  alert(obj.result_message);
+		  var return_url = window.location.href;
+		  console.log(return_url);
+		  window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+		}
+		console.log(obj);
+		var newNum = "";
+		var per = window.innerWidth / 530;
+		var globalData = {
+			"baseUrl": BaseUrl + "/",
+			"fileUrl": obj.data.fileUrl,
+			 "cfileUrl": obj.data.cfileUrl,
+			"gameList": [
+				{"game_type":"1","game_name":"牛牛合集","game_icon":"icon_bullx.png"},
+				{"game_type":"4","game_name":"炸金花","game_icon":"icon_flower.png"},
+				{"game_type":"5","game_name":"三公","game_icon":"icon_sangong.png"},
+				{"game_type":"6","game_name":"二八杠","game_icon":"icon_erbagang.png"},
+				{"game_type":"7","game_name":"斗地主","game_icon":"icon_landlord.png"},
+				{"game_type":"8","game_name":"广东麻将","game_icon":"icon_gdmj.png"},
+				{"game_type":"9","game_name":"鱼虾蟹","game_icon":"icon_yxx.png"},
+				{"game_type":"10","game_name":"九人牌九","game_icon":"icon_paijiu.png"},
+				{"game_type":"12","game_name":"大吃小牛牛","game_icon":"icon_dxbull.png"},
+				{"game_type":"13","game_name":"大吃小","game_icon":"icon_dcx.png"},
+				{"game_type":"17","game_name":"超级三加一","game_icon":"icon_jia31.png"},
+				{"game_type":"18","game_name":"大牌九","game_icon":"icon_dpaijiu.png"},
+			],
+			"hallPath":"/index"
+		};
+		globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+		var userData = {
+			"accountId":obj.data.user.account_id,
+				"nickname":obj.data.user.nickname,
+				"avatar":obj.data.user.headimgurl,
+		};
+		var configData = {
+			"appId":obj.data.config_ary.appId,
+				"timestamp":obj.data.config_ary.timestamp,
+				"nonceStr":obj.data.config_ary.nonceStr,
+				"signature":obj.data.config_ary.signature,
+		};
+		document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+			// 通过下面这个API隐藏右上角按钮
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+	</script>
+	<style type="text/css">
+	.rowGame{position:relative;left: 0; top: 0;margin-top: 0vw;left:0;width:100vw;height:35vw;overflow:hidden;}
+	.rowGame .item{position: absolute;width:25vw;height:33vw;text-align: center;color:#fff;opacity: 0.3}
+	.rowGame .item img{position: absolute;top: 1.5vw;left: 1vw;width: 20vw;height: 25vw;}
+	.rowGame .item .gamename{position: absolute;bottom: 1.5vw;width: 100%;text-align: center;font-size: 11pt;}
+	.gameScoreTitle{position:relative;top: 0vw;margin-top: 0.5vw;left:0;width:100vw;height:7vw;overflow:hidden;}
+	.scoreRow{position: relative;top: 0vw;margin-top:1vw;overflow-y:scroll; height: 75vh}
+	</style>
+</head>
+
+<body style="margin: 0 auto; background: #1b1d22;">
+
+    <div id="loading" style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" >
+        <img src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/images/common/loading.gif" style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;" />
+    </div>
+
+    <div class="main" id="app-main" style="position: relative; width: 100%;margin: 0 auto;display: none;">
+        <div id="memberDiv" class="rowGame" >          
+            <div v-bind:style="'position: relative;z-index:1;width:' + gameItems.length * 0.215 * width + 'px;'">
+                <div v-for="(item,index) in gameItems" class="item" v-bind:style="'left:' + (3+(18+3)*index) + 'vw;'" v-on:click="clickGame(item)" v-bind:id="'game'+item.type">
+                    <img v-bind:src="item.avatar">
+                    <div class="gamename">{{item.name}}</div>
+                </div>
+            </div>
+            <div class="backcolor"></div>
+        </div>
+
+        <div class="gameScoreTitle" >
+            <div class="backcolor"></div>
+            <div style="position: absolute;left: 5vw;font-size: 12pt;color: white">
+                房间号
+            </div>
+            <div style="position: absolute;width: 100%;font-size: 12pt;color: white;text-align: center;">
+                游戏时间
+            </div>
+            <!-- <div style="position: absolute;right: 5vw;font-size: 12pt;color: white;text-align: right;">
+                房间状态
+            </div> -->
+        </div>
+
+        <div class="scoreRow">
+            <div class="backcolor"></div>
+            <div style="position: relative;">
+                <div v-for="(item, index) in gameScoreList" style="position: relative;width: 100%;height: 10vw;line-height: 10vw;text-align: center;margin-top: 2px;color: white;overflow:hidden;" v-on:click="clickScoreItem(item)">
+                    <div style="position: absolute;left: 5vw;font-size: 12pt;color: orange;text-align: left;">
+                        {{item.number}}
+                    </div>
+                    <div style="position: absolute;width: 100%;font-size: 12pt;color: white;text-align: center;">
+                        {{item.time}}
+                    </div>
+                    <!-- <div style="position: absolute;right: 5vw;font-size: 12pt;color: white;text-align: right;">
+                        {{item.status}}
+                    </div> -->
+                </div>
+                <div id="moretext" style="position: relative;margin-top: 4px;color: #39d7ff;height: 10vw;text-align: center;line-height: 10vw;font-size: 2.2vh;display: none;" v-on:click="clickMore">
+                <div class="backcolor"></div>
+                    点击加载更多
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/bscroll.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/vue.min.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/vue-resource.min.js" ></script>
+<script type="text/javascript" src="http://dsxds8.oss-cn-hangzhou.aliyuncs.com/qidian/commonxmz67/files/js/roomList.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+<script>
+    $(document).on('click', 'img', function(e){
+        e.preventDefault();
+    })
+</script>
+
+</html>
