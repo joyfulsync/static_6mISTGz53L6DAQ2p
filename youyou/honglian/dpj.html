@@ -1,0 +1,903 @@
+<html>
+<head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <title>大牌九房间</title>
+    <link rel="stylesheet" type="text/css" href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/css/paijiuD_shenshou.css">
+    <link rel="stylesheet" type="text/css" href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/css/alertbox.css">
+    <link rel="stylesheet" type="text/css" href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/css/fuzhi.css">
+    <link rel="stylesheet" type="text/css" href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/gift/gift.css">
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/fastclick.js"></script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/fiesc/js/aes.js"></script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/md5.js"></script>
+
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+        //var vConsole = new VConsole();
+        //var vConsole = new window.VConsole();
+    </script>
+    <script type="text/javascript">
+         var room_number = DynLoading.getUrlParam("i").replace("_", "");
+            var obj = DynLoading.hall(BaseUrl + '/home1/room' + "?i=" + room_number + "_");
+            if (obj.result != 0) {
+                alert(obj.result_message);
+                var return_url = window.location.href;
+                console.log(return_url);
+                window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+            }
+    </script>
+    <script type="text/javascript">
+
+        window.addEventListener('load', function() {
+            FastClick.attach(document.body);
+        }, false);
+
+        var newNum = "";
+        var per = window.innerWidth / 530;
+        room_number = obj.data.room_number;
+        var globalData = {
+            "card":obj.data.card,
+            "roomNumber":room_number,
+            "socket":obj.data.socket,
+            "hallPath":"/index.html",
+            "hallName": obj.data.platfrom_name,
+            "roomUrl":window.location.href,
+            "baseUrl":BaseUrl + "/",
+            "fileUrl": obj.data.fileUrl,
+            "cfileUrl": obj.data.cfileUrl,
+            "isWechat": obj.data.is_weixin,
+            "isXianliao": obj.data.is_xianliao,
+            "xlTitle":"(房间号:" + room_number + ")",
+            "roomStatus":obj.data.room_status,
+            "scoreboard":obj.data.balance_scoreboard,
+            "session":obj.data.session,
+            "shareTitle":obj.data.platfrom_name + "：" + room_number ,
+            "gameType":obj.data.game_type,
+            "qrUrl" : BaseUrl + "/qr/index?url=" + encodeURIComponent(window.location.href) + "&number=" + room_number,
+        };
+        var userData = {
+        "accountId":obj.data.user.account_id,
+        "nickname":obj.data.user.nickname,
+        "avatar":obj.data.user.headimgurl,
+        "individuality":obj.data.user.individuality,
+    };
+    var configData = {
+        "appId":obj.data.config_ary.appId,
+        "timestamp":obj.data.config_ary.timestamp,
+        "nonceStr":obj.data.config_ary.nonceStr,
+        "signature":obj.data.config_ary.signature,
+    };       // 修改浏览器title
+       var new_userName = "";
+        var old_userNname = obj.data.user.nickname;
+        if (old_userNname.length > 8) {
+            new_userName = old_userNname.substring(0, 7);
+            new_userName += "..."
+        }
+        else {
+            new_userName = old_userNname;
+        }
+        document.getElementsByTagName("title")[0].innerText = new_userName + "|" + globalData.hallName;
+    </script>
+
+</head>
+<style>
+    .zhuonuo {
+        position: fixed;
+        right: 0;
+        width: 4.4rem;
+        z-index: 89;
+        top: 3.4rem;
+    }
+    /*自动准备*/
+    .auto-ready {
+        position: fixed;
+        left: 0;
+        width: 4.4rem;
+        z-index: 89;
+        top: 3.4rem;
+    }
+    .auto-ready img {
+        width: 100%;
+    }
+    
+    .bottomQr {
+        position: fixed;
+        bottom: 0.3vh;
+        left: 16vh;
+        width: 5vh;
+        z-index: 101;
+    }
+    /* 二维音对话框 */
+    .qrcontent{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;} 
+    .qrcontent .audioRoomBack{width: 100%;height:100%;background: #000;opacity:0.6;}  
+    .qrcontent .mainPart{width: 38vh;height:42vh;top:44%;left:50%;margin-top:-16vh;margin-left: -19vh;position: absolute;} 
+    .qrcontent .mainPart .createB{
+        width: 100%;
+        height: 100%;
+        top: 0%;
+        left: 0%;
+        position: absolute;
+        background: #634fa6;
+        border: 1px solid #a684f2;
+        border-radius: 10px;
+    }  
+    .qrcontent .mainPart .createTitle{position:relative;height:5vh;text-align: center;} 
+    .qrcontent .mainPart .createTitle img{position:relative;height:2.6vh;margin-top: 1.2vh;}  
+    .qrcontent .mainPart .cancelCreate{width: 5vh;height:5vh;top:-2.5vh;right:-2.5vh;position: absolute;}  
+    .qrcontent .mainPart .blueBack{width: 35vh;height: 35vh;background:rgba(0,0,0,0.6);border:1px solid #a684f2;border-radius:4px;margin:0 auto;position: relative; } 
+    
+    
+</style>
+<body >
+<div id="dialog" style="display:none">
+    <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/cancel.png" onclick="fuzhiMain.closeDialog()">
+    <p id="main" class="main">
+    </p>
+    <p class="other">
+        请手动复制
+    </p>
+</div>
+
+<span class="copy-tip" id="tips" style="display:none">已复制到剪贴板</span>
+<img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/33fz.png" class="needsclick zhuonuo copyUrl" data-clipboard-action="copy" id="copy_btn" onclick="fuzhiMain.link()" />
+<textarea id="room_str" readonly="readonly"></textarea>
+<div style="position: fixed;width:100%;height:100%;top:0;left:0;background: rgb(7, 26, 69);z-index:115;" id="loading">
+    <div class="load4">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+
+<div class="main" id="app-main" style="position: relative; width: 100%;margin: 0 auto; background: #fff; display: none;">
+
+    <div v-show="isShowNoty" class="noty"><img  src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/laba.png" /></div>
+    <div v-show="isShowNoty" id="marquee" >{{notyMsg}}</div>
+
+    <!--        <div class="roomCard">-->
+    <!--            <img  src="--><!--files/images/common/ticket.png" />-->
+    <!--            <div class="num">-->
+    <!--                <div style="position: absolute;top:0;left: 0;width: 100%;height: 100%;background: #000;opacity: .6;border-radius:1.5vh;"></div>-->
+    <!--                <div style="position: relative;padding: 0 1.5vh 0 5vh;">{{roomCard}}张</div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <div class="roomCard"  v-on:click="showIndividuality">
+        <img  src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/myText.png" />
+        <div class="num">
+            <div style="position: absolute;top:0;left: 0;width: 100%;height: 100%;background: #000;opacity: .6;border-radius:1.5vh;"></div>
+            <div style="position: relative;padding: 0 1.5vh 0 5vh;">{{userData.individuality}}<span v-if='userData.individuality==""'>点击设置</span></div>
+        </div>
+    </div>
+    <div style="display: none;" v-show="isShowIndividuality==1">
+        <div class="individuaMask" style="" v-on:click="hideIndividuality"></div>
+        <div class="individuaFrame" style="">
+            <div class="title" >防伪码设置</div>
+            <div class="text">
+                <input v-model="individuality" v-on:input="individualityChange()" type="text" placeholder="设置1-6位英文或数字防伪码">
+            </div>
+            <div class="error" >{{individualityError}}</div>
+            <div class="buttonContainer" v-on:click="setIndividuality">
+                <div class="button">确认</div>
+            </div>
+            <div class="buttonClose" v-on:click="hideIndividuality">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/close.png">
+            </div>
+        </div>
+    </div>
+
+    <img class="bottomTab" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/bottom.png" alt="">
+
+    <img class="return" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_home3-1.png" v-on:click="showAlert(3,'确认返回主页？')" />
+
+    <img class="return" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_description3.png" v-on:click="showNoteImg()" style="right: 28.5vh"/>
+
+    <img class="bGameRule" style="right: 22vh" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_rule3.png" v-on:click="showGameRule" />
+    
+    <img class="bottomQr" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/fiesc/images/common/erweima.png" v-on:click="showQr()" >
+    
+
+    <!--自动准备-->
+    <div class="auto-ready" v-on:click="autoReady()">
+        <img v-show="appData.isAutoReady==1" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/ready_true2.png">
+        <img v-show="appData.isAutoReady==0" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/ready_false2.png">
+    </div>
+
+    <div class="disconnect" v-show="!connectOrNot" style="position: fixed;top:45%;left: 0;width: 100%;text-align: center;z-index: 101"><div style="width: 250px;height:27px;position: absolute;top:-2;left: 50%;margin-left: -125px;background: #000;opacity: .5;border-radius:15px;"></div><a style="font-size: 16px;color: #fff;padding: 5px 14px;position:relative;">已断开连接，正在重新连接...</a></div>
+
+    <!-- 底部显示底注 -->
+    <div class="myCardTypeBG">
+    </div>
+    <div class="myCardType">
+        <div>底分：{{base_score}}分</div>
+    </div>
+
+    <div class="myCardTypeBG" style="left: 64%">
+    </div>
+    <div class="myCardType" style="left: 64%">
+        <div>{{game.round}}&nbsp/&nbsp{{game.total_num}}&nbsp局</div>
+    </div>
+
+    <div class="bottomMessage" v-on:click="showMessage">
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_message3.png" style="position: absolute; width: 100%; height: 100%">
+    </div>
+    <div class="bottomHistory" v-on:click="showAudioSetting" style="right: 15.5vh;">
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_sound3.png" style="position: absolute; width: 100%; height: 100%">
+    </div>
+
+    <!-- 提示框 -->
+    <div class="alert" id="valert" v-show="isShowAlert">
+        <div class="alertBack"></div>
+        <div class="mainPart">
+            <div class="backImg">
+                <div class="blackImg"></div>
+            </div>
+            <div class="alertText">
+                <div>{{alertText}}</div>
+            </div>
+
+            <div v-show="alertType==1">
+                <div class="buttonMiddle activeButton" v-on:click="hall">返回首页</div>
+            </div>
+            <div v-show="alertType==2">
+                <div class="buttonMiddle activeButton" v-on:click="hall">返回首页</div>
+            </div>
+            <div v-show="alertType==3">
+                <div class="buttonLeft activeButton" v-on:click="hall">返回首页</div>
+                <div class="buttonRight activeButton" v-on:click="closeAlert">取消</div>
+            </div>
+            <div v-show="alertType==4">
+                <div class="buttonLeft activeButton" v-on:click="hall">创建房间</div>
+                <div class="buttonRight activeButton" v-on:click="sitDown">加入游戏</div>
+            </div>
+
+            <div v-show="alertType==7">
+                <div class="buttonMiddle activeButton" v-on:click="hall">返回首页</div>
+            </div>
+            <div v-show="alertType==8">
+            </div>
+            <div v-show="alertType==9">
+                <div class="buttonMiddle activeButton" v-on:click="showBreakRoom">确定</div>
+            </div>
+            <div v-show="alertType==10">
+                <div class="buttonLeft activeButton" v-on:click="closeAlert">取消</div>
+                <div class="buttonRight activeButton" v-on:click="confirmBreakRoom">确定</div>
+            </div>
+            <div v-show="alertType==11">
+                <div class="buttonMiddle activeButton" v-on:click="closeAlert">知道了</div>
+            </div>
+            <div v-show="alertType==21">
+                <div class="buttonMiddle activeButton" v-on:click="closeAlert">确定</div>
+            </div>
+            <div v-show="alertType==22">
+                <div class="buttonMiddle activeButton" v-on:click="closeAlert">确定</div>
+            </div>
+
+            <div v-show="alertType==31">
+                <div class="buttonMiddle activeButton" v-on:click="reloadView()">确定</div>
+            </div>
+            <div v-show="alertType==32">
+                <div class="buttonMiddle activeButton" v-on:click="reloadView()">重新登录</div>
+            </div>
+            <div v-show="alertType==41">
+                <div class="buttonMiddle activeButton" v-on:click="confirmMessage()">确定</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alertTip" v-show="isShowAlertTip">
+        <div class="alertTipBG"></div>
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/alertTipOk.png" v-show="alertTipType==1">
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/alertTipWarn.png" v-show="alertTipType==2">
+        <div class="alertTipText" >{{alertTipText}}</div>
+    </div>
+
+    <!-- 游戏桌子 -->
+    <div class="table" id="table" style="position: relative; width: 100%; height: 100%; z-index: 80; overflow: hidden;">
+        <img class="tableBack"  src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/table10.jpg?v=1" style="position: absolute;top:0;left: 0;width: 100vw;height: 100vh" />
+
+        <!-- 发牌 ||p.account_status==6||p.account_status==7 -->
+        <div class="cardDeal">
+            <div v-for="p in player" v-show="p.account_id>0&&p.account_status>2&&p.account_status<8&&(p.num!=1||(p.account_status!=7&&p.account_status!=8&&!player[0].is_showCard))&&(game.cardDeal>0)">
+                <div class="card" v-bind:class="'card' + p.num + '1'" style="z-index: 14;" v-show="game.cardDeal>0"></div>
+                <div class="card" v-bind:class="'card' + p.num + '2'" style="z-index: 14;" v-show="game.cardDeal>1"></div>
+                <div class="card" v-bind:class="'card' + p.num + '3'" style="z-index: 14;" v-show="game.cardDeal>2"></div>
+                <div class="card" v-bind:class="'card' + p.num + '4'" style="z-index: 14;" v-show="game.cardDeal>3"></div>
+            </div>
+
+            <!-- 玩家1发完牌之后  -->
+            <div class="myCards" v-if="player[0].is_showCard&&player[0].account_status>2&&player[0].account_status<=7&&game.show_card&&player[0].card.length>0">
+                <div class="cards3D">
+                    <div class="cards card0" v-show="player[0].account_status >2 && player[0].account_status <= 7" v-on:click="seeMyCard4(0)">
+                        <div class="face front" ></div>
+                        <div class="face back" v-bind:class="'card' + player[0].card[0].cardValue"></div>
+                    </div>
+                    <div class="cards card1" v-show="player[0].account_status >2 && player[0].account_status <= 7" v-on:click="seeMyCard4(1)">
+                        <div class="face front"></div>
+                        <div class="face back" v-bind:class="'card' + player[0].card[1].cardValue"></div>
+                    </div>
+                    <div class="cards card2" v-show="player[0].account_status >2 && player[0].account_status <= 7" v-on:click="seeMyCard4(2)">
+                        <div class="face front" ></div>
+                        <div class="face back" v-bind:class="'card' + player[0].card[2].cardValue"></div>
+                    </div>
+                    <div class="cards card3" v-show="player[0].account_status >2 && player[0].account_status <= 7" v-on:click="seeMyCard4(3)">
+                        <div class="face front"></div>
+                        <div class="face back" v-bind:class="'card' + player[0].card[3].cardValue"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 玩家 1 组牌 player[0].card_group.length>0-->
+        <div class="myCards" v-if="player[0].card_group_one.length>0&&player[0].card_group_two.length>0&&player[0].card.length>0" v-show="player[0].account_status>=8">
+            <div class="cardLevel level1" v-bind:class="{'selected':player[0].card[0].isGroup}">
+                <div class="face" v-bind:class="'card' + player[0].card[0].cardValue"></div>
+            </div>
+            <div class="cardLevel level2" v-bind:class="{'selected':player[0].card[1].isGroup}">
+                <div class="face" v-bind:class="'card' + player[0].card[1].cardValue"></div>
+            </div>
+            <div class="cardLevel level3" v-bind:class="{'selected':player[0].card[2].isGroup}">
+                <div class="face" v-bind:class="'card' + player[0].card[2].cardValue"></div>
+            </div>
+            <div class="cardLevel level4" v-bind:class="{'selected':player[0].card[3].isGroup}">
+                <div class="face" v-bind:class="'card' + player[0].card[3].cardValue"></div>
+            </div>
+        </div>
+
+        <!-- 其余玩家摊牌后 -->
+        <div class="cardOver" style="position: absolute; width: 100%; height: 100%; overflow:hidden;">
+            <div v-for="p in player" v-show="(p.bonus||p.account_status>7)&&game.show_card">
+                <div class="cards"  v-bind:class="(p.bonus||p.account_status>=8)?'cardAni card' + p.num +' cardSet'+ p.num + '11' :'card' + p.num +' card'+ p.num + '11'" style="z-index: 16;">
+                    <div class="face front"></div>
+                    <div class="face back" v-if ="p.card_group_one.length>0" v-bind:class="'card' + p.card_group_one[0]"></div>
+                </div>
+
+                <div class="cards" v-bind:class="(p.bonus||p.account_status>=8)?'cardAni card' + p.num +' cardSet'+ p.num + '21' :'card' + p.num +' card'+ p.num + '21'"  style="z-index: 16;">
+                    <div class="face front"></div>
+                    <div class="face back" v-if ="p.card_group_one.length>0" v-bind:class="'card' + p.card_group_one[1]"></div>
+                </div>
+
+                <div class="cards" v-bind:class="(p.bonus||p.account_status>=8)?'cardAni card' + p.num +' cardSet'+ p.num + '31' :'card' + p.num +' card'+ p.num + '31'"  style="z-index: 16;">
+                    <div class="face front"></div>
+                    <div class="face back" v-if ="p.card_group_two.length>0" v-bind:class="'card' + p.card_group_two[0]"></div>
+                </div>
+
+                <div class="cards" v-bind:class="(p.bonus||p.account_status>=8)?'cardAni card' + p.num +' cardSet'+ p.num + '41' :'card' + p.num +' card'+ p.num + '41'"  style="z-index: 16;">
+                    <div class="face front"></div>
+                    <div class="face back" v-if ="p.card_group_two.length>0" v-bind:class="'card' + p.card_group_two[1]"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抢庄文字图片 "{true: 'bankerSelected', false: 'bankerUnSelected'}[createInfo.bull.banker_mode==3]"   'memberRobText' + p.num-->
+        <div v-for="p in player" v-if="p.num!=1&&ruleInfo.banker_mode!=2" v-bind:class="{true:'memberGoText' + p.num,false:'memberRobText' + p.num}[ruleInfo.banker_mode==5]" v-show="p.account_status==4||p.account_status==5">
+            <img v-bind:src="p.robImg" style="position: absolute; width: 100%;">
+        </div>
+
+        <div v-for="p in player" v-if="p.num!=1&&ruleInfo.banker_mode==2" v-bind:class="'memberFreeRobText' + p.num" v-show="p.account_status==4||p.account_status==5">
+            <img v-bind:src="p.robImg" style="position: absolute;  width: 100%;">
+        </div>
+
+        <div v-for="p in player" v-if="p.num!=1&&ruleInfo.banker_mode==2" v-bind:class="'memberGoTimesText' + p.num" v-show="p.account_status==5&&p.bankerMultiples>=1">
+            <img v-bind:src="p.bankerTimesImg" style="position: absolute; width: 100%;">
+        </div>
+
+        <!-- 倍数文字图片 -->
+        <div class="memberTimesText1" v-if="ruleInfo.banker_mode!=4" v-show="player[0].account_status>=6&&game.show_card&&!player[0].is_banker&&player[0].multiples>0">
+            <img v-bind:src="player[0].timesImg" style="position: absolute; width: 100%;">
+        </div>
+        <div v-for="p in player" v-if="p.num!=1&&ruleInfo.banker_mode!=4" v-bind:class="'memberTimesText' + p.num" v-show="p.account_status>=6&&game.show_card&&!p.is_banker&&p.multiples>0">
+            <img v-bind:src="p.timesImg" style="position: absolute; width: 100%;">
+        </div>
+
+        <!-- 庄家倍数文字图片 -->
+        <div class="memberTimesText1" v-if="ruleInfo.banker_mode==2" v-show="player[0].account_status>=5&&game.show_card&&player[0].is_banker&&player[0].bankerMultiples>0">
+            <img v-bind:src="player[0].bankerTimesImg" style="position: absolute; width: 100%;">
+        </div>
+        <div v-for="p in player" v-if="p.num!=1&&ruleInfo.banker_mode==2" v-bind:class="'memberTimesText' + p.num" v-show="p.account_status>=5&&game.show_card&&p.is_banker&&p.bankerMultiples>0">
+            <img v-bind:src="p.bankerTimesImg" style="position: absolute; width: 100%;">
+        </div>
+
+        <!-- 牛几图片 1-->
+        <div v-for="p in player"  v-bind:class="'memberBull memberBullWin' + p.num + '11'"  v-if="p.account_status>=8&&p.open_left&&game.show_card&&p.bullImgLeft.length>=1" style="display: none;z-index: 2;">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/back.png" style="position: absolute;top:-10%;left: -10%;width:120% ;height:120%">
+            <img v-bind:src="p.bullImgLeft" style="height:100%;position: relative;">
+        </div>
+
+        <div v-for="p in player"  v-bind:class="'memberBull memberBullLose' + p.num + '11'" v-if="p.account_status>=8&&p.open_left&&game.show_card&&p.bullImgLeftLose.length>=1" style="display: none;z-index: 1;">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/back.png" style="position: absolute;top:-10%;left: -10%;width:120% ;height:120%">
+            <img v-bind:src="p.bullImgLeftLose" style="height:100%;position: relative;">
+        </div>
+        <!-- 牛几图片 2-->
+        <div v-for="p in player" v-bind:class="'memberBull memberBullWin' + p.num + '22'"  v-if="p.account_status>=8&&p.open_right&&game.show_card&&p.bullImgRight.length>=1" style="display: none;z-index: 2;">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/back.png" style="position: absolute;top:-10%;left: -10%;width:120% ;height:120%">
+            <img v-bind:src="p.bullImgRight" style="height:100%;position: relative;">
+        </div>
+
+        <div v-for="p in player" v-bind:class="'memberBull memberBullLose' + p.num + '22'" v-if="p.account_status>=8&&p.open_right&&game.show_card&&p.bullImgRightLose.length>=1" style="display: none;z-index: 1;">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/back.png" style="position: absolute;top:-10%;left: -10%;width:120% ;height:120%">
+            <img v-bind:src="p.bullImgRightLose" style="height:100%;position: relative;">
+        </div>
+
+
+
+        <!-- 每局得分 -->
+
+        <!-- 玩家1得分 -->
+        <div  class="memberScoreText1" v-show="game.show_score" style="display: none;">
+            <label v-show="player[0].single_score<0&&player[0].account_status>=8"  style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center;color: white; font-size: 3vh;;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #022055; ">{{player[0].single_score}}</label>
+            <label v-show="player[0].single_score>0&&player[0].account_status>=8"  style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center;color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">+{{player[0].single_score}}</label>
+            <label v-show="player[0].single_score==0&&player[0].account_status>=8"  style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center;color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">0</label>
+        </div>
+
+        <div v-for="p in player"  v-if="p.num==2||p.num==3||p.num==4" v-bind:class="'memberScoreText' + p.num" v-show="game.show_score" style="display: none;">
+            <p v-show="p.single_score<0&&p.account_status>=8" style="position: absolute; line-height: 4vh; width:100%;height: 4vh; text-align: right;color: white; font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #022055; ">{{p.single_score}}</p>
+            <p v-show="p.single_score>0&&p.account_status>=8" style="position: absolute; line-height: 4vh; width:100%;height: 4vh; text-align: right;color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">+{{p.single_score}}</p>
+            <p v-show="p.single_score==0&&p.account_status>=8" style="position: absolute; line-height: 4vh; width:100%;height: 4vh; text-align: right;color: rgb(234,171,55); font-size: 3vh;;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00; ">0</p>
+        </div>
+
+        <div v-for="p in player"  v-if="p.num==7||p.num==8||p.num==6" v-bind:class="'memberScoreText' + p.num" v-show="game.show_score" style="display: none;">
+            <label v-show="p.single_score<0&&p.account_status>=8" style="position: absolute; line-height: 4vh; height: 4vh; text-align: left;color: white; font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #022055; ">{{p.single_score}}</label>
+            <label v-show="p.single_score>0&&p.account_status>=8" style="position: absolute; line-height: 4vh; height: 4vh; text-align: left;color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">+{{p.single_score}}</label>
+            <label v-show="p.single_score==0&&p.account_status>=8" style="position: absolute; line-height: 4vh; height: 4vh; text-align: left;color: rgb(234,171,55); font-size: 3vh;;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">0</label>
+        </div>
+
+        <div  v-for="p in player" v-if="p.num==5" v-bind:class="'memberScoreText' + p.num"  v-show="game.show_score" style="display: none;">
+            <label v-show="p.single_score<0&&p.account_status>=8" style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center; color: white; font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #022055; ">{{p.single_score}}</label>
+            <label v-show="p.single_score>0&&p.account_status>=8"  style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center; color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">+{{p.single_score}}</label>
+            <label v-show="p.single_score==0&&p.account_status>=8" style="position: absolute; line-height: 4vh; width: 100%; height: 4vh; text-align: center; color: rgb(234,171,55); font-size: 3vh;font-family:'Helvetica 微软雅黑'; -webkit-text-stroke: 1.3px;text-shadow: 1px 2px 2px #782a00;">0</label>
+        </div>
+
+
+        <!-- 玩家  -->
+        <div key="player[0].num" class="member" v-bind:class="'member' + player[0].num + ' pos'+ player[0].account_id" v-show="player[0].account_id>0 && player[0].num==1" v-on:click="sendGitViewShow(player[0].account_id)">
+            <!-- 玩家头像 -->
+            <img v-bind:src="player[0].headimgurl" :data-value="player[0].account_id" class="avatar">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/player_selected.png" class="banker" v-show="player[0].is_banker">
+            <!-- 玩家昵称
+            <div class="title">{{p.nickname}}</div>-->
+            <!-- 玩家积分
+            <div class="score">{{p.account_score}}</div>-->
+
+            <div class="bottom" style="background-color: rgba(0, 0, 0, 0.6); border-radius: 2px;overflow: hidden;">
+                <div class="bname" style="text-align: center;overflow: hidden;">{{player[0].nickname}}</div>
+                <div class="bscore" style="text-align: center;overflow: hidden;">{{player[0].account_score}}</div>
+            </div>
+
+            <img v-bind:id="'banker' + player[0].account_id" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_bg.png" class="background" style="position: absolute; top: -0.2vh;left: -0.2vh;width: 7.86vh; height: 7.86vh; display: none;" />
+
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/banker_icon.png" class="background" style="position: absolute;top: -1.4vh;left: -1.4vh;width: 3vh; height: 3vh;" v-show="player[0].is_banker">
+
+            <img v-bind:id="'bankerAnimate' + player[0].num" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_animate.png" style="position: absolute; top: -0.2vh; left: -0.2vh; width: 7.86vh; height: 7.86vh; display: none;">
+            <img v-bind:id="'bankerAnimate1' + player[0].num" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_animate.png" style="position: absolute; top: -0.2vh; left: -0.2vh; width: 7.86vh; height: 7.86vh; display: none;">
+
+
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/xiaxie/ready.jpg" class="ready"  v-show="player[0].account_status==2" />
+            <!-- 玩家离开或不在线 -->
+            <div class="quitBack" v-show="player[0].num>1&&p.online_status==0" ></div>
+
+        </div>
+
+        <div  v-for="p in player" key="p.num" class="member" v-bind:class="'member' + p.num  + ' pos'+ p.account_id" v-show="p.account_id>0 && p.num!=1" v-on:click="sendGitViewShow(p.account_id)">
+
+            <!-- 玩家头像 -->
+            <img v-bind:src="p.headimgurl" :data-value="p.account_id" class="avatar">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/player_selected.png" class="banker" v-show="p.is_banker">
+            <!-- 玩家昵称
+            <div class="title">{{p.nickname}}</div>-->
+            <!-- 玩家积分
+            <div class="score">{{p.account_score}}</div>-->
+
+            <div class="bottom" style="background-color: rgba(0, 0, 0, 0.6); border-radius: 2px;overflow: hidden;">
+                <div class="bname" style="text-align: center;overflow: hidden;">{{p.nickname}}</div>
+                <div class="bscore" style="text-align: center;overflow: hidden;">{{p.account_score}}</div>
+            </div>
+
+            <img v-bind:id="'banker' + p.account_id" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_bg.png" class="background" style="position: absolute; top: -0.2vh;left: -0.2vh;width: 7.86vh; height: 7.86vh; display: none;" />
+
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/banker_icon.png" class="background" style="position: absolute; top: -1.4vh;left: -1.4vh;width: 3vh; height: 3vh;" v-show="p.is_banker">
+
+            <img v-bind:id="'bankerAnimate' + p.num" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_animate.png" style="position: absolute; top: -0.2vh; left: -0.2vh; width: 7.86vh; height: 7.86vh; display: none;">
+            <img v-bind:id="'bankerAnimate1' + p.num" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/nbull/banker_animate.png" style="position: absolute; top: -0.2vh; left: -0.2vh; width: 7.86vh; height: 7.86vh; display: none;">
+
+            <!-- 玩家离开或不在线 -->
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/xiaxie/ready.jpg" class="ready"  v-show="p.account_status==2" />
+            <div class="quitBack" v-show="p.num>1&&p.online_status==0" ></div>
+
+        </div>
+
+        <!-- 玩家金币 -->
+
+        <div id="playerCoins" style="display: none;">
+            <div v-for='p in player'>
+                <div v-for='coin in p.coins' class="memberCoin" v-bind:class="coin">
+                    <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/coin.png" style="position: absolute; width: 100%; height: 100%">
+                </div>
+            </div>
+        </div>
+
+        <!-- 显示玩家消息文本 p.messageOn-->
+        <div v-for="p in player">
+            <div class="messageSay" v-bind:class="'messageSay' + p.num" v-show="p.messageOn">
+                <div>{{p.messageText}}</div>
+                <div class="triangle"> </div>
+            </div>
+        </div>
+
+        <!-- 游戏状态:选择抢庄 player[0].account_status==3 -->
+        <div id="divRobBankerText" v-show="showClockRobText&&ruleInfo.banker_mode!=4" v-bind:style="'position: absolute;top: 33%; left: 0px; width:' + width + 'px; height: 30px;'">
+            <p style="color: white; font-size: 2vh;width: 100%;height: 30px; line-height: 30px; text-align: center;font-family:'Helvetica 微软雅黑';">{{ruleInfo.bankerText}}</p>
+        </div>
+        <div id="divBetText" v-show="showClockBetText" v-bind:style="'position: absolute;top: 33.5%; left: 0px; width:' + width + 'px; height: 30px;'">
+            <p style="color: white; font-size: 2vh; width: 100%;height: 30px; line-height: 30px; text-align: center;font-family:'Helvetica 微软雅黑';">闲家下注</p>
+        </div>
+        <!-- 游戏状态:等待摊牌 -->
+        <div id="divBetText" v-show="showClockShowCard" v-bind:style="'position: absolute;top: 33.5%; left: 0px; width:' + width + 'px; height: 30px;'">
+            <p style="color: white; font-size: 2vh; width: 100%;height: 30px; line-height: 30px; text-align: center;font-family:'Helvetica 微软雅黑';">等待摊牌</p>
+        </div>
+
+        <!-- 游戏状态：玩家组牌 -->
+        <div id="divBetText" v-show="showClockGroupCard" v-bind:style="'position: absolute;top: 33.5%; left: 0px; width:' + width + 'px; height: 30px;'">
+            <p style="color: white; font-size: 2vh; width: 100%;height: 30px; line-height: 30px; text-align: center;font-family:'Helvetica 微软雅黑';">开始组牌</p>
+        </div>
+
+        <!-- 倒计时时钟 position: absolute; top: 38%; left: 44%; width: 40px; height: 42px; -->
+        <div id="" class="clock" v-show="game.time>-1" v-bind:style="'position: absolute; top: 37.5%; left:' + (width - 34) / 2 + 'px; width: 34px; height: 42px;'">
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/clock2.png" style="position: absolute; width: 100%; height: 100%;" />
+            <p style="position: absolute; top:8px; left: 0px; width: 34px; height: 34px; color: #000; text-align: center; line-height: 34px;">
+                {{game.time}}
+            </p>
+        </div>
+
+        <!-- 按钮操作区域 -->
+        <div id="operationButton" >
+
+
+
+            <div  v-show="(game.status==0||game.status==1)&&game.round!=game.total_num&&(player[0].account_status==1||player[0].account_status==0)&&player[0].num==1&&player[0].account_id>0&&canBreak!=1"  v-on:click="imReady" class="singleButton activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_zhunbei.png" />
+
+            </div>
+
+            <!-- 抢庄 -->
+            <div v-show="showRob&&ruleInfo.banker_mode==1" v-on:click="robBanker(1)"   class="rob activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_qiang.png" >
+
+            </div>
+
+            <!-- 不抢 -->
+            <div v-show="showRob&&ruleInfo.banker_mode==1" v-on:click="notRobBanker"  class="notRob activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_buqiang.png" >
+
+            </div>
+
+            <!-- 上庄 -->
+            <div v-show="showRob&&ruleInfo.banker_mode==5&&game.round==1" v-on:click="robBanker(1)"  class="rob activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_shang.png" >
+
+            </div>
+
+            <!-- 不上庄 -->
+            <div v-show="showRob&&ruleInfo.banker_mode==5&&game.round==1" v-on:click="notRobBanker" class="notRob activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_bushang.png" >
+
+            </div>
+
+
+            <!-- 1倍 -->
+            <div class="divCoin times1" v-show="showRob&&ruleInfo.banker_mode==2" v-on:click="robBanker(1)" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time1.png" >
+            </div>
+
+            <!-- 2倍 -->
+            <div class="divCoin times2" v-show="showRob&&ruleInfo.banker_mode==2" v-on:click="robBanker(2)" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time2.png" >
+            </div>
+
+            <!-- 4倍 -->
+            <div class="divCoin times3" v-show="showRob&&ruleInfo.banker_mode==2" v-on:click="robBanker(4)" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time4.png" >
+            </div>
+
+            <!-- 不抢 -->
+            <div class="divCoin times4" v-show="showRob&&ruleInfo.banker_mode==2" v-on:click="notRobBanker">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time0.png" >
+            </div>
+
+            <!-- 摊牌
+                <div id="showShowCardButton" v-show="showShowCardButton" v-on:click="showCard" class="singleButton activeButton">
+                    <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_tanpai.png" >
+                </div>  -->
+
+            <!--组 牌-->
+            <div id="showShowCardButton" v-show="showShowGroupCards&&player[0].account_status==7" v-on:click="groupCards" class="singleButton activeButton">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiuD/group.png" v-show="player[0].is_GroupCard"/>  <!--可以组牌-->
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiuD/not_group.png" v-show="!player[0].is_GroupCard"/> <!-- 不能组牌 -->
+            </div>
+
+            <!-- 1倍 -->
+            <div v-if="player[0].account_id==userData.accountId&&player[0].is_guest!=1" class="divCoin times1" v-show="showTimesCoin&&!player[0].multiples>0 && !player[0].is_banker&&player[0].account_status>=6" v-on:click="selectTimesCoin(coinList[0])">
+                <img :src="'http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time2'+coinList[0]+'.png'">
+            </div>
+
+            <!-- 2倍 -->
+            <div v-if="player[0].account_id==userData.accountId&&player[0].is_guest!=1" class="divCoin times2" v-show="showTimesCoin&&!player[0].multiples>0&& !player[0].is_banker&&player[0].account_status>=6" v-on:click="selectTimesCoin(coinList[1])" >
+                <img :src="'http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time2'+coinList[1]+'.png'">
+            </div>
+
+            <!-- 4倍 -->
+            <div v-if="player[0].account_id==userData.accountId&&player[0].is_guest!=1" class="divCoin times3" v-show="showTimesCoin&&!player[0].multiples>0&& !player[0].is_banker&&player[0].account_status>=6" v-on:click="selectTimesCoin(coinList[2])" >
+                <img :src="'http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time2'+coinList[2]+'.png'">
+            </div>
+
+            <!-- 5倍 -->
+            <div v-if="player[0].account_id==userData.accountId&&player[0].is_guest!=1" class="divCoin times4" v-show="showTimesCoin&&!player[0].multiples>0&& !player[0].is_banker&&player[0].account_status>=6" v-on:click="selectTimesCoin(coinList[3])" >
+                <img :src="'http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_time2'+coinList[3]+'.png'">
+            </div>
+
+            <!-- 抢庄文字 -->
+            <div v-if="showRobText&&ruleInfo.banker_mode!=5&&ruleInfo.banker_mode!=2" v-bind:style="viewStyle.robText" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/bull/text_rob.png" >
+            </div>
+
+            <div v-if="showRobText&&ruleInfo.banker_mode==2" v-bind:style="viewStyle.robText2" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/bull/text_rob.png" >
+            </div>
+
+            <div v-if="showRobText&&ruleInfo.banker_mode==2&&player[0].bankerMultiples>0" v-bind:style="viewStyle.robTimesText" >
+                <img v-bind:src="player[0].bankerTimesImg" >
+            </div>
+
+            <!-- 不抢庄文字 -->
+            <div v-if="showNotRobText&&ruleInfo.banker_mode!=5" v-bind:style="viewStyle.notRobText">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/bull/text_notrob.png" >
+            </div>
+
+            <!-- 上庄文字 -->
+            <div v-if="showRobText&&ruleInfo.banker_mode==5&&game.round<2" v-bind:style="viewStyle.robText" >
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/bull/text_go.png" >
+            </div>
+
+            <!-- 不上庄文字 -->
+            <div v-if="showNotRobText&&ruleInfo.banker_mode==5&&game.round<2" v-bind:style="viewStyle.notRobText">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/bull/text_notgo.png" >
+            </div>
+
+            <!-- 等待玩家下注 -->
+            <div v-show="showBankerCoinText" v-bind:style="viewStyle.coinText">
+                <p v-bind:style="viewStyle.coinText1">等待闲家下注</p>
+            </div>
+
+            <!-- 点击看牌
+            <div v-show="showClickShowCard" v-bind:style="viewStyle.showCardText">
+                <p v-bind:style="viewStyle.showCardText1">点击牌面看牌</p>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="ranking hideRanking" id="ranking" style="z-index: 1">
+        <div class="rankBack">
+            <img crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiu/rank_bg.jpg" style="position: absolute;top: 0;left: 0;width: 100%">
+        </div>
+
+        <div class="rankText" style="position: absolute;top: 4%;">
+            <img crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiuD/rank_frame.png" style="position: absolute;top: 0;left: 0;width: 200vw;">
+            <div class="time" v-show="playerBoard.round>0" style="position: absolute;top: 24vw;width: 100%;">
+                <a style="font-size: 6vw;">房间:{{globalData.roomNumber}}&nbsp&nbsp&nbsp&nbsp{{playerBoard.record}}&nbsp&nbsp&nbsp&nbsp{{game.total_num}}局</a>
+            </div>
+            <div style="height: 42vw;"></div>
+            <div v-for="p in playerBoard.score" class="scoresItem" v-bind:class="{true: 'scoresItemYellow', false: 'scoresItemWhite'}[p.account_score>0]" v-show="p.account_id>0">
+                <img crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/rank_bigwinner.png" style="top: 0; margin-top: -1.5vw; left: 2vw;height: 120%" v-show="p.isBigWinner==1">
+                <div class="name">{{p.nickname}}</div>
+                <div class="currentScores"><a v-show="p.account_score>0">+</a>{{p.account_score}}</div>
+            </div>
+        </div>
+        <div class="button roundEndShow" >
+            <img  crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/rank_save.png" style="float: left;margin-left: 13%;width: 30%" />
+            <div style="position: relative">
+                <img v-if="showNextRoom==false"  crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/icon_home3.png" style="width: 12%;position: absolute;left: 50%;transform: translateX(-50%);" />
+                <img v-if="showNextRoom==true"  crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/button_continue.png" style="width: 16%;position: absolute;left: 50%;transform: translateX(-50%);" />
+            </div>
+            <img  crossOrigin="Anonymous" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/rank_review.png" style="float: right;margin-right: 13%;width: 30%" />
+        </div>
+    </div>
+
+    <!-- end图片  -->
+    <div id="endCreateRoom" class="end" style="position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 120;display: none;">
+        <img src="" style="width: 100vw;position: absolute;top:0;left: 0;height: 100vh;" id="end" usemap="#planetmap1"/>
+        <div id="endCreateRoomBtn" style="position:absolute;right:12vw; width: 30vw; height: 40vw;bottom: 0%;z-index:121;overflow: hidden;" v-on:click="reviewCard()"></div>
+        <div id="endCreateRoomBtn" style="position:absolute;right:43vw; width: 16vw; height: 40vw;bottom: 0%;z-index:121;overflow: hidden;" v-on:click="hall"></div>
+    </div>
+
+    <div class="message" v-show="isShowMessage" >
+        <div class="messageBack" style="z-index: 999" v-on:click="hideMessage"></div>
+        <div class="textPartOuter" style="z-index: 999"></div>
+        <div id="message-box" class="textPart" v-bind:style="'height: ' + 0.39 * height + 'px;z-index: 999'">
+            <div id="scroll-box" class="textList" style="width: 100%;">
+                <div class="textItem" v-for="m in message" v-on:click="messageOn(m.num)">{{m.text}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏规则 -->
+    <div class="createRoom" id="vroomRule" v-show="ruleInfo.isShowRule" v-on:click="cancelGameRule">
+        <div class="createRoomBack"></div>
+        <div class="mainPart" >
+            <div  class="createB"></div>
+            <div class="createTitle">
+                <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/txt_rule.png" />
+            </div>
+
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/cancel.png" class="cancelCreate" v-on:click="cancelGameRule"/>
+
+            <div class="blueBack">
+                <div class="selectPart" style="top: 0px;height:4vh;line-height:4.1vh;">
+                    <div class="selectTitle" style="width: 100%;font-size: 2vh; text-align: center;color: #efd0a4; background-color: #4e3f79;opacity: 1.0">创建房间,游戏未进行,不消耗房卡</div>
+                </div>
+
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">模式：</div>
+                    <div class="selectList">
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.banker_mode==1">
+                            <div class="selectText" >自由抢庄</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.banker_mode==2">
+                            <div class="selectText" >明牌抢庄</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">底分：</div>
+                    <div class="selectList" >
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.baseScore==1">
+                            <div class="selectText">1分</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.baseScore==2">
+                            <div class="selectText">3分</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.baseScore==3">
+                            <div class="selectText">5分</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.baseScore==4">
+                            <div class="selectText">10分</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.baseScore==5">
+                            <div class="selectText">20分</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selectPart" style="height:12vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">规则：</div>
+                    <div class="selectList">
+                        <div class="selectItem" style="margin-left:10px;">
+                            <div class="selectText" >每人分四张牌，分为大小组，分别与庄家对牌，全胜全败为胜负，一胜一败为和局</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">牌型：</div>
+                    <div class="selectList">
+                        <div class="selectItem" style="margin-left:10px;" >
+                            <div class="selectText" >丁三牌及二四牌可以互换使用</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">局数：</div>
+                    <div class="selectList">
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.ticket==1">
+                            <div class="selectText" >12局X2房卡</div>
+                        </div>
+                        <div class="selectItem" style="margin-left:10px;" v-if="ruleInfo.ticket==2">
+                            <div class="selectText" >24局X4房卡</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="createCommit" v-on:click="cancelGameRule" >确定</div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置音频 -->
+    <div class="audioRoom" id="vaudioRoom" v-show="editAudioInfo.isShow">
+        <div class="audioRoomBack" v-on:click="cancelAudioSetting"></div>
+        <div class="mainPart" >
+            <div  class="createB"></div>
+            <div class="createTitle" style="height:4vh;"></div>
+
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/cancel.png" class="cancelCreate" v-on:click="cancelAudioSetting"/>
+            <div class="blueBack">
+                <div style="height:0.5vh;"></div>
+
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">背景音乐：</div>
+                    <div class="selectList" >
+                        <div class="selectItem"v-on:click="setBackMusic" >
+                            <div class="selectBox"></div>
+                            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/tick.png" v-show="editAudioInfo.backMusic==1"/>
+                            <div class="selectText">开启</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selectPart" style="height:4vh;line-height:4vh;padding:0.8vh 0;">
+                    <div class="selectTitle">游戏音效：</div>
+                    <div class="selectList" >
+                        <div class="selectItem"  v-on:click="setMessageMusic">
+                            <div class="selectBox"></div>
+                            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/tick.png" v-show="editAudioInfo.messageMusic==1"/>
+                            <div class="selectText">开启</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="createCommit activeButton" v-on:click="confirmAudioSetting" >确定</div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 特殊提示  -->
+    <div class="alert" v-show="isShowNoteImg" v-on:click="hideNoteImg()">
+        <div class="alertBack"></div>
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/paijiuD/ruleD.png" style="position: absolute;top:15vh;height:auto;width: 45vh;top: 0;bottom: 0; left: 0; right: 0; margin: auto; " />
+    </div>
+
+    <div class="alertB" v-show="isShowAlertB">
+        <div class="alertBackgroundB"></div>
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/center/alert1.png" v-show="alertTypeB==2">
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/center/alert2.png" v-show="alertTypeB==1">
+        <div class="alertTextB" >{{alertTextB}}</div>
+    </div>
+
+    <!--gift-->
+    <div class="giftBox" v-show="isShowGiftBox">
+        <div style="height: 30px;"></div>
+        <div class="bgScroll">
+            <div class="giftItem" v-on:click="sendGit(item.skin_kw,item.use_num)" v-for="item in giftToolsList">
+                <img :class="'git' + giftName[item.skin_kw]" :src="'http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/gift/'+ giftName[item.skin_kw] + '/armatureName_' + giftName[item.skin_kw] + '_static.png'"/>
+                <p>x{{item.use_num}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="giftBg" v-on:click="sendGitViewHide()" v-show="isShowGiftBox"></div>
+    
+    
+      <!-- 二维码 -->
+    <div class="qrcontent" id="qrRoom" v-show="isShowQr">
+        <div class="audioRoomBack" v-on:click="hideQr()"></div>
+        <div class="mainPart" >
+            <div  class="createB"></div>
+            <div class="createTitle" style="height:4vh;">
+            </div>
+            <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/images/common/cancel.png" class="cancelCreate" v-on:click="hideQr()"/>
+            <div class="blueBack">
+                
+                <img v-bind:src=globalData.qrUrl width="100%"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/canvas.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="./js/polyfiles.js"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/bscroll.js"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/jquery.marquee.min.js" type="text/javascript"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/vue.min.js" ></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/vue-resource.min.js" ></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/paijiuD_shenshou.js?v=221211"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/fuzhi_xl.js?v=20180919211"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/clipboard.min.js"></script>
+<script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/honglian/commonxmz67/files/js/gitView.js?v=12323"></script>
+</html>

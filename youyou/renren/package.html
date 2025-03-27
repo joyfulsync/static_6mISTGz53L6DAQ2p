@@ -1,0 +1,268 @@
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <title>房卡包</title>
+    <script>
+
+        var currenUrl = window.location.href;
+        var urlSplit = currenUrl.split('&');
+        if (urlSplit.length >= 2) {
+            var newUrl = delParam('code', '&')
+            console.log("&")
+        } else {
+            console.log("?")
+            var urlSplit2 = currenUrl.split('?');
+            if (urlSplit2.length >= 2) {
+                var newUrl = delParam('code', '?')
+            }
+        }
+        function delParam(paramKey, type) {
+            var url = window.location.href;    //页面url
+            var urlParam = window.location.search.substr(1);   //页面参数
+            var beforeUrl = url.substr(0, url.indexOf("?"));   //页面主地址（参数之前地址）
+            var nextUrl = "";
+            var hasCode = false;
+
+            var arr = new Array();
+            if (urlParam != "") {
+                var urlParamArr = urlParam.split(type); //将参数按照&符分成数组
+                for (var i = 0; i < urlParamArr.length; i++) {
+                    var paramArr = urlParamArr[i].split("="); //将参数键，值拆开
+                    //如果键雨要删除的不一致，则加入到参数中
+                    if (paramArr[0] != paramKey) {
+                        arr.push(urlParamArr[i]);
+                    } else {
+                        hasCode = true;
+                    }
+                }
+            }
+            if (arr.length > 0) {
+                nextUrl = "?" + arr.join("&");
+            }
+            url = beforeUrl + nextUrl;
+            if (hasCode == true) {
+                window.location.href = url;
+            }
+            return url;
+        }
+
+    </script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/js/angular.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/js/fastclick.js"></script>
+    <!--
+<script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/files/cjs/roomRedPackage.js"></script>
+-->
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/config.js?v=' + new Date().getTime() + '"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/load.js?v=' + new Date().getTime() + '"> <\/script>');
+        //var vConsole = new VConsole();
+        //var vConsole = new window.VConsole();
+    </script>
+    <script type="text/javascript">
+        var obj = DynLoading.hall(BaseUrl + '/ay1/rp');
+        if (obj.result != 0) {
+            alert(obj.result_message);
+            var return_url = window.location.href;
+            console.log(return_url);
+            window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).on('click', 'img', function (e) {
+            e.preventDefault();
+        })
+
+        $(function () {
+            wx.config({
+                debug: false,
+                appId: obj.data.config_ary.appId,
+                timestamp: obj.data.config_ary.timestamp,
+                nonceStr: obj.data.config_ary.nonceStr,
+                signature: obj.data.config_ary.signature,
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'hideMenuItems',
+                ]
+            });
+
+            // 修改浏览器title
+            var new_userName = "";
+            var old_userNname = obj.data.user.nickname;
+            if (old_userNname.length > 8) {
+                new_userName = old_userNname.substring(0, 7);
+                new_userName += "..."
+            }
+            else {
+                new_userName = old_userNname;
+            }
+            document.getElementsByTagName("title")[0].innerText = new_userName + "|房卡包";
+            wx.ready(function () {
+                wx.hideOptionMenu();
+            });
+
+        });
+
+        var globalData = {}
+        globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+
+        var app = angular.module('app', [])
+
+        app.controller("myCtrl", function ($scope, $http) {
+            $scope.width = window.innerWidth;
+            $scope.height = window.innerHeight;
+
+            $scope.userInfo = {
+                "id": obj.data.user.account_id,
+                "name": obj.data.user.nickname,
+                "avatar": obj.data.user.headimgurl,
+                "card": obj.data.card,
+            }
+
+            var socketStatus = 0;
+            $(".main").show();
+            $("#loading").hide();
+
+            $scope.activity = new Array();
+            $scope.isShowAlert = false;
+            $scope.alertType = 0;
+            $scope.alertText = "";
+            $scope.cardNum = Number($scope.userInfo.card);
+            $scope.number = 0; //输入数量
+            $scope.inputNumber = null;  //输入框数字
+
+            if ($scope.cardNum === null
+                || $scope.cardNum === undefined
+                || isNaN($scope.cardNum)) {
+                $scope.cardNum = 0;
+            }
+
+            //输入框数字改变
+            $scope.changeNumber = function () {
+                if ($scope.inputNumber > $scope.cardNum) {
+                    $scope.inputNumber = $scope.cardNum;
+                }
+
+                $scope.number = $scope.inputNumber;
+
+                console.log($scope.inputNumber);
+
+                if ($scope.number === undefined || $scope.number === null) {
+                    $scope.number = 0;
+                } else {
+                    //$scope.inputNumber = $scope.number;
+                }
+            }
+
+            $scope.createRedPackage = function () {
+
+                if ($scope.number === undefined
+                    || $scope.number === null
+                    || isNaN($scope.number)
+                    || $scope.number <= 0) {
+                    alert('请输入正确的房卡数');
+                } else {
+                    $http({
+                        url: BaseUrl + '/ay1/cRP',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            "Authorization": DynLoading.getWwid()
+                        },
+                        data: {
+                            'account_id': $scope.userInfo.id,
+                            'ticket_count': $scope.number,
+                            'content': '恭喜发财',
+                        }
+                    }).success(function (data, header, config, status) {
+                        //var rpCode = data.result_message;
+                        if (data.result == 0) {
+                            $scope.cardNum = $scope.cardNum - $scope.inputNumber;
+                            //alert(data.result_message + ' ' + data.data.code + '即将为你跳转到界面');
+                            window.location.href = "/packageDetail.html?red_code=" + data.data.code;
+                        } else {
+                            alert(data.result_message);
+                        }
+
+                    }).error(function (data, header, config, status) {
+                        alert(data.result_message);
+                    });
+                }
+
+            }
+            $scope.gotoHall = function () {
+                //alert('你点击了我的');
+                var url = "/index.html";
+                window.location.replace(url)
+            }
+            $scope.gotoMyRedPackage = function () {
+                //alert('你点击了我的');
+                var url = "/packageRecord.html";
+                window.location.replace(url)
+            }
+
+        })
+
+    </script>
+</head>
+<link rel="stylesheet" type="text/css" href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/css/activity.css">
+
+<body ng-controller="myCtrl" style="background: #000;">
+    <div style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" id="loading">
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/images/common/loading.gif"
+            style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;" />
+    </div>
+    <div class="main" style="display: none;">
+
+        <img src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/renren/commonxmz67/files/images/redpackage/redpackage_bg.jpg"
+            style="width: 100%;position: relative;height:100%" usemap="#planetmap" />
+
+        <div style="height: 44px; position: fixed; top: 22px; left: 22px; right: 22px;">
+            <p style="font-size: 14pt; color: #622318">你的房卡：{{cardNum}} 张</p>
+        </div>
+        <div
+            style="height: 44px; position: fixed; top: 60px; left: 22px; right: 22px; background-color: #fff; border-radius: 4px; overflow: hidden; ">
+            <form style="">
+                <label
+                    style="top: 10px; left: 10px; width: 80px;height: 100%; font-size: 13pt; text-align: left; position: absolute;">放入房卡</label>
+                <input id="pnumber" type="number" ng-maxlength=9 name="packagenumber" placeholder=0
+                    ng-model="inputNumber" ng-change="changeNumber()"
+                    style="left: 90px; width: {{width - 170}}px; height: 100%; position: absolute; font-size: 13pt; color: gray; text-align: right;"></input>
+                <label
+                    style="position: absolute; top: 10px; height: 100%; right: 10px;width: 25px; color: black; font-size: 13pt; text-align: right;">张</label>
+            </form>
+        </div>
+        <div style="position: fixed; top: 144px; left: 22px; right: 22px; height: 80px;">
+            <p style="text-align: center;"><span style="color: #622318; font-size: 40pt">{{number}}</span><span
+                    style="color: #622318; font-size: 13pt">张</span></p>
+        </div>
+
+        <div style="height: 44px; position: fixed; top: 264px; left: 50px; right: 50px; background-color: #622318; border-radius: 22px; overflow: hidden;"
+            ng-click="createRedPackage()">
+            <p
+                style="top: 7px; width: 100%; height: 100%; font-size: 15pt; text-align: center; position: relative; color: white;">
+                制作房卡</p>
+        </div>
+        <div style="left: 22px; right: 22px; top: {{height - 120}}px; position: fixed;">
+            <p style="text-align: center; color: #fff; font-size: 12pt"></p>
+        </div>
+        <div style="position: fixed; left: 22px; right: 22px; top: {{height - 180}}px; text-align: center;"
+            ng-click="gotoHall()">
+            <p style="color: #622318; font-size: 12pt;text-align: center; width: 100%;">返回首页</p>
+        </div>
+        <div style="position: fixed; left: 22px; right: 22px; top: {{height - 120}}px; text-align: center;"
+            ng-click="gotoMyRedPackage()">
+            <p style="color: #622318; font-size: 12pt;text-align: center; width: 100%;">我的房卡记录</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
