@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>机器人管理系统</title>
+    <script src="/files/js/jq.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/files/js/extend.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+</head>
+    <script>
+        var return_url = window.location.protocol+"//"+window.location.host+""+window.location.pathname;
+        window.localStorage.setItem('return_url', return_url);
+        var obj = null;
+        if(DynLoading.isWeiXin()){
+            var code = DynLoading.getUrlParam("code");
+            if(code){
+                DynLoading.loginWx(code);
+            }
+        }
+        obj = DynLoading.hall(BaseUrl + '/robot/index');
+        if(obj.code == 0) {
+            DynLoading.gotoWx();
+        }
+        else if(obj.code != 1){
+            window.location.href = 'http://www.baidu.com';
+        }
+
+    </script>
+<style type="text/css">
+    table {
+        margin: auto;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    input {
+        width: 130px;
+        height: 40px;
+        font-size: 25px;
+    }
+
+    .alertB {
+        position: fixed;
+        z-index: 9999999999999999999999999999;
+        width: 350px;
+        height: 350px;
+        top: 45%;
+        left: 50%;
+        margin-top: -158px;
+        margin-left: -171px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .alertB .alertBackgroundB {
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        opacity: 0.5;
+        background: #000;
+        height: 100%;
+        width: 100%;
+    }
+
+    .alertB img {
+        position: absolute;
+        width: 60%;
+        top: 10px;
+        left: 74px;
+    }
+
+    .alertB .alertTextB {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 45px;
+        color: #fff;
+        filter: alpha(opacity=95);
+        -moz-opacity: 0.95;
+        opacity: 0.95;
+    }
+</style>
+<body>
+<!--<div onclick="gailveliminate();">-->
+<!--    <img src="/files/images/Clean Up.png" style="z-index: 99999; top: 1vh; position: fixed; width: 5vh;right: 3vh;"/>-->
+<!--</div>-->
+<button style="
+    position: fixed;
+    top: 1vh;
+    right: 1vw;
+    width: 23vw;
+    z-index: 99999;
+    color: #fff;
+    border-radius: 5px;
+    background:red;
+font-size: 1.6vh;"
+
+        onclick="gailveliminate()">
+    一键清空赢率
+</button>
+
+<div onclick="javascript:location.reload();">
+    <img src="/files/images/refresh.png" style="z-index: 99999; top: 50vh; position: fixed; width: 6vh;right: 1vh;">
+</div>
+
+<div onclick="javascrtpt:window.location.href='/robot/index.html'">
+    <img src="/files/images/left.png"
+         style="z-index: 99999; top: 0vh; position: fixed; width: 6vh;left: 1vh;">
+</div>
+
+<h1 style="font-size:40px;" align="center">机器人管理</h1>
+<table id="usersbox" style="font-size:25px;" border="1" cellspacing="0" cellpadding="10" width="900" height="auto"
+       align="center">
+    <tr>
+        <th><b>ID</b></th>
+        <th><b>姓名</b></th>
+        <th><b>性别</b></th>
+        <th><b>头像</b></th>
+        <th><b>赢率%</b></th>
+        <th><b>归属人</b></th>
+        <th><b>信息</b></th>
+        <th><b>进工会</b></th>
+        <th><b>操作</b></th>
+    </tr>
+</table>
+
+<div id="moretextReceive"
+     style="position: relative;margin-top: 4px;color: orange;height: 13vw;text-align: center;line-height: 10vw;font-size: 2.5vh;background-color: white;display: none;"
+     onclick="go_robotnum()">
+    点击加载更多
+</div>
+<div id="moretextReceive2"
+     style="position: relative;margin-top: 4px;color: orange;height: 13vw;text-align: center;line-height: 10vw;font-size: 2.5vh;background-color: white;display: none;">
+    没有更多信息
+</div>
+<div id="msg" class="alertB" style="display: none;">
+    <div class="alertBackgroundB"></div>
+    <img id="d" src="/files/images/alert1.png" style="display: none">
+    <img id="x" src="/files/images/alert2.png" style="display: none;">
+    <div class="alertTextB"></div>
+</div>
+</body>
+<script>
+    var pages = 1;
+    $("input").on("blur", function () {
+        window.scroll(0, 0);
+    });
+
+    function go_robotnum() {
+        pages = pages + 1;
+        get_robotnum(pages);
+    }
+
+    function get_robotnum(page) {
+        JqExtends.post('/robot/query', {'page': page}, function (e) {
+            if (e.code == 1) {
+                if (e.data.length > 0) {
+                    var user = e.data;
+                    for (var i = 0, len = user.length; i < len; i++) {
+                        var html = '<tr><td id="uid">' + user[i].robot_id + '</td>' +
+                                '<td><input id="name" type="text" name="name" value="' + user[i].nickname + '" maxlength="7" autocomplete="off"/></td>';
+                        if (user[i].sex == 1) {
+                            html += '<td><select style="height: 55px;" id="sex"><option value="男">男</option><option value="女">女</option></select></td><td>';
+                        } else {
+                            html += '<td><select style="height: 55px;" id="sex"><option value="女">女</option><option value="男">男</option></select></td><td>';
+                        }
+                        html += '<a href="javascript:void(0)" onclick="openfile(this)" >' +
+                                '<img id="showImg"  data-uid=' + user[i].robot_id + ' src="' + user[i].headimgurl + '?t=' + Math.random() + '" style="width:70px;height:70px;"></a>' +
+                                '<input type="file" style="display:none" name="" id="fileff" value="" onchange="change(this,' + user[i].robot_id + ')"/></td>' +
+                                '<td><input id="gailv" type="num" name="gailv" value="' + user[i].gailv + '" maxlength="3" autocomplete="off" style="width:40px;" /></td>' +
+                                '<td>' + user[i].user_id + '</td>' +
+                                '<td>' + user[i].room_id + '</td>';
+
+                            //申请进入工会！！！！！！
+                        if (user[i].is_guild == 0) {
+                            html += '<td><select style="height: 55px;" id="in_unioc"><option value="0">未加入</option><option value="1">加入</option></select></td>';
+                        } else {
+                            html += '<td><select style="height: 55px;" id="in_unioc"><option value="1">加入</option><option value="0">未加入</option></select></td>';
+                        }
+                        html += '<td><button type="button" style="width:95px;height:44px;border-radius: 10px;background-color: #009688;" onclick="modify(this,' + user[i].robot_id + ')" ><span style="font-size:25px;">修改</span></button></td></tr>';
+                        $('#usersbox').append(html);
+                    }
+                    $('#moretextReceive').show();
+                    $('#moretextReceive2').hide();
+                } else {
+                    $('#moretextReceive').show();
+                    $('#moretextReceive2').hide();
+                    JqExtends.showmsg('无更多机器人', 0);
+                }
+            } else {
+                JqExtends.showmsg(e.msg, 0);
+            }
+        });
+    }
+
+    function openfile(data) {
+        $(data).parent().children("#fileff").click();
+    }
+
+    function change(obj, uid) {
+        var formData = new FormData();
+        formData.append("file", obj.files[0]); //加入文件对象
+        formData.append("uid", uid);
+        JqExtends.updata('/robot/updata', formData, function(e) {
+            if (e.code == 1) {
+                JqExtends.showmsg('头像修改成功', 1);
+                $(obj).parent().children().children("img").attr("src", e.data.img + "?t=" + Math.random());
+            } else {
+                JqExtends.showmsg(e.msg, 0);
+            }
+        });
+    }
+
+    function modify(data, uid) {
+        var name = $(data).parent().parent().children().children("#name").val();
+        var sex = $(data).parent().parent().children().children("#sex").val();
+        var gailv = $(data).parent().parent().children().children("#gailv").val();
+        //var fen = $(data).parent().parent().children().children("#fen").val();
+        var in_unioc = $(data).parent().parent().children().children("#in_unioc").val();
+        var arr = ["男", "女"];
+        if (uid == '') {
+            JqExtends.showmsg('ID空,系统错误请刷新', 0);
+            return false;
+        }
+        if (arr.indexOf(sex) == -1) {
+            JqExtends.showmsg('性别错误', 0);
+            return false;
+        }
+        if (gailv > 100) {
+            JqExtends.showmsg('胜率最高100', 0);
+            return false;
+        }
+        // if (fen < 1000) {
+        //     JqExtends.showmsg('机器人最少上分1000', 0);
+        //     return false;
+        // }
+        if (name == '') {
+            JqExtends.showmsg('名字不能为空', 0);
+            return false;
+        }
+        JqExtends.post('/robot/edit', {
+            'uid': uid,
+            'name': name,
+            'sex': sex,
+            'in_unioc': in_unioc,
+            'gailv': gailv
+        }, function (e) {
+            if (e.code == 1) {
+                JqExtends.showmsg('修改成功', 1);
+            } else {
+                JqExtends.showmsg(e.msg, 0);
+            }
+        });
+    }
+
+    function gailveliminate() {
+        JqExtends.post('/robot/gailv', {'data': '1'}, function (e) {
+            if (e.code == 1) {
+                JqExtends.showmsg(e.msg, 1);
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+            } else {
+                JqExtends.showmsg(e.msg, 0);
+            }
+        });
+    }
+
+    window.onload = function () {
+        get_robotnum(pages);
+    }
+</script>
+</html>
+
+<html>
