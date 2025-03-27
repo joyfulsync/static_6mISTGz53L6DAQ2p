@@ -1,0 +1,220 @@
+.copy-tip {
+  background: rgba(0, 0, 0, .6);
+  color: #fff;
+  position: fixed;
+  bottom: 16.6rem;
+  font-size: .9rem;
+  border-radius: 5px;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 89;
+}
+
+#room_str {
+  position: fixed;
+  top: -300px;
+}
+
+.zhuonuo {
+  position: fixed;
+  right: 0;
+  width: 3.8rem;
+  z-index: 89;
+  top: 0.7rem;
+}
+
+#dialog {
+  position: fixed;
+  width: 300px;
+  height: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #fff;
+  font-size: 16px;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -75px;
+  border-radius: 10px;
+  z-index: 99;
+}
+
+#dialog .main {
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+#dialog .other {
+  text-align: center;
+  margin-top: 38px
+}
+
+#dialog img {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 35px;
+}
+
+.alertTip {
+  position: fixed;
+  width: 40%;
+  height: 20%;
+  top: 40%;
+  left: 30%;
+  z-index: 111;
+}
+
+.alertTip .alertTipBG {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+  position: absolute;
+  border-radius: 2vh
+}
+
+.alertTip img {
+  position: absolute;
+  margin-left: 15%;
+}
+
+.alertTip .alertTipText {
+  position: absolute;
+  bottom: 2vh;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: simHei;
+}
+
+.indiv img {
+  width: 30px
+}
+
+.indiv span {
+  background: rgba(0, 0, 0, 0.6);
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  position: relative;
+  top: -12px;
+  border-radius: 0 10px 10px 0;
+  left: -5px;
+}
+
+.individuaMask {
+  position: fixed;
+  z-index: 98;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.individuaFrame {
+  position: fixed;
+  z-index: 99;
+  width: 80vw;
+  max-width: 80vw;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -60%);
+  background-color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  opacity: 1;
+  color: white;
+}
+
+.individuaFrame .title {
+  margin: 3vw 0;
+  padding: 1vw;
+  font-size: 5vw;
+  line-height: 5vw;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #000;
+  background-color: white;
+}
+
+.individuaFrame .text {
+  position: relative;
+  height: 15vw;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #000;
+  background-color: white;
+  border-top: solid;
+  border-color: #e6e6e6;
+  border-width: 0px;
+}
+
+.individuaFrame .text input {
+  padding: 0 12px 0 12px;
+  position: absolute;
+  top: 1vw;
+  left: 9vw;
+  width: 62vw;
+  height: 12vw;
+  line-height: 6.5vw;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.5vh;
+  border-color: rgb(240, 240, 240);
+  background-color: rgb(240, 240, 240);
+  font-size: 4vw;
+  -webkit-appearance: none;
+}
+
+.individuaFrame .error {
+  height: 4vw;
+  line-height: 4vw;
+  color: red;
+  font-size: 3.5vw;
+  text-align: left;
+  margin-left: 10vw;
+}
+
+.individuaFrame .buttonContainer {
+  margin: 3vw 0 7vw 0;
+  position: relative;
+  left: 9vw;
+  width: 62vw;
+  line-height: 11vw;
+  font-size: 4vw;
+  display: flex;
+  border-radius: 2vw;
+}
+
+.individuaFrame .buttonContainer .button {
+  display: block;
+  -webkit-box-flex: 1;
+  flex: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  margin-bottom: 0;
+  color: rgb(255, 255, 255);
+  border-top: solid;
+  border-color: #e6e6e6;
+  border-width: 0px;
+  border-radius: 1vw;
+  background-color: rgb(64, 112, 251);
+}
+
+.individuaFrame .buttonClose {
+  position: absolute;
+  z-index: 99;
+  width: 10vw;
+  height: 10vw;
+  top: -4%;
+  left: 88%;
+}
+
+.individuaFrame .buttonClose img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}

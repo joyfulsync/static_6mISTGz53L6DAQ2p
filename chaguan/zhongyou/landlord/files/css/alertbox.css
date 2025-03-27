@@ -1,0 +1,166 @@
+*{padding: 0;margin:0;}a {text-decoration: none;color: #fff;}ul {list-style: none;}input{border: none;outline:none}body{font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, Arial, sans-serif;cursor: default;}img{border: none;}
+.alert{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;color: #fff;font-family: simHei;}
+.alert .alertBack{width: 100%;height:100%;background: #000;opacity:0.8;position: absolute;}
+.alert .mainPart{position: relative;top: 45%;left: 50%;margin-top:-19vh ;margin-left:-22.5vh ;width: 45vh;height:38vh; }
+.alert .mainPart .id{position: absolute;top:-1.3vh;left:0;width:45vh;text-align: center;}
+.alert .mainPart .id img{width: 36vh}
+.alert .mainPart .id .text{margin-top: -4.5vh;color: #000;font-size: 2.5vh;}
+.alert .mainPart .alertText{position: absolute;width:100%;line-height: 3.5vh;font-size: 2.5vh;width: 36vh;left:50%;margin-left:-18vh;top:5.6vh;text-align: center;}
+.alert .mainPart .alertText .rull{background:#4e3e7c;width: 37.4vh;margin-left: -2vh;color: #d6bba7;font-size:2.4vh;padding: 1.5vh;margin-bottom: 1.5vh;text-align: left;}
+.alert .mainPart .alertText .rull a{color: #d6bba7;font-size:2.2vh; }
+.alert .mainPart .buttonMiddle{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;left:50%;margin-left:-9vh;bottom:2.2vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;}
+.alert .mainPart .buttonLeft{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;left:3vh;bottom:2.2vh;text-align: center;background:url("../images/common/button1.png");background-size:100%;}
+.alert .mainPart .buttonRight{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;right:3vh;bottom:2.2vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;}
+.alert .mainPart .button img{width: 100%;height: 100%;}
+.alert .mainPart .backImg{
+  	position: absolute;width:100%;height:100%;border-radius: 1.5vh;top:0;left:0;
+  	/*background: url("../images/common/navli-bj.png")  no-repeat center;*/
+	background-size: 100% 300%;
+	/*border: 0.1vh solid #3e3e3e;*/
+  	border: 0.1vh solid #de51f1;
+    background: #6d4ba8;
+}
+.alert .mainPart .backImg .blackImg{position: absolute;width:40.6vh;height:25vh;border-radius: 1.5vh;top:2.2vh;left:2.2vh; 
+	/*background: #2f2f2f;*/
+	/*border: 0.1vh solid #d4aa00;*/
+  	border: 0.1vh solid #ae71cb;
+  	background: #281d45;
+}
+
+.noty{position: fixed;background-color: rgba(0,0,0,0.8);width: 100%;height: 7vh;overflow: hidden;z-index: 9998;top:0;left:0;}
+.noty img{position: absolute;top: 1.5vh;left: 3vw;width: 4vh;height: 4vh;}
+#marquee{position: fixed;top: 0;left: 12vw;background-color: rgba(0,0,0,0);width: 88vw;height: 7vh;line-height: 7vh;color: white;font-size: 14px;overflow: hidden;z-index: 9999;}
+
+.disconnect{position: fixed;top:45%;left: 0;width: 100%;text-align: center;z-index: 101;}
+.disconnect .background{width: 250px;height:27px;position: absolute;top:-2;left: 50%;margin-left: -125px;background: #000;opacity: .5;border-radius:15px;}
+.disconnect a{font-size: 16px;color: #fff;padding: 5px 14px;position:relative;}
+
+/* 声音对话框 */
+.audioRoom{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;} 
+.audioRoom .audioRoomBack{width: 100%;height:100%;background: #000;opacity:0.6;}  
+.audioRoom .mainPart{width: 38vh;height:27vh;top:44%;left:50%;margin-top:-16vh;margin-left: -19vh;position: absolute;} 
+.audioRoom .mainPart .createB{
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: absolute;
+    background: #634fa6;
+    border: 1px solid #a684f2;
+    border-radius: 10px;
+}  
+.audioRoom .mainPart .createTitle{position:relative;height:5vh;text-align: center;} 
+.audioRoom .mainPart .createTitle img{position:relative;height:2.6vh;margin-top: 1.2vh;}  
+.audioRoom .mainPart .cancelCreate{width: 5vh;height:5vh;top:-2.5vh;right:-2.5vh;position: absolute;}  
+.audioRoom .mainPart .createCommit{position: absolute;line-height: 5.5vh;height: 5.5vh;font-size: 2.5vh;width: 17vh;left:50%;margin-left:-8.5vh;bottom:-7vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;color: #fff;}  
+.audioRoom .mainPart .blueBack{width: 35vh;height: 14vh;background:rgba(0,0,0,0.6);border:1px solid #a684f2;border-radius:4px;margin:0 auto;position: relative; }
+.audioRoom .mainPart .blueBack .selectPart{
+	width: 100%;
+    margin-top: 4px;
+    font-size: 2.2vh;
+    position: relative;
+    color: #111431;
+    background: #bbbff1;
+    border-radius: 0px;
+    font-family: simHei;
+    height: 4vh;
+    line-height: 4vh;
+    padding: 0.8vh 0;
+}
+.audioRoom .mainPart .blueBack .selectPart .selectTitle{float: left;width:13vh;text-align: right; }
+.audioRoom .mainPart .blueBack .selectPart .selectList{float: right; width: 20vh}
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem{float: left;position:relative;margin-left:10px; }
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectBox{float: left;height:2.2vh;width:2.2vh;border:1px solid #1d1045;border-radius:2px;background:#78899d;margin-top:0.7vh;position: relative; }
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem img{position: absolute;width: 2.8vh;height:2.8vh;left: 0;top:0;}
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectText{float: left;margin-left: 0.8vh;}
+
+.activeButton{}  
+.activeButton:active{}
+.activeButton img{width: 100%;}
+.activeButton .activeInnerText{position: absolute;top:0;left:0;width: 100%;height:100%;text-align: center;}
+
+/* 观战 */
+.watch{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 111;color: #fff;font-family: simHei;}
+.watch .watchBack{width: 100%;height:100%;background: #000;opacity:0.5;position: absolute;}
+
+.watch .mainPart{position: absolute;top: 42%;left: 50%;margin-left:-22.5vh ;width: 45vh;background:url("../images/guest/back.png");background-size:100% 100%;border-radius: 1.5vh; height: 59vh;margin-top: -29.5vh}
+.watch .mainPart .watchCancel{width: 5vh;height:5vh;top:-1.4vh;right:-1.5vh;position: absolute;}  		
+.watch .mainPart .watchTitle{width: 22vh;height:6.8vh;top:-1.4vh;left:11.5vh;position: absolute;}  		
+.watch .mainPart .playerList{
+	position: absolute;
+    line-height: 3.5vh;
+    font-size: 2.5vh;
+    width: 39vh;
+    left: 50%;
+    margin-left: -20vh;
+    top: 6.6vh;
+    background: #311d40;
+    background-size: 100% 300%;
+    padding: 1vh .5vh;
+    border-radius: 1.5vh;
+    height: 42vh;
+}
+.watch .mainPart .playerItem{background:#725399;height: 6.55vh;margin-bottom: .5vh;border-radius: .5vh;position: relative; }
+.watch .mainPart .playerItem .playerAvatar{position: absolute;width: 5vh;height: 5vh;border-radius: 2.5vh;border: .1vh solid yellow;left: 1.5vh;top: .78vh; }
+.watch .mainPart .playerItem .playerName{position: absolute;    font-size: 2.4vh;line-height: 6.6vh;height: 6.6vh;max-width: 43vw;top: 0;left: 8vh;overflow: hidden;}
+.watch .mainPart .playerItem .playerIcon{position: absolute;right: 3vh;width: 3vh;height: 3vh;top:1.78vh}
+
+.watch .mainPart .buttonMiddle{position: absolute;width:100%;height: 5.6vh;width: 17.38vh;left:50%;margin-left:-8.69vh;left:50%;bottom:1.4vh;}
+.watch .mainPart .buttonMiddle img{position: absolute;width:100%;height: 100%;top:0;left:0;}
+
+.customLayer{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 98;
+    background: rgba(0,0,0,0.6);
+}
+.custom {
+    width: 38vh;
+    top: 50%;
+    left: 50%;
+    margin-top: -16vh;
+    margin-left: -19vh;
+    position: absolute;
+    z-index: 99;
+}
+.custom .messageBox {
+    width: 100%;
+    height: 100%;
+}
+.custom .messageBox .customTop {
+    height: 6vh;
+    background: url("../images/guest/custom_top.png") no-repeat;
+    background-size: 100% 100%;
+}
+.custom .messageBox .customMiddle {
+    width: 100%;
+    background: url("../images/guest/custom_middle.png");
+    background-size: 100% 100%;
+}
+.custom .messageBox .customMiddle .text {
+    text-align: center;
+    height: 4rem;
+    font-size: 20px;
+    padding-top: 1rem;
+    color: #634fa6;
+}
+.custom .messageBox .customMiddle .button {
+    position: relative;
+    height: 2.5rem;
+}
+.custom .messageBox .customMiddle .button img {
+    position: absolute;
+    width: 5rem;
+    left: 50%;
+    margin-left: -2.5rem;
+    height: 2.2rem;
+}
+.custom .messageBox .customBottom{
+    width: 100%;
+    height: 1vh;
+    background: url("../images/guest/custom_bottom.png") no-repeat;
+    background-size: 100% 100%;
+}

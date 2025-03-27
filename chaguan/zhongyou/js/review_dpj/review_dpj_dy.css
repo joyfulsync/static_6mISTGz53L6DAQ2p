@@ -1,0 +1,239 @@
+.card41{
+    left: 2.8rem;
+    top: 0.5rem;
+    height: 1.5rem !important;
+    width: 3.2rem !important;;
+}
+.card31{
+    left: 2.8rem;
+    top: 2.2rem;
+    height: 1.5rem !important;
+    width: 3.2rem !important;;
+}
+.card21{
+    left: 6.2rem;
+    top: 12%;
+}
+.card11{
+    left: 7.8rem;
+    top: 12%;
+}
+.card42{
+    left: 2.3rem;
+    top: -0.3rem;
+    margin-left: 0.2rem;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);    /* for Chrome || Safari */
+    -moz-transform: rotate(-90deg);       /* for Firefox */
+    -ms-transform: rotate(-90deg);        /* for IE */
+    -o-transform: rotate(-90deg);         /* for Opera */
+}
+.card32{
+    left: 1.2rem;
+    top: 1rem;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);    /* for Chrome || Safari */
+    -moz-transform: rotate(-90deg);       /* for Firefox */
+    -ms-transform: rotate(-90deg);        /* for IE */
+    -o-transform: rotate(-90deg);         /* for Opera */
+}
+.card22{
+    left: 2rem;
+    top: 8%;
+}
+.card12{
+    left: 2.2rem;
+    top: 8%;
+}
+
+.cardOver{position: absolute;height: 100%;top:0;}
+.cardOver .cardResult{position: relative;height: 100%;}
+.cardOver .name{color: #fff;font-size: 10px;text-align: center;line-height: 16px;position: absolute;top: 15%;width: 100%;left:0;}
+
+.cardOver .openCard{position: absolute;width: 100%;top: 34%;left: 15%;}
+/*.cardOver .cards{width: 1.5rem;height: 3.2rem;position: absolute;}*/
+.cardOver .cards{
+    width: 1.5rem;
+    height: 3.2rem;
+    position: absolute;
+}
+.cardOver .face{
+    width: 1.5rem;
+    height: 3.2rem;
+    border-radius: 3px;
+    position: absolute;
+}
+/*.cardOver .front{background: url("../images/common/card.png");background-size:4.6vh 6.4vh;z-index: 92;}*/
+/*.cardOver .back{background:url("../images/common/cards4.png");-webkit-transform:rotateY(-180deg);transform:rotateY(-180deg);z-index: 91;background-size:59.8vh 32vh;box-shadow:1px 1px 5px #333;}*/
+/*牌面定位样式*/
+/*.cardOver .card{background: url("../images/common/card.png");background-size:4.6vh 6.4vh;}*/
+/*.cardOver .cardundefined{background: url("../images/common/card.png");background-size:4.6vh 6.4vh;}*/
+/*.cardOver .card-1{background: url("../images/common/card.png");background-size:4.6vh 6.4vh;}*/
+
+.cardOver .card7121{background: url("../images/paijiu_xy/12.png");background-size:1.5rem 3.2rem;}
+.cardOver .card7122{background: url("../images/paijiu_xy/12.png");background-size:1.5rem 3.2rem;}
+.cardOver .card7123{background: url("../images/paijiu_xy/12.png");background-size:1.5rem 3.2rem;}
+.cardOver .card7124{background: url("../images/paijiu_xy/12.png");background-size:1.5rem 3.2rem;}
+.cardOver .card7125{background: url("../images/paijiu_xy/12.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card6021{background: url("../images/paijiu_xy/2.png");background-size:1.5rem 3.2rem;}
+.cardOver .card6022{background: url("../images/paijiu_xy/2.png");background-size:1.5rem 3.2rem;}
+.cardOver .card6023{background: url("../images/paijiu_xy/2.png");background-size:1.5rem 3.2rem;}
+.cardOver .card6024{background: url("../images/paijiu_xy/2.png");background-size:1.5rem 3.2rem;}
+.cardOver .card6025{background: url("../images/paijiu_xy/2.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card5081{background: url("../images/paijiu_xy/8.png");background-size:1.5rem 3.2rem;}
+.cardOver .card5082{background: url("../images/paijiu_xy/8.png");background-size:1.5rem 3.2rem;}
+.cardOver .card5083{background: url("../images/paijiu_xy/8.png");background-size:1.5rem 3.2rem;}
+.cardOver .card5084{background: url("../images/paijiu_xy/8.png");background-size:1.5rem 3.2rem;}
+.cardOver .card5085{background: url("../images/paijiu_xy/8.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card4041{background: url("../images/paijiu_xy/41.png");background-size:1.5rem 3.2rem;}
+.cardOver .card4042{background: url("../images/paijiu_xy/41.png");background-size:1.5rem 3.2rem;}
+.cardOver .card4043{background: url("../images/paijiu_xy/41.png");background-size:1.5rem 3.2rem;}
+.cardOver .card4044{background: url("../images/paijiu_xy/41.png");background-size:1.5rem 3.2rem;}
+.cardOver .card4045{background: url("../images/paijiu_xy/41.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card3101{background: url("../images/paijiu_xy/101.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3102{background: url("../images/paijiu_xy/101.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3103{background: url("../images/paijiu_xy/101.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3104{background: url("../images/paijiu_xy/101.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3105{background: url("../images/paijiu_xy/101.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card3061{background: url("../images/paijiu_xy/62.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3062{background: url("../images/paijiu_xy/62.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3063{background: url("../images/paijiu_xy/62.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3064{background: url("../images/paijiu_xy/62.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3065{background: url("../images/paijiu_xy/62.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card3041{background: url("../images/paijiu_xy/4.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3042{background: url("../images/paijiu_xy/4.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3043{background: url("../images/paijiu_xy/4.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3044{background: url("../images/paijiu_xy/4.png");background-size:1.5rem 3.2rem;}
+.cardOver .card3045{background: url("../images/paijiu_xy/4.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card2111{background: url("../images/paijiu_xy/11.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2112{background: url("../images/paijiu_xy/11.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2113{background: url("../images/paijiu_xy/11.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2114{background: url("../images/paijiu_xy/11.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2115{background: url("../images/paijiu_xy/11.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card2101{background: url("../images/paijiu_xy/10.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2102{background: url("../images/paijiu_xy/10.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2103{background: url("../images/paijiu_xy/10.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2104{background: url("../images/paijiu_xy/10.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2105{background: url("../images/paijiu_xy/10.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card2071{background: url("../images/paijiu_xy/7.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2072{background: url("../images/paijiu_xy/7.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2073{background: url("../images/paijiu_xy/7.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2074{background: url("../images/paijiu_xy/7.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2075{background: url("../images/paijiu_xy/7.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card2061{background: url("../images/paijiu_xy/6.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2062{background: url("../images/paijiu_xy/6.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2063{background: url("../images/paijiu_xy/6.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2064{background: url("../images/paijiu_xy/6.png");background-size:1.5rem 3.2rem;}
+.cardOver .card2065{background: url("../images/paijiu_xy/6.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card1091{background: url("../images/paijiu_xy/9.png");background-size:1.5rem 3.2rem;}
+.cardOver .card1092{background: url("../images/paijiu_xy/91.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card1081{background: url("../images/paijiu_xy/81.png");background-size:1.5rem 3.2rem;}
+.cardOver .card1082{background: url("../images/paijiu_xy/82.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card1071{background: url("../images/paijiu_xy/71.png");background-size:1.5rem 3.2rem;}
+.cardOver .card1072{background: url("../images/paijiu_xy/72.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card1051{background: url("../images/paijiu_xy/51.png");background-size:1.5rem 3.2rem;}
+.cardOver .card1052{background: url("../images/paijiu_xy/5.png");background-size:1.5rem 3.2rem;}
+
+.cardOver .card1061{background: url("../images/paijiu_xy/61.png");background-size:1.5rem 3.2rem;}
+.cardOver .card1031{background: url("../images/paijiu_xy/3.png");background-size:1.5rem 3.2rem;}
+
+
+
+/*横着的牌*/
+.cardOver .card41 .card7121,.cardOver .card31 .card7121{background: url("../images/daoyou/paijiu/12_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card7122,.cardOver .card31 .card7122{background: url("../images/daoyou/paijiu/12_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card7123,.cardOver .card31 .card7123{background: url("../images/daoyou/paijiu/12_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card7124,.cardOver .card31 .card7124{background: url("../images/daoyou/paijiu/12_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card7125,.cardOver .card31 .card7125{background: url("../images/daoyou/paijiu/12_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card6021,.cardOver .card31 .card6021{background: url("../images/daoyou/paijiu/2_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card6022,.cardOver .card31 .card6022{background: url("../images/daoyou/paijiu/2_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card6023,.cardOver .card31 .card6023{background: url("../images/daoyou/paijiu/2_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card6024,.cardOver .card31 .card6024{background: url("../images/daoyou/paijiu/2_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card6025,.cardOver .card31 .card6025{background: url("../images/daoyou/paijiu/2_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card5081,.cardOver .card31 .card5081{background: url("../images/daoyou/paijiu/8_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card5082,.cardOver .card31 .card5082{background: url("../images/daoyou/paijiu/8_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card5083,.cardOver .card31 .card5083{background: url("../images/daoyou/paijiu/8_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card5084,.cardOver .card31 .card5084{background: url("../images/daoyou/paijiu/8_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card5085,.cardOver .card31 .card5085{background: url("../images/daoyou/paijiu/8_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card4041,.cardOver .card31 .card4041{background: url("../images/daoyou/paijiu/41_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card4042,.cardOver .card31 .card4042{background: url("../images/daoyou/paijiu/41_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card4043,.cardOver .card31 .card4043{background: url("../images/daoyou/paijiu/41_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card4044,.cardOver .card31 .card4044{background: url("../images/daoyou/paijiu/41_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card4045,.cardOver .card31 .card4045{background: url("../images/daoyou/paijiu/41_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card3101,.cardOver .card31 .card3101{background: url("../images/daoyou/paijiu/101_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3102,.cardOver .card31 .card3102{background: url("../images/daoyou/paijiu/101_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3103,.cardOver .card31 .card3103{background: url("../images/daoyou/paijiu/101_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3104,.cardOver .card31 .card3104{background: url("../images/daoyou/paijiu/101_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3105,.cardOver .card31 .card3105{background: url("../images/daoyou/paijiu/101_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card3061,.cardOver .card31 .card3061{background: url("../images/daoyou/paijiu/62_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3062,.cardOver .card31 .card3062{background: url("../images/daoyou/paijiu/62_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3063,.cardOver .card31 .card3063{background: url("../images/daoyou/paijiu/62_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3064,.cardOver .card31 .card3064{background: url("../images/daoyou/paijiu/62_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3065,.cardOver .card31 .card3065{background: url("../images/daoyou/paijiu/62_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card3041,.cardOver .card31 .card3041{background: url("../images/daoyou/paijiu/4_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3042,.cardOver .card31 .card3042{background: url("../images/daoyou/paijiu/4_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3043,.cardOver .card31 .card3043{background: url("../images/daoyou/paijiu/4_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3044,.cardOver .card31 .card3044{background: url("../images/daoyou/paijiu/4_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card3045,.cardOver .card31 .card3045{background: url("../images/daoyou/paijiu/4_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card2111,.cardOver .card31 .card2111{background: url("../images/daoyou/paijiu/11_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2112,.cardOver .card31 .card2112{background: url("../images/daoyou/paijiu/11_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2113,.cardOver .card31 .card2113{background: url("../images/daoyou/paijiu/11_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2114,.cardOver .card31 .card2114{background: url("../images/daoyou/paijiu/11_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2115,.cardOver .card31 .card2115{background: url("../images/daoyou/paijiu/11_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card2101,.cardOver .card31 .card2101{background: url("../images/daoyou/paijiu/10_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2102,.cardOver .card31 .card2102{background: url("../images/daoyou/paijiu/10_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2103,.cardOver .card31 .card2103{background: url("../images/daoyou/paijiu/10_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2104,.cardOver .card31 .card2104{background: url("../images/daoyou/paijiu/10_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2105,.cardOver .card31 .card2105{background: url("../images/daoyou/paijiu/10_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card2071,.cardOver .card31 .card2071{background: url("../images/daoyou/paijiu/7_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2072,.cardOver .card31 .card2072{background: url("../images/daoyou/paijiu/7_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2073,.cardOver .card31 .card2073{background: url("../images/daoyou/paijiu/7_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2074,.cardOver .card31 .card2074{background: url("../images/daoyou/paijiu/7_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2075,.cardOver .card31 .card2075{background: url("../images/daoyou/paijiu/7_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card2061,.cardOver .card31 .card2061{background: url("../images/daoyou/paijiu/6_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2062,.cardOver .card31 .card2062{background: url("../images/daoyou/paijiu/6_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2063,.cardOver .card31 .card2063{background: url("../images/daoyou/paijiu/6_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2064,.cardOver .card31 .card2064{background: url("../images/daoyou/paijiu/6_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card2065,.cardOver .card31 .card2065{background: url("../images/daoyou/paijiu/6_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card1091,.cardOver .card31 .card1091{background: url("../images/daoyou/paijiu/9_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card1092,.cardOver .card31 .card1092{background: url("../images/daoyou/paijiu/91_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card1081,.cardOver .card31 .card1081{background: url("../images/daoyou/paijiu/81_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card1082,.cardOver .card31 .card1082{background: url("../images/daoyou/paijiu/82_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card1071,.cardOver .card31 .card1071{background: url("../images/daoyou/paijiu/71_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card1072,.cardOver .card31 .card1072{background: url("../images/daoyou/paijiu/72_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card1051,.cardOver .card31 .card1051{background: url("../images/daoyou/paijiu/51_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card1052,.cardOver .card31 .card1052{background: url("../images/daoyou/paijiu/5_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+.cardOver .card41 .card1061,.cardOver .card31 .card1061{background: url("../images/daoyou/paijiu/61_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+.cardOver .card41 .card1031,.cardOver .card31 .card1031{background: url("../images/daoyou/paijiu/3_1.png");background-size:3.2rem 1.5rem !important;width: 3.2rem !important;height: 1.5rem !important;}
+
+
+.cardOver .cardGround{background:#000;z-index: 93;width: 4.6vh;height: 6.4vh;top:0;left:0;opacity: .6;position: absolute;border-radius: .4vh;}

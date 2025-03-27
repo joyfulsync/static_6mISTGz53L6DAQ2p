@@ -1,0 +1,68 @@
+.alert{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;color: #fff;font-family: simHei;}
+.alert .alertBack{width: 100%;height:100%;background: #000;opacity:0.8;position: absolute;}
+.alert .mainPart{position: relative;top: 45%;left: 50%;margin-top:-19vh ;margin-left:-22.5vh ;width: 45vh;height:38vh; }
+.alert .mainPart .alertText{position: absolute;width:100%;line-height: 3.5vh;font-size: 2.5vh;width: 36vh;left:50%;margin-left:-18vh;top:5.6vh;text-align: center;}
+.alert .mainPart .buttonMiddle{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;left:50%;margin-left:-9vh;bottom:2.2vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;}
+.alert .mainPart .buttonLeft{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;left:3vh;bottom:2.2vh;text-align: center;background:url("../images/common/button1.png");background-size:100%;}
+.alert .mainPart .buttonRight{position: absolute;width:100%;line-height: 6vh;height: 5.6vh;font-size: 2.5vh;width: 18vh;right:3vh;bottom:2.2vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;}
+.alert .mainPart .buttonMiddle2{position: absolute;width:100%;line-height: 5.6vh;height: 5.6vh;font-size: 2.5vh;width: 14vh;left:50%;transform: translateX(-50%);bottom:2.2vh;text-align: center;background:url("../images/common/button2.png") no-repeat;background-size:100% 100%;}
+.alert .mainPart .buttonLeft2{position: absolute;width:100%;line-height: 5.8vh;height: 5.8vh;font-size: 2.5vh;width: 14vh;left:1vh;bottom:2.2vh;text-align: center;background:url("../images/common/button1.png") no-repeat;background-size:100% 100%;}
+.alert .mainPart .buttonRight2{position: absolute;width:100%;line-height: 5.6vh;height: 5.6vh;font-size: 2.5vh;width: 14vh;right:1vh;bottom:2.2vh;text-align: center;background:url("../images/common/button2.png") no-repeat;background-size:100% 100%;}
+.alert .mainPart .backImg{position: absolute;width:100%;height:100%;border-radius: 1.5vh;border:0.1vh solid #c3a267;top:0;left:0;background: #c3a267;}
+.alert .mainPart .backImg .blackImg{position: absolute;width:40.6vh;height:25vh;border-radius: 1.5vh;border:0.1vh solid #2f2f2f;top:2.2vh;left:2.2vh;background: #2f2f2f;}
+.customLayer{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0,0,0,0.6);
+}
+.custom {
+    width: 38vh;
+    top: 50%;
+    left: 50%;
+    margin-top: -16vh;
+    margin-left: -19vh;
+    position: absolute;
+    z-index: 99;
+}
+.custom .messageBox {
+    width: 100%;
+    height: 100%;
+}
+.custom .messageBox .customTop {
+    height: 6vh;
+    background: url("../images/guest/custom_top.png") no-repeat;
+    background-size: 100% 100%;
+}
+.custom .messageBox .customMiddle {
+    width: 100%;
+    background: url("../images/guest/custom_middle.png");
+    background-size: 100% 100%;
+}
+.custom .messageBox .customMiddle .text {
+    text-align: center;
+    height: 1.6rem;
+    font-size: 20px;
+    padding-top: 0.5rem;
+    color: #634fa6;
+}
+.custom .messageBox .customMiddle .button {
+    position: relative;
+    height: 1rem;
+}
+.custom .messageBox .customMiddle .button img {
+    position: absolute;
+    width: 1.8rem;
+    left: 50%;
+    margin-left: -0.9rem;
+    height: 0.8rem;
+}
+.custom .messageBox .customBottom{
+    width: 100%;
+    height: 1vh;
+    background: url("../images/guest/custom_bottom.png") no-repeat;
+    background-size: 100% 100%;
+}

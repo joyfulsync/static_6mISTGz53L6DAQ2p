@@ -1,0 +1,424 @@
+.zhuonuo {
+    position: fixed;
+    right: 15%;
+    width: 3rem;
+    z-index: 99;
+    top: 1rem;
+}
+body.modal-show {position: fixed;width: 100%;}
+.rules-mask, .focus-mask, .share-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+.rules-mask .close, .focus-mask .close, .share-mask .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: -2rem;
+    margin-top: -1rem;
+    z-index: 1;
+    -webkit-transform: translate(-50%);
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    -o-transform: translate(-50%);
+    transform: translate(-50%);
+    width: 2rem;
+    height: 2rem;
+    background: url(../../fiesc/images/newgame/niuniu-close.png) no-repeat;
+    background-size: 100% 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.rules-mask .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 0.6rem;
+    width: 18rem;
+    height: 15rem;
+    background-color: rgba(255, 255, 255, .3);
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    -webkit-box-shadow: 0 0 1rem #153b72 inset;
+    -moz-box-shadow: 0 0 1rem #153b72 inset;
+    box-shadow: 0 0 1rem #153b72 inset;
+    text-align: center;
+}
+
+.rules-mask .content .niuniu-rules {
+    background-color: #fff2d8;
+    -webkit-box-shadow: 0 0 .0720rem #153b72 inset;
+    -moz-box-shadow: 0 0 .0720rem #153b72 inset;
+    box-shadow: 0 0 .0720rem #153b72 inset;
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    margin-bottom: .0720rem;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+
+.rules-mask .content .text {
+    display: inline-block;
+    height: .1536rem;
+    line-height: 1;
+    color: #ffffff;
+    font-size: .1152rem;
+}
+
+.rules-mask .content .flex-cont {
+    align-items: center;
+    padding: .0520rem 0 .0520rem .3168rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+    background: url(../../fiesc/images/newhome/niuniu-rules-line.png) no-repeat left bottom;
+    background-size: 100% auto;
+    border-bottom: solid 1px #ebc1a8;
+}
+
+.rules-mask .content .niuniu-rules::-webkit-scrollbar {
+    display: none;
+}
+
+.rules-mask .content .niuniu-rules .rules-text {
+    text-align: justify;
+    padding: 0 .0960rem 0 .310rem;
+    line-height: 2;
+    text-indent: -.2rem;
+}
+
+.rules-mask .content .flex-cont.rules-title {
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #333;
+    padding: .0480rem 0;
+}
+
+.rules-mask .content .flex-cont .name {
+    color: #666;
+    letter-spacing: .0240rem;
+}
+
+.rules-mask .content .flex-cont .flex-item {
+    color: #333;
+}
+
+.rules-mask .content .rules-item span {
+    display: inline-block;
+    width: 50%;
+    float: left;
+}
+.window-masks.return-index .container {
+    border: .0096rem solid #afb0b2;
+}
+
+.window-masks.return-index .main {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 2.3280rem;
+    min-height: 1.0560rem;
+    background-color: #69829e;
+    border: .0048rem solid #fff;
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    margin: .1200rem;
+    padding: .0960rem;
+    color: #fff;
+    font-size: .1728rem;
+    text-align: justify;
+}
+
+.window-masks.return-index .container .button {
+    position: relative;
+    text-align: center;
+    margin-bottom: .0960rem;
+}
+
+.window-masks.return-index .container .sure, .window-masks.return-index .container .cancel {
+    display: inline-block;
+    width: 1.1472rem;
+    height: .3312rem;
+    font-size: .1200rem;
+    line-height: 2.5;
+    text-align: center;
+    margin: 0 .0480rem;
+    color: #fff;
+}
+
+.window-masks.return-index .container .sure {
+    background: url(../../fiesc/images/newgame/common-button1.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.window-masks.return-index .container .cancel {
+    background: url(../../fiesc/images/newgame/common-button2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.window-masks .border-opacity-v2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: .0096rem solid rgba(234, 202, 137, .6);
+    -webkit-border-radius: .076rem;
+    -moz-border-radius: .076rem;
+    border-radius: .076rem;
+    background-color: rgba(35, 42, 68, .8);
+    padding: .0720rem;
+}
+
+.window-masks.return-index .border-opacity-v2 .main {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 2.7280rem;
+    min-height: 1.2096rem;
+    background-color: rgba(68, 68, 174, .5);
+    border: .0048rem solid #19256d;
+    -webkit-border-radius: .076rem;
+    -moz-border-radius: .076rem;
+    border-radius: .076rem;
+    margin: .1200rem;
+    padding: .0960rem;
+    color: #e8b24c;
+    font-size: .2304rem;
+    text-align: justify;
+}
+
+.window-masks.return-index .border-opacity-v2 .container {
+    border: none;
+}
+
+.window-masks.return-index .border-opacity-v2 .container .button {
+    position: relative;
+    text-align: center;
+    margin-bottom: .0960rem;
+    margin-top: .16rem;
+    overflow-y: hidden;
+}
+
+.window-masks.return-index .border-opacity-v2 .container .sure, .window-masks.return-index .border-opacity-v2 .container .cancel {
+    display: inline-block;
+    width: 1.0272rem;
+    height: .3696rem;
+    font-size: .15441rem;
+    line-height: .38rem;
+    text-align: center;
+    margin: 0 .086rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+.window-masks.return-index .border-opacity-v2 .container .sure {
+    background: url(../../fiesc/images/newgame/decIndex-button1.png) no-repeat;
+    background-size: 100% 100%;
+    -webkit-text-stroke-width: 0.0048rem;
+    -webkit-text-stroke-color: #14309f;
+}
+
+.window-masks.return-index .border-opacity-v2 .container .cancel {
+    background: url(../../fiesc/images/newgame/decIndex-button2.png) no-repeat;
+    background-size: 100% 100%;
+    -webkit-text-stroke-width: 0.0048rem;
+    -webkit-text-stroke-color: #9e5f0f;
+}
+.alertLayer {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 108;
+}
+.alert {
+    position: fixed;
+    /*width: 22rem;*/
+    /*height: 19rem;*/
+    top: 0;
+    left: 0;
+    z-index: 109;
+    color: #fff;
+    font-family: simHei;
+    border: 1px solid #000;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-border-radius: .480rem;
+    -moz-border-radius: .480rem;
+    border-radius: .480rem;
+    background: rgba(255, 255, 255, .3);
+}
+.alert .mainPart{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -19vh;
+    margin-left: -22.5vh;
+    width: 45vh;
+    height: 38vh;
+}
+.alert .alertBack {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .3);
+    opacity: 0.8;
+    position: absolute;
+}
+.alert .mainPart .backImg .mask-icon.mask-top {
+    top: .480rem;
+    left: .480rem;
+    background: url(../images/newgame/mask-top.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.alert .mainPart .backImg .mask-icon.mask-right {
+    top: .480rem;
+    right: .480rem;
+    background: url(../images/newgame/mask-right.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.alert .mainPart .backImg .mask-icon.mask-bottom {
+    bottom: .480rem;
+    right: .480rem;
+    background: url(../images/newgame/mask-bottom.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.alert .mainPart .backImg .mask-icon.mask-left {
+    bottom: .480rem;
+    left: .480rem;
+    background: url(../images/newgame/mask-left.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.chat-list-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+}
+.chat-list {
+    position: fixed;
+    right: 3.4rem;
+    bottom: 1rem;
+    z-index: 99;
+    width: 15.304rem;
+    border: 0.1rem solid #919191;
+    -webkit-border-radius: 0.6rem;
+    -moz-border-radius: 0.6rem;
+    border-radius: 0.6rem;
+    transition: display 1s;
+    padding: 0.6rem;
+    background-color: rgba(255, 255, 255, .2);
+}
+.chat-list-ul {
+    box-sizing: border-box;
+    width: 100%;
+    height: 17.2352rem;
+    overflow-x: hidden;
+    padding: 0.6rem 0.4rem 0.2rem 0.4rem;
+    background-color: #a7aeb2;
+    -webkit-border-radius: 0.6rem;
+    -moz-border-radius: 0.6rem;
+    border-radius: 0.6rem;
+}
+.chat-list li {
+    height: 2rem;
+    line-height: 2rem;
+    margin: 0 0 .40rem 0;
+    padding: 0 0.8rem;
+    color: #9a3a00;
+    font-size: 0.9rem;
+    text-align: left;
+    font-weight: bold;
+    -webkit-border-radius: .480rem;
+    -moz-border-radius: .480rem;
+    border-radius: .480rem;
+    background-color: #eff8fb;
+}
+.border-opacity {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 109;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: .0048rem solid #a7a7a6;
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    background-color: rgba(255, 255, 255, .3);
+    padding: .0720rem;
+}
+.border-opacity .alert .mainPart .backImg{
+    background: #d1e2f6;
+    border: 0.1vh solid transparent;
+    border-radius: 0.5vh;
+}
+.border-opacity .alert .mainPart .backImg .blackImg{
+    background: #69829e;
+    border: .0048rem solid #fff;
+    border-radius: 0.5vh;
+}
+.border-opacity .alert .mainPart .buttonLeft {
+    background: url("../images/newgame/common-button1.png") no-repeat;
+    background-size: 100% 100%;
+    font-size: 2vh;
+    line-height: 5.6vh;
+    height: 5.6vh;
+}
+.border-opacity .alert .mainPart .buttonRight,
+.border-opacity .alert .mainPart .buttonMiddle {
+    background: url("../images/newgame/common-button2.png") no-repeat;
+    background-size: 100% 100%;
+    font-size: 2vh;
+    line-height: 5.6vh;
+    height: 5.6vh;
+}
+.border-opacity .alert .mainPart .backImg:before {
+    content: '';
+    position: absolute;
+    top: .0480rem;
+    left: .0480rem;
+    width: calc(100% - 0.0960rem);
+    height: calc(100% - 0.0960rem);
+    border: .0144rem solid #95b8e1;
+    -webkit-border-radius: .024rem;
+    -moz-border-radius: .024rem;
+    border-radius: .024rem;
+    z-index: 0;
+}

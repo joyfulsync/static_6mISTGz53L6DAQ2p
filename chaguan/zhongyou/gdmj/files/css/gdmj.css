@@ -1,0 +1,464 @@
+*{padding: 0;margin:0;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);-webkit-backface-visibility: hidden;-webkit-overflow-scrolling: touch;}a {text-decoration: none;color: #fff;}ul {list-style: none;}input{border: none;outline:none}body{font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, Arial, sans-serif;cursor: default;}img{border: none;}
+.main{-webkit-transform: rotate(90deg);background: url("../images/majiang/table.jpg");position:absolute;}
+#prevent{position: fixed;top:0;left:0;width:100%;height:100%;z-index: 1;}
+.playGround{position: absolute;top:50%;left:50%;}
+
+.rightTop{position: absolute;right:8%;top:3%;text-align: center;color: #fff;font-family: simHei;font-size: 16px;}
+
+.roomCard{position: absolute;top:4%;left: 2.4%;z-index:90;height: 30px;}
+.roomCard img{height: 30px;position: absolute;left: 0;top:0;z-index: 9;}
+.roomCard .num{height: 18px;line-height: 18px;text-align: right;color:#fff;font-size:12px;margin-top: 5px;position:relative;}
+.roomCard .num .back{position: absolute;top:0;left: 0;width: 100%;height: 100%;background: #fff;opacity: .2;border-radius:8px;}
+.roomCard .num .text{position: relative;padding: 0 8px 0 28px;}
+
+.center{position: absolute;width:12.3%;height:19.9%;top:40%;left:44%;background: url("../images/majiang/center.jpg");background-size:100%;}
+.center .greenLight{position: absolute;width:96%;height:26%;background: url("../images/majiang/greenLight.png");background-size:100%;}
+.center .greenLight1{bottom:2%;left:2%;}
+.center .greenLight2{-webkit-transform: rotate(-90deg);top: 36.7%;left:36.5%;}
+.center .greenLight3{-webkit-transform: rotate(180deg);top:2%;left:2%;}
+.center .greenLight4{-webkit-transform: rotate(90deg);top:37%;left:-33.5%;}
+.center .back{position: absolute;width:100%;height:100%;top:0;left:0;text-align: center;background: url("../images/majiang/centerBack.png");background-size:100%;}
+.center .back .up{position: absolute;width:100%;top:28%;left:0;text-align: center;}
+.center .back .down{position: absolute;width:100%;height:16px;top:58%;left:0;text-align: center;line-height: 16px;font-size: 10px;color: #fff;}
+.center .back .down img{height: 12px;margin-right: 3px;vertical-align: sub;}
+
+
+.spbutton{position: absolute;width:4.5%;right: 2.5%;z-index: 82;}
+.spbutton img{position: relative;width:100%;}
+.spbutton .meng{position: absolute;width:100%;height:100%;top:0;left:0;}
+.spbutton .meng1{position: absolute;width:100%;height:100%;top:0;left:0;user-select:none;border-radius:40px;overflow: hidden;-webkit-transform:rotate(0deg) }
+.spbutton .meng1 .black{position: absolute;width:100%;height:0%;bottom:0;left:0;background: #000;opacity:.6;-webkit-animation:black 10s linear;}	
+@-webkit-keyframes black{
+	0%{height:100%;} 
+	100%{height:0%;}
+}
+
+.rullButton{top:4%;}
+
+.sphome{top:24%;}
+.spadd{top:14%;}
+.recordButton{top:56%;}
+.spaudio{top:70%;padding: 16px;margin-top: -16px;margin-right:-16px;user-select:none;}
+.spaudio img{user-select:none;}
+.spaudio1{top:70%;}
+
+
+.startBack{position: fixed;top:0;left:0;width:100%;height:100%;z-index: 113;display: none;}
+
+
+.playerPart .player{position: absolute;text-align: center;width: 7.5%;height:20%;}
+.playerPart .player .avatar{position: absolute;top:0;left:0;width: 100%;}
+.playerPart .player .avatar .quitBack{position: absolute;top:0;left:0;width: 100%;height:100%;background:#000;opacity: .6;}
+.playerPart .player .avatar .avatar1{position: relative;width: 100%;}
+.playerPart .player .avatar .avatar2{position: absolute;top:-1px;left:-1px;width: 100%;border-radius:4px;border:1px solid #000;}
+.playerPart .player .avatar .zhuang{position: absolute;top:-7px;right:-7px;border-radius:11px;height: 16px;width: 16px;text-align: center;line-height: 16px;color: #fff;background: #a90000;border:2px solid #fdd84f;font-size: 10px;z-index: 1;}
+.playerPart .player .info{position: absolute;top:65%;left:0;width: 100%;}
+.playerPart .player .info .name{position: absolute;width: 120%;top:0;left:-10%;font-size: 10px;line-height:10px;color: #fff;height: 10px;overflow: hidden;padding-top:2px;}
+.playerPart .player .info .score{position: absolute;top:14;left:0;width: 100%;border-radius:6px;background: #012c25;color: #feee36;font-size:10px;line-height:10px;height:10px;padding-top:2px; }
+
+.playerPart .player .ready{position: absolute;width: 60%;top:40%;z-index: 10;}
+.playerPart .player1 .ready{display: none;}
+.playerPart .player2 .ready{left:-110%;}
+.playerPart .player3 .ready{left:-110%;}
+.playerPart .player4 .ready{left:150%;}
+.playerPart .player1{top:59.3%;left:3.5%;}
+.playerPart .player2{top:34.3%;right:3.4%;;}
+.playerPart .player3{top:4%;right:18.8%;}
+.playerPart .player4{top:30.9%;left:3.5%;}
+
+
+.playerPart .player4{top:30.9%;left:3.5%;}
+
+
+.messageSay{position: absolute;height:3.2vh;font-size: 1.5vh;color: #fff;opacity: .75;line-height: 3.2vh;z-index: 82;margin-top: -3.2vh;}
+.messageSay .text{background: #060408;border-radius: .3vh;padding:0 1vh;}
+.messageSay .triangle{position: absolute;top:3vh;width:0;height:0;border-top: 6px solid #060408;}
+
+.messageSay1{top:58%;left: 2%;}
+.messageSay1 .triangle{left:20px;border-right: 12px solid transparent;}
+.messageSay2{top:33%;right: 3%;}
+.messageSay2 .triangle{right:20px;border-left: 12px solid transparent;}
+.messageSay3{top:5%;right: 22%;}
+.messageSay3 .triangle{right:20px;border-left: 12px solid transparent;}
+.messageSay4 {top: 29.5%;left: 2%;}
+.messageSay4 .triangle{left:20px;border-right: 12px solid transparent;}
+
+.playerPart .colorBorder{position: absolute;width: 100%;height: 100%;border:2px solid #df0000;border-radius:5px;top:-2px;left:-2px;}
+.playerPart .colorBorder .backColor{background:#df0000;opacity:0.55;height:100%;position: absolute;bottom:0;left:0;width:100%;}
+@keyframes mycolor1{0% {border-color: #04c120;}50% {border-color: #ffff3c;}100% {border-color: #df0000;}}
+@-webkit-keyframes mycolor1 {0% {border-color: #04c120;}50% {border-color: #ffff3c;}100% {border-color: #df0000;}}
+@keyframes mycolor2{0% {background:#04c120;height: 0;}50% {background:#ffff3c;}100% {background:#df0000;height: 100%;}}
+@-webkit-keyframes mycolor2{0% {background:#04c120;height: 0;}50% {background:#ffff3c;}100% {background:#df0000;height: 100%;}}
+
+
+.wordShow img{position: absolute;width: 10%;z-index: 50;opacity: 0;}
+/*
+.wordShow .gangScore{position: absolute;width: 20%;z-index: 50;text-align: center;margin-top: 4%;-webkit-animation:gangScore 2.7s;opacity: 0;margin-left: -5%;}*/
+.wordShow .gangScore{position: absolute;width: 20%;z-index: 50;text-align: center;margin-top: 4%;opacity: 1;margin-left: -5%;}
+.wordShow .gangScore a{font-family:'Helvetica 微软雅黑';font-size: 28px;font-weight: bold;}
+@-webkit-keyframes gangScore{0%{opacity: 0;-webkit-transform: rotateX(360deg);}25%{opacity: 1;-webkit-transform: rotateX(0deg);}90%{opacity: 1;margin-top: 4%;}100%{opacity: 0;margin-top: -4%;}}
+.wordShow .animate{-webkit-animation:animate 1.8s;}
+.wordShow .animate1{z-index: 49;-webkit-animation:animate1 .5s;}
+.wordShow .zi1{top:60%;left:45%;}
+.wordShow .zi2{top:30%;left:75%;}
+.wordShow .zi3{top:13%;left:45%;}
+.wordShow .zi4{top:30%;left:17%;}
+.wordShow .gangScore1{top:60%;left:32%;}
+.wordShow .gangScore2{top:40%;left:75%;}
+.wordShow .gangScore3{top:13%;left:32%;}
+.wordShow .gangScore4{top:40%;left:17%;}
+@-webkit-keyframes animate{
+	0%{width:16%;margin-top: -2.7%;margin-left:-3%;opacity: 1;} 
+	12%{width:8%;margin-top: 0.9%;margin-left:1%;}
+	20%{width:10%;margin-top: 0%;margin-left:0%;}
+	65%{width:10%;margin-top: 0%;margin-left:0%;opacity: 1;}
+	100%{width:22%;margin-top: -5.4%;margin-left:-6%;opacity: 0;}}
+@-webkit-keyframes animate1{
+	0%{width:24%;margin-top: -6.3%;margin-left:-7%;opacity: .6;} 
+	100%{width:6%;margin-top: 1.8%;margin-left:2%;opacity: .6;}
+}
+
+.readyBox{position: fixed;width:100%;height:100%;top:0%;left:0%;z-index: 40;font-size: 16px;font-family: simHei;}
+.readyBox .back{width: 100%;height:100%;background: #000;opacity:0.4;position: absolute;}
+.readyBox .blueBack{width: 400px;position: absolute;left: 50%;height: 280px;top:50%;margin-top: -140px;margin-left: -200px;}
+.readyBox .blueBack .imgBack{width: 100%;position: absolute;left: 0;height: 100%;top:0;}
+.readyBox .blueBack .infoPart{width:380px;position: absolute;left: 9px;height: 214px;top:10px;background:#152654;border:1px solid #227cd1;border-radius:3px;}
+.readyBox .blueBack .infoPart .rule{position: absolute;top:0;width: 100%;background: #061335;left:0;height: 50px;color: #89e3fd;line-height: 25px;padding: 3px 0;}	
+.readyBox .blueBack .infoPart .rule .guize{height: 56px;width: 60px;text-align: center;}	
+.readyBox .blueBack .infoPart .rule div{float: left;}	
+.readyBox .blueBack .infoPart .position{position: absolute;height: 158px;top:60px;width: 100%;left:0;}	
+.readyBox .blueBack .infoPart .positionList{position: relative;height: 36px;padding: 4px 0;background: #b5cfea;margin-top: 5px;}	
+.readyBox .blueBack .infoPart .positionList img{height: 34px;width:34px;float:left;margin-left: 6px;border-radius:2px;border:1px solid #4d5875;}	
+.readyBox .blueBack .infoPart .positionList div{float:left;line-height: 36px;overflow: hidden;height: 36px;color:#1e1045;}	
+.readyBox .blueBack .infoPart .positionList .name{margin-left: 5px;width:75px;}	
+.readyBox .blueBack .ready01{position: absolute;width: 120px;bottom:10px;left:50%;margin-left:-60px;text-align: center;line-height:36px;color: #fff;font-size:18px;}	
+.readyBox .blueBack .ready01 img{width: 120px;height: 36px;position: absolute;top:0;left:0;}	
+.readyBox .blueBack .ready02{width: 48px;height: 24px;position: absolute;bottom:16px;left:50%;margin-left: -30px;}	
+
+
+.outer{box-shadow: 1px 1px 0px #666;}
+.mine .ready {position:absolute;left:0;top:75%;width: 100%;text-align: center;}
+.mine .ready .readyButton{width: 20%;position: relative;z-index: 2;}
+.mine .ready .isReady{width: 7%;z-index: 20;position: relative;}
+.mine .myCard{width: 100%;position:absolute;right:12%;top:80.5%;height:16%;}
+.mine .cardNew{position: absolute;right: 4%;top:80.5%;-webkit-animation:cardNew1 .7s linear;z-index: 51;width: 6%}
+.mine .cardNew1{position: absolute;right: 4%;top:80.5%;z-index: 51;width: 6%}
+
+@-webkit-keyframes cardNew1{0% {margin-top:-8%;-webkit-transform: rotate(-20deg)} 50% {margin-top:-8%;-webkit-transform: rotate(0deg)} 100%{margin-top:0;}}
+.mine .isSelect{margin-top: -1.5%;}
+.mine .myCard .isSelect{margin-top: -30%;}
+
+.mine .myCard .hide{opacity: 0;}
+.mine .myCard .card{width: 6%;float: right;position: relative;z-index: 2;}
+.mine .myCard .endCard{width: 6%;float: right;position: relative;}
+.mine .outer{width: 100%;position: relative;}
+.mine .cardNew .inner,.mine .myCard .card .inner,.mine .operation .card .inner{height: 70%;position: absolute;top:25%;left: 5%;width:90%;}
+.mine .cardNew .lai,.mine .myCard .card .lai{height: 36%;position: absolute;top:15%;right: 0%;width:60%;}
+.mine .rotate{-webkit-transform: rotate(-20deg);-webkit-animation:rotate .3s linear;}
+@-webkit-keyframes rotate{from {-webkit-transform: rotate(0deg);} to{-webkit-transform: rotate(-20deg)}}
+.mine .reRotate{-webkit-transform: rotate(0deg);-webkit-animation:reRotate .3s linear;}
+@-webkit-keyframes reRotate{from {-webkit-transform: rotate(-20deg);} to{-webkit-transform: rotate(0deg)}}
+
+.mine .pengGang .card{width:5.5%;position: absolute;top:82%;left: 2%;}
+.mine .pengGang .cardUp{position: absolute;width:5.5%;top:79.2%;left: 2%;}
+.mine .pengGang .inner,.mine .myCard .endCard .inner,.mine .cardNew1 .inner{height: 70%;position: absolute;top:6%;left: 5%;width:90%;}
+.mine .myCard .endCard .lai,.mine .cardNew1 .lai{height:36%;position: absolute;top:0%;right: 0%;width:60%;}
+
+
+.mine .operation{position: absolute;right: 9%;height: 18%;top: 60%;width: 75%;z-index: 60;}
+.mine .operation .card{position: absolute;width:10%;right: 28%;top: -120%;}
+.mine .operation .bian{float: right;height:100%;opacity: 0.6;}
+.mine .operation .button{float: right;height:100%;position: relative;width: 16%;text-align: center;}
+.mine .operation .button .text{position: absolute;height: 80%;left: 10%;top:8%;}
+.mine .operation .button .text1{position: absolute;height: 108%;left: 2%;top:-8%;}
+.mine .operation .button .textGuo{position: absolute;height: 60%;left: 34%;top:18%;}
+.mine .operation .button .quan{height:100%;position: relative;}
+.mine .operation .button .quanGuo{height:75%;position: relative;margin-top: 12%;margin-left: 20%;}
+.mine .operation .button .back{position: absolute;height: 100%;left: 0;top: 0;width: 100%;background: #000;opacity: 0.6;}
+
+
+.others .player2 .cardNew{right:13.5%;width: 1.8%;position: absolute;-webkit-animation:cardNew2 .3s linear;margin-top:-3%;}
+.others .player2 .cardNew1{left: 83%;width: 3.9%;position: absolute;margin-top:-3%;}
+.others .player2 .endCard{left: 83%;width: 3.9%;position: absolute;}
+.others .player2 .card{right:13.5%;width: 1.8%;position: absolute;}
+.others .player2 .pengGang .card0{position: absolute;left: 83%;top: 64%;width:3.9%;}
+.others .player2 .pengGang .cardUp{position: absolute;left: 83%;top: 64%;width: 3.9%;}
+.others .player2 .pengGang .inner,.others .player2 .endCard .inner,.others .player2 .cardNew1 .inner{height:100%;position: absolute;top:-12%;left: 24%;width:60%;-webkit-transform: rotate(-90deg);}
+.others .player2 .endCard .lai,.others .player2 .cardNew1 .lai{height:50%;position: absolute;top:0;right: 59%;width:45%;-webkit-transform: rotate(-90deg);}
+@-webkit-keyframes cardNew2{from {margin-top:-5%;} to{margin-top:-3%;}}
+
+.others .player3 .cardNew{width: 3.55%;position: absolute;left:-4.5%;-webkit-animation:cardNew3 .3s linear;left:22.5%;top:8.6%;}
+.others .player3 .cardNew1{width: 3.55%;position: absolute;left:-4.5%;left:22.5%;top:10.6%;}
+.others .player3 .endCard{width: 3.55%;position: absolute;left:22.5%;top:10.6%;}
+.others .player3 .card{width: 3.55%;position: absolute;left:22.5%;top:8.6%;}
+.others .player3 .pengGang .card{width: 3.3%;position: absolute;top:10.6%;left: 62.5%;}
+.others .player3 .pengGang .cardUp{position: absolute;width: 3.3%;top:9%;left: 62.5%;}
+.others .player3 .pengGang .inner,.others .player3 .endCard .inner,.others .player3 .cardNew1 .inner{height: 70%;position: absolute;top:6%;left: 5%;width:90%;}
+.others .player3 .endCard .lai,.others .player3 .cardNew1 .lai{height:36%;position: absolute;top:0%;right: 0%;width:60%;}
+@-webkit-keyframes cardNew3{from {margin-top:-2%;} to{margin-top:0;}}
+
+
+.others .player4 .cardNew{width: 1.8%;position: absolute;left:13.5%;-webkit-animation:cardNew4 .3s linear;margin-top:3%;z-index: 21;}
+.others .player4 .cardNew1{width: 3.9%;position: absolute;left:12.5%;margin-top:3%;z-index: 21;}
+.others .player4 .card{width: 1.8%;position: absolute;left:13.5%;}	
+.others .player4 .endCard{left:12.5%;width: 3.9%;position: absolute;}
+.others .player4 .pengGang .card0{position: absolute;left:12.5%;top:10%;width:3.9%;}
+.others .player4 .pengGang .cardUp{position: absolute;left:12.5%;top:10%;width: 3.9%;}
+.others .player4 .pengGang .inner,.others .player4 .endCard .inner,.others .player4 .cardNew1 .inner{height:100%;position: absolute;top:-12%;left: 24%;width:60%;-webkit-transform: rotate(90deg);}
+.others .player4 .endCard .lai,.others .player4 .cardNew1 .lai{height:50%;position: absolute;top:28%;left: 55%;width:45%;-webkit-transform: rotate(90deg);}
+.others .outer{width: 100%;position: relative;}
+@-webkit-keyframes cardNew4{from {margin-top:1%;} to{margin-top:3%;}}
+.discard{display: none;}
+.cardList .player1 .card,.currentCard .player0{width: 3.1%;position: absolute;top:64.3%;left: 31.5%;}
+.cardList .player1 .discard{position: absolute;top:64.3%;left: 31.5%;-webkit-animation:discard1 .55s;z-index: 31;width: 3.1%;}
+.cardList .player1 .inner,.currentCard .player0 .inner{height: 70%;position: absolute;top:3%;left: 5%;width:90%;}
+@-webkit-keyframes discard1{0%{margin-top: 0;margin-left: 11.5%;width: 14%;opacity:.6;}40%{margin-top: -10%;margin-left: 13.5%;width: 10%;opacity:1}60%{margin-top: -10%;margin-left: 13.5%;width: 10%;opacity:1}}
+
+.cardList .player2 .card,.currentCard .player1{top:69%;left: 73.3%;width: 3.9%;position: absolute;}
+.cardList .player2 .discard{position: absolute;top:69%;left: 73.3%;width: 3.9%;-webkit-animation:discard2 .3s;}
+.cardList .player2 .inner,.currentCard .player1 .inner{height:100%;position: absolute;top:-12%;left: 24%;width:60%;-webkit-transform: rotate(-90deg);}
+@-webkit-keyframes discard2{from{margin-top: -28%;margin-left: 9%;} }
+
+.cardList .player3 .card,.currentCard .player2{width: 3.1%;position: absolute;bottom:64.3%;right: 31.5%;}
+.cardList .player3 .discard{position: absolute;bottom:64.3%;right: 31.5%;width: 6%;z-index: 3;-webkit-animation:discard3 .3s;}
+.cardList .player3 .outer{box-shadow: 0px 1px 1px #666;}
+.cardList .player3 .inner,.currentCard .player2 .inner{height: 70%;position: absolute;top:6%;left: 5%;width:90%;}
+@-webkit-keyframes discard3{from{margin-bottom: 10%;margin-right: 46%;} }
+
+.cardList .player4 .card,.currentCard .player3{top:23%;left: 26.7%;width: 3.9%;position: absolute;}
+.cardList .player4 .discard{position: absolute;top:23%;left: 26.7%;width: 3.9%;-webkit-animation:discard4 .3s;}
+.cardList .player4 .inner,.currentCard .player3 .inner{height:100%;position: absolute;top:-12%;left: 24%;width:60%;-webkit-transform: rotate(90deg);}
+@-webkit-keyframes discard4{from{margin-top: 26%;margin-left: -13%;} }
+
+.cardList .outer,.currentCard .outer{width: 100%;position: relative;}
+.currentCard .currentSign{width:20px;position: absolute;margin-left:-10px;left: 50%;margin-top: -25px;top:0}
+/*@-webkit-keyframes currentSign{0%,100% {margin-top: -15px;} 50%{margin-top: -25px;}}*/
+
+
+/*切图 结束 翻鬼牌*/
+.digital{background: url("../images/majiang/0_9.png");background-size:144px 20px;height:20px;width:14px;position: absolute;}	
+.digital1{background-position:-14px 0;}	
+.digital2{background-position:-28px 0; }	
+.digital3{background-position:-41px 0; }	
+.digital4{background-position:-56px 0; }	
+.digital5{background-position:-69px 0; }	
+.digital6{background-position:-83px 0; }	
+.digital7{background-position:-98px 0; }	
+.digital8{background-position:-112px 0; }	
+.digital9{background-position:-126px 0; }	
+.digital0{background-position:0 0; }
+.digital10{display: none;}	
+
+.endMa{position: absolute;left:0;top:0;width:100%;height:100%;position: absolute;z-index: 61;}
+.endMa .back{left:0;top:0;width:100%;height:100%;background:#000;opacity: .6;position: absolute;}
+.endMa .title{left:42%;top:15%;width:16%;position: absolute;}
+.endMa .beishu{left:54%;top:57%;position: absolute;font-family:'Helvetica 微软雅黑';font-size: 44px;font-weight: bold;color: #fedb4d;text-shadow: 2px 2px 2px #9c3600;-webkit-animation:beishu .6s linear;width: 20%;text-align:center;line-height: 60px;margin-top: -30px;}
+@-webkit-keyframes beishu{
+	0% {opacity: 0;} 
+	100%{opacity: 1;}
+}
+
+
+.endMa .card{left:27.5%;top:34%;width:9%;position: absolute;-webkit-animation:fadeIn1 .6s linear;}
+.endMa .card .animate{width: 90%;position: absolute;left: 5%;margin-top: 3px;}
+.endMa .card .animate .outer{width: 100%;position: relative;box-shadow:none;}
+.endMa .card .animate .inner{height: 70%;position: absolute;top:27%;left: 5%;width:90%;}
+.endMa .card .backInner{left:0;top:0;width:100%;height:101%;background:#000;opacity: .6;position: absolute;border-radius:4px;-webkit-animation:fadeIn .6s linear;}
+.endMa .card .lightInner{left:4%;top:2%;width:94%;height:96%;position: absolute;border-radius:6px;border:3px solid #ffdb14;margin-left: -3px;margin-top:-3px;box-shadow:0 0 16px 4px #ff2f2f;-webkit-animation:fadeIn .6s linear;}
+.endMa .card .lightOuter{left:4%;top:2%;width:94%;height:96%;position: absolute;border-radius:6px;border:3px solid #ffdb14;margin-left: -3px;margin-top:-3px;box-shadow:0 0 16px 4px #ff2f2f;-webkit-animation:fadeIn .6s linear;}
+
+.endMa .card .rotatelight{left:-187%;top:-93%;width:474%;height:293%;position: absolute;-webkit-animation:rotatelight 3.1s linear;}
+@-webkit-keyframes rotatelight{
+	0% {left:-306%;top:-167%;width:712%;height:440%;opacity: 0;} 
+	4% {opacity: .8;} 
+	11% {left:-306%;top:-167%;width:712%;height:440%;} 
+	18% {-webkit-transform: rotate(0deg);left:-187%;top:-93%;width:474%;height:293%;} 
+	94%{opacity: .8;}
+	100%{-webkit-transform: rotate(200deg);opacity: 0;}
+}
+@-webkit-keyframes fadeIn{from {opacity: 0;} to{opacity: .6;}}
+@-webkit-keyframes fadeIn1{from {opacity: 0;} to{opacity: 1;}}
+.endMa .baozha{left:44%;top:40%;width:12%;position: absolute;-webkit-animation:fadeIn1 .6s linear;}
+
+.fanguipai .guipaifront{left:47%;top:40%;width:6%;position: absolute;}
+.fanguipai .outer{width: 100%;position: relative;box-shadow:none;}
+.fanguipai .inner{height: 70%;position: absolute;top:27%;left: 5%;width:90%;}
+.fanguipai .title {color: #fff;width: 10%;position:absolute;top:64%;left:45%;text-align: center;font-family: simHei;}
+.fanguipai .guipai1 {left:45.5%;top:32%;width:9%;position: absolute;-webkit-animation:fadeIn1 .5s;}
+.fanguipai .lightRotate{left:-187%;top:-93%;width:474%;height:293%;position: absolute;-webkit-animation:rotatelight 2s linear;}
+.fanguipai .guipai2{left:5.1%;top:14.3%;width:3%;position: absolute;-webkit-animation:guipai2 0.5s;}
+.fanguipai .guipai3{left:5.1%;top:14.3%;width:3%;position: absolute;background: #fff;height:6.5%;border-radius: 2px;}
+.fanguipai .guipai3 .lai{height:50%;position: absolute;top:0%;right: 0%;width:70%;}
+.fanguipai .guipai2Back{left:3.6%;top:12.8%;width:6%;position: absolute;background: #000;opacity: .6;height:9.6%;border-radius:30px;border:1px solid #ffdb14;margin-top:-1px;margin-left:-1px;}
+@-webkit-keyframes guipai2{
+	0% {left:45.5%;top:32%;width:9%;} 
+	100%{left:5.1%;top:14%;width:3%;}
+}
+.donghua{}
+.donghua1{-webkit-animation:donghua 4s linear;}
+@-webkit-keyframes donghua{
+	0% {-webkit-transform: rotate(0deg);} 
+	100%{-webkit-transform: rotate(0.1deg);}
+}
+
+/*<!--建房 规则-->*/
+.createRoom{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 108;}	
+.createRoom .createRoomBack{width: 100%;height:100%;background: #000;opacity:0.6;}	
+.createRoom .mainPart{width: 440px;height:260px;top:44%;left:50%;margin-top:-130px;margin-left: -220px;position: absolute;}	
+.createRoom .mainPart .createB{width: 100%;height:100%;top:0%;left:0%;position: absolute;background:#0057a1;border:1px solid #054884;border-radius:10px; }	
+.createRoom .mainPart .createTitle{position:relative;height:36px;text-align: center;}	
+.createRoom .mainPart .createTitle img{position:relative;height:20px;margin-top: 8px;}	
+.createRoom .mainPart .cancelCreate{width: 36px;height:36px;top:-16px;right:-16px;position: absolute;}	
+.createRoom .mainPart .createCommit{position: absolute;line-height: 36px;height: 36px;font-size: 18px;width: 118px;left:50%;margin-left:-59px;bottom:-55px;text-align: center;background:url("../images/majiang/rank_btn1.png");background-size:100%;color: #fff;}	
+.createRoom .mainPart .blueBack{width: 420px;height: 210px;background:#152654;border:1px solid #054884;border-radius:4px;margin:0 auto;position: relative; }
+.createRoom .mainPart .blueBack .selectPart{width:100%;margin-top:4px;line-height:36px;font-size:14px;position: relative;color:#1d1045;background:#b5ceea;border-radius:4px;font-family:simHei; }
+.createRoom .mainPart .blueBack .selectPart .selectTitle{float: left;width:55px;text-align: right; }
+.createRoom .mainPart .blueBack .selectPart .selectList{float: left; }
+.createRoom .mainPart .blueBack .selectPart .selectList .selectItem{float: left;position:relative;margin-left:35px; }
+.createRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectBox{float: left;height:14px;width:14px;border:1px solid #1d1045;border-radius:2px;background:#78899d;margin-top:9px;position: relative; }
+.createRoom .mainPart .blueBack .selectPart .selectList .selectItem img{position: absolute;width: 20px;height:20px;left: 0;top:2px;}
+.createRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectText{float: left;margin-left: 5px;}
+
+
+/*<!-- 战绩  -->*/
+.record{position: fixed;top:0;left:0;height:100%;width:100%; z-index: 108;}	
+.record .recordBack{position: fixed;top:0;left:0;height:100%;width:100%;background: #0d0a12;opacity:.7;}	
+.record .leftLine{position: fixed;left: 10%;margin-left:20px;height:100%;width: 0;border-left:1px solid #ecb700;}	
+.record .mainPart{position: relative;margin-left:10%;width:90%;height:100%;overflow: auto;}	
+.record .mainPart .recordList{position: relative;margin-left: 40px;margin-top: 20px;}	
+.record .mainPart .recordList .recordTime{color:#ecb700;font-size: 14px;}	
+.record .mainPart .recordList .yellowPoint{position: absolute;width:30px;height:30px;top:10px;left:-35px; }	
+.record .mainPart .recordList .yellowPoint .point{background:#ecb700;position: absolute;height:6px;width:6px;border-radius:3px;top:12px;left:12px; }	
+
+.record .mainPart .recordList .recordInfo{background:#cfced0;position: relative;width:80%;border-radius:6px;margin-top:5px;padding:5px 15px; }	
+.record .mainPart .recordList .recordInfo .recordItem{height:40px;font-family:simHei; border-top:1px solid #ababab;line-height: 40px;font-size: 16px;}	
+.record .mainPart .recordList .recordInfo .borderNone{border: none;}	
+.record .mainPart .recordList .recordInfo .recordItem .name{float: left;height: 40px;width:120px;overflow: hidden;margin-left: 15px;}	
+.record .mainPart .recordList .recordInfo .recordItem .score{float: right;width:80px;overflow: hidden;right: 15px;}	
+
+/*<!--alert invite ranking-->*/
+.invite{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;}
+.invite .inviteBack{width: 100%;height:100%;background: #000;opacity:0.8;position: absolute;}
+.invite .invite1{width: 80px;position: absolute; top:20px;right: 10px;}
+.invite .inviteText{margin: 0 auto;margin-top:60%;width:80%;line-height: 40px;font-size: 18px;color: #fff;font-family: simHei;position: relative;-webkit-transform: rotate(90deg);}
+.invite .inviteText .num{float: left;line-height:24px;height:24px;width:24px;text-align: center;border-radius:12px;background:#b42020;position: relative;margin: 8px 5px 0 0}
+.invite .inviteText img{vertical-align: middle;height: 28px;margin:0 3px;}
+.invite .inviteText .invite2{font-size:17px;color:#cdbc48; }
+
+
+.ranking{position: absolute;width: 200%;height:200%;top:0%;left:0%;z-index:0;display: none;}	
+.ranking .roundEndShow{display: none;}	
+.ranking .rankBack{width: 100%;height:100%;}	
+.ranking .rankText{position: absolute;top:18%;left: 5%;width:90%;}		
+.ranking .rankText .title{width: 100%;position:absolute;top:0;left:0;}	
+.ranking .rankText .time{text-align: center;margin-top: 26vw;;margin-bottom: 4vw;position: relative;}
+.ranking .rankText .time a{color:#fff;padding: 1vw 4vw;font-size:8vw;}
+.ranking .rankText .scoresItem{width:120vw;margin:0 auto;height:21vw;line-height:21vw;font-size:8vw;position: relative;margin-top: 1vw;color:#1d1144;}
+.ranking .rankText .backY{background:url("../images/majiang/rank_4.png");background-size:100%; }
+.ranking .rankText .backB{background:url("../images/majiang/rank_3.png");background-size:100%;}
+.ranking .rankText .scoresItem img{width: 18vw;position: absolute;top:0;left: 3vw;}
+.ranking .rankText .scoresItem .name{width: 40%;overflow: hidden;word-break: keep-all;white-space:nowrap;position: absolute;left: 22vw;top:0;}
+.ranking .rankText .scoresItem .currentScores{width:24%;text-align: left;position: absolute;right: 0;top:0;}
+
+.ranking  .button{position: absolute;width:60vw;top:21%;left: 50%;margin-left: -26vw;margin-top: 160vw;}
+
+/*.message{position: absolute;width: 100%;height:100%;z-index: 84;top:0;left:0;}	
+.message .messageBack{width: 100%;height:100%;position: absolute;top:0;left:0;}	
+.message .textPart{position: absolute;width: 240px;height:260px;bottom:53px;right:10px;padding:10px; }	
+.message .textPart .outline{position: absolute;background: #9799b1;opacity: 0.85;width: 98%;height:100%;border:2px solid #c6d3de;border-radius:10px;top:-4px;left: .5%;}
+	
+.message .textPart .textList {border:1px solid #c6d3de;position: relative;height:260px;overflow: auto;}
+.message .textPart .textList .textItem{width: 90%;height: 38px;line-height: 38px;font-size: 14px;background: #232627;border-bottom:1px solid #666;color:#fff;padding:0 5%;position: relative;font-family: simHei;}	*/
+
+.message{position: absolute;width: 100%;height:100%;z-index: 84;top:0;left:0;}	
+.message .messageBack{width: 100%;height:100%;position: absolute;top:0;left:0;}	
+.message .textPart{position: absolute;width: 240px;height:260px;bottom:53px;right:10px;padding:10px; }	
+.message .textPart .outline{position: absolute;background: #634fa6;opacity: 0.85;width: 98%;height:100%;border:2px solid #a684f2;border-radius:10px;top:-4px;left: .5%;}
+	
+.message .textPart .textList {border:1px solid #a684f2;position: relative;height:260px;overflow: auto;}
+.message .textPart .textList .textItem{width: 90%;height: 38px;line-height: 38px;font-size: 14px;background: #150e2d;border-bottom:1px solid #666;color:#fff;padding:0 5%;position: relative;font-family: simHei;}
+
+.invite{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;}
+.invite .inviteBack{width: 100%;height:100%;background: #000;opacity:0.8;position: absolute;}
+.invite .invite1{width: 80px;position: absolute; top:20px;right: 10px;}
+.invite .inviteText{margin: 0 auto;margin-top:60%;width:80%;line-height: 40px;font-size: 18px;color: #fff;font-family: simHei;position: relative;-webkit-transform: rotate(90deg);}
+.invite .inviteText .num{float: left;line-height:24px;height:24px;width:24px;text-align: center;border-radius:12px;background:#b42020;position: relative;margin: 8px 5px 0 0}
+.invite .inviteText img{vertical-align: middle;height: 28px;margin:0 3px;}
+.invite .inviteText .invite2{font-size:17px;color:#cdbc48; }
+
+
+.erweima{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;}
+.erweima .inviteBack{width: 100%;height:100%;background: #000;opacity:0.8;position: absolute;}
+.erweima .inviteText{margin: 0 auto;margin-top:30%;width:300px;line-height: 40px;font-size: 18px;color: #fff;font-family: simHei;position: relative;}
+.erweima .inviteText .invite1{width: 60px;position: absolute; top:240px;left: 140px;}
+
+.shop{position: absolute;width: 100%;height:100%;top:0;left:0;z-index: 111;}	
+.shop .shopBack{width: 100%;height:100%;background: #000;opacity:0.6;}	
+.shop .shopBody{width: 100%;position: absolute;top: 0;left:0;height: 100%;margin-top:60%; }	
+.shop .shopBody .shopReturn{width: 10%;position: absolute;bottom: 1%;left:5%;}	
+.shop .shopBody .shopBuy{width: 20%;position: absolute;bottom: 4%;left:40%;}	
+.shop .shopBody .shopGoods{width:18%;position: absolute;padding: 3px;top:42%;height:34.5%; }	
+.shop .shopBody .shopGoods .goodimg{width: 100%;border-radius: 10px;position: relative;}	
+.shop .shopBody .shopGoods .imgback{width:104%;position:absolute;left:-2%;top:2%;height:96%}	
+.shop .shopBody .shopGoods .title{position: absolute;top: 3;font-size: 14px;left: 0;width: 100%;text-align: center;color: #fff;}	
+.shop .shopBody .shopGoods .price{position: absolute;bottom: 3;font-size: 20px;left: 0;width: 100%;text-align: center;color: #f1c818;line-height: 36px;}
+.shop .shopBody .goodsBack{border:3px solid #fada23;padding: 0;border-radius: 14px;}
+.shop .shopBody .goodsBack .title{top: 0;}	
+.shop .shopBody .goodsBack .price{bottom: 0;}
+.shop .shopBody .goodsBack .background{position: absolute;top:0;left: 0;width:100%;height:100%;background:#fada23;opacity:.15; }
+.shop .shopBody .shopGoods1{left: 7%;}	
+.shop .shopBody .shopGoods2{left: 29%;}	
+.shop .shopBody .shopGoods3{left: 51%;}	
+.shop .shopBody .shopGoods4{left: 73%;}	
+
+.shop .shopLoading{width: 100%;position: absolute;left: 0;top:0;height: 100%;z-index: 9;}
+
+
+.roundPause{width: 808px;position: absolute;left:0;height: 623px;top:0;font-size:32px;}
+.roundPause .title{width: 100%;position: absolute;left: 0;top:0;}
+.roundPause .time{text-align: center;margin-top: 88px;position: relative;font-family: simHei;}
+.roundPause .time a{color:#522e0c;padding: 8px 24px;width: 400px;font-size: 28px;}
+.roundPause .infoPart{width:750px;position: absolute;left: 32px;height: 370px;top:118px;}
+.roundPause .infoPart .rule{position: relative;background: #615650;left:0;height: 40px;color: #fff;line-height: 40px;padding: 4px 0;text-align: center;margin-top: 12px;border-radius:6px 6px 0 0;margin-bottom: 4px;}
+.roundPause .infoPart .rule div{width: 20%;float:left;height: 40px;}	
+.roundPause .infoPart .positionList{position: relative;height: 68px;background: #f5e2a0;margin-top: 2px;text-align: center;line-height:68px;}	
+.roundPause .infoPart .positionList div{width: 20%;float:left;height: 70px;position: relative;}	
+.roundPause .infoPart .positionList div img{position: absolute;width: 70px;left: 4px;top: -9px;z-index: 2;}	
+.roundPause .infoPart .scoresItemWin{background:#b3e7f2;}
+.roundPause .button{position: absolute;width: 240px;bottom:16px;text-align: center;line-height:72px;color: #fff;font-size:36px;}
+.roundPause .button img{position: absolute;top:0;left:0;height:100%;width:100%;}
+.roundPause .button .text{position: relative;}
+.roundPause .buttonLeft{left:100px;}	
+.roundPause .buttonRight{right:100px;}			
+
+.roundPause1{width: 404px;position: absolute;left: 50%;height: 311px;top:50%;margin-top: -166px;margin-left: -200px;}
+.roundPause1 .playerStatus{position: absolute;width:30px;height:25px; }
+.roundPause1 .playerStatus img{width: 100%;}
+.roundPause1 .playerStatus1{top:100px;right:30px;}
+.roundPause1 .playerStatus2{top:134px;right:30px;}
+.roundPause1 .playerStatus3{top:169px;right:30px;}
+.roundPause1 .playerStatus4{top:204px;right:30px;}
+.roundPause1 .release{position: absolute;height: 31px;text-align: center;line-height:31px;color: #fff;font-size: 14px;bottom: 47px;width: 100%;left: 0;}	
+.roundPause1 .release a{color: #feed79;font-size: 16px;margin-left: 5px;}	
+.roundPause1 .button{position: absolute;width: 120px;bottom:8px;text-align: center;line-height:36px;color: #fff;font-size:18px;}
+.roundPause1 .button img{position: absolute;top:0;left:0;height:100%;width:100%;}
+.roundPause1 .button .text{position: relative;}
+.roundPause1 .buttonLeft{left:50px;}	
+.roundPause1 .buttonRight{right: 50px;}	
+
+.audioRoom{position: fixed;width: 100%;height:100%;top:0;left:0;z-index: 109;} 
+.audioRoom .audioRoomBack{width: 100%;height:100%;background: #000;opacity:0.6;}  
+.audioRoom .mainPart{width: 38vh;height:27vh;top:44%;left:50%;margin-top:-16vh;margin-left: -19vh;position: absolute;} 
+.audioRoom .mainPart .createB{width: 100%;height:100%;top:0%;left:0%;position: absolute;background:#634fa6;border:1px solid #a684f2;border-radius:10px; }  
+.audioRoom .mainPart .createTitle{position:relative;height:5vh;text-align: center;} 
+.audioRoom .mainPart .createTitle img{position:relative;height:2.6vh;margin-top: 1.2vh;}  
+.audioRoom .mainPart .cancelCreate{width: 5vh;height:5vh;top:-2.5vh;right:-2.5vh;position: absolute;}  
+.audioRoom .mainPart .createCommit{position: absolute;line-height: 5.5vh;height: 5.5vh;font-size: 2.5vh;width: 17vh;left:50%;margin-left:-8.5vh;bottom:-7vh;text-align: center;background:url("../images/common/button2.png");background-size:100%;color: #fff;}  
+.audioRoom .mainPart .blueBack{width: 35vh;height: 14vh;background:#111431;border:1px solid #a684f2;border-radius:4px;margin:0 auto;position: relative; }
+.audioRoom .mainPart .blueBack .selectPart{width:100%;margin-top:4px;line-height:36px;font-size:2.2vh;position: relative;color:#111431;background:#bbbff1;border-radius:0px;font-family:simHei; }
+.audioRoom .mainPart .blueBack .selectPart .selectTitle{float: left;width:13vh;text-align: right; }
+.audioRoom .mainPart .blueBack .selectPart .selectList{float: right; width: 20vh}
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem{float: left;position:relative;margin-left:25px; }
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectBox{float: left;height:2.2vh;width:2.2vh;border:1px solid #1d1045;border-radius:2px;background:#78899d;margin-top:0.7vh;position: relative; }
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem img{position: absolute;width: 2.8vh;height:2.8vh;left: 0;top:0;}
+.audioRoom .mainPart .blueBack .selectPart .selectList .selectItem .selectText{float: left;margin-left: 0.8vh;}

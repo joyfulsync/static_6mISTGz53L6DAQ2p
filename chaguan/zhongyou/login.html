@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>登陆</title>
+    <link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vant/2.12.5/index.css" />
+    <script src="./js/common/jquery-1.9.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/login/rem.js"></script>
+	   <script type="text/javascript" src="../ip.js"></script>
+    <script type="text/javascript" src="./js/login/vue_z.js"></script>
+    <script type="text/javascript" src="./js/login/vue-resource.min.js"></script>
+	
+     <script language=javascript src='./getSrc.js'></script>
+	 <!-- <script src="./js/common/common.js" charset="utf-8"></script> -->
+	 <script src="./js/login/header.js" charset="utf-8"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vant/2.12.5/vant.min.js"></script>
+	<script>
+        var return_url = window.localStorage.getItem('return_url');
+        if(typeof return_url !== "undefined" && return_url) {
+            window.localStorage.setItem('return_url', return_url);
+        }else{
+            return_url = 'http://' + window.location.host + '/';
+        }
+        var apiUrl = first_url + '/userapi/';
+    </script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, Arial, sans-serif;
+            cursor: default;
+            margin: 0 auto;
+            background-color: #f0f1f5;
+            height: 100%;
+            max-width: 768px;
+            color: #000;
+            font-size: 0.32rem;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        input {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #848484;
+        }
+
+        ul, li, h1, h2, dl, dt, dd, a, div, p, dd, dt, dl {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a, a:visited {
+            text-decoration: none;
+        }
+
+        img {
+            border: 0;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .f-cb:after {
+            display: block;
+            visibility: hidden;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            content: '.';
+        }
+
+        #app {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        .phoneFrame, .userFrame, .setPassword, .creatUser {
+            position: absolute;
+            z-index: 99;
+            width: 90%;
+            min-height: 300px;
+            top: 55%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -65%);
+            transform: translate(-50%, -65%);
+            background-color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            opacity: 1;
+            padding: 0.8rem 0 0.8rem 0;
+        }
+
+        .creatUser {
+            opacity: 0;
+            left: -50%;
+        }
+
+        .phoneFrame {
+            opacity: 0;
+            left: 150%;
+        }
+        .setPassword {
+            opacity: 0;
+            left: -150%;
+        }
+        .closeBtn {
+            position: absolute;
+            z-index: 99;
+            width: 0.8rem;
+            top: -3%;
+            left: 92%;
+            display: none;
+        }
+
+        .title {
+            font-size: 0.4rem;
+            padding-bottom: 0.5rem;
+            word-wrap: break-word;
+            word-break: break-all;
+            color: #000;
+            background-color: white;
+        }
+
+        .input input {
+            line-height:normal;
+            padding:10px 10px;
+            height:1rem;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 0.1rem;
+            border-color: rgb(240, 240, 240);
+            background-color: #fff;
+            font-size: 0.3rem;
+            -webkit-appearance: none;
+            background-color: rgb(240, 240, 240);
+            box-sizing: border-box;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .item {
+            margin: 0 auto 0.5rem auto;
+            width: 86%;
+        }
+
+        .item .label {
+            float: left;
+            color: #000;
+            width: 30%;
+            font-size: 0.32rem;
+            line-height: 1rem;
+        }
+
+        .item .input {
+            float: right;
+            width: 68%;
+        }
+
+        .enterBtn {
+            width: 90%;
+            line-height: 1.2rem;
+            margin: 0 auto;
+            border-radius: 0.1rem;
+            font-size: 0.36rem;
+            background-color: rgb(64, 112, 251);
+            color: #fff;
+            margin: 0.8rem auto 0 auto;
+        }
+
+        .phoneShowBtn,.setPasswordShowBtn {
+            width:48%;
+            float:right;
+            text-align: right;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+      .setPasswordShowBtn{
+          float:left;
+          text-align: left;
+       }
+        .backBtn {
+            width: 50%;
+            position: absolute;
+            left: 50%;
+            bottom: 5%;
+            margin-left: -25%;
+            opacity: 0;
+            text-align: center;
+            color: #fff;
+            font-size: 0.34rem;
+            line-height: 1.2rem;
+            border-radius: 0.1rem;
+            background-color: #6d7dd4;
+        }
+
+        .codeBtn {
+            width: 30%;
+            float: right;
+            background-color: rgb(64, 112, 251);
+            font-size: 0.28rem;
+            border-radius: 0.1rem;
+            line-height: 1rem;
+            color: white;
+        }
+
+        .codeBtn.cur {
+            background: #ccc;
+        }
+
+        .clearShowBtn {
+            margin-top: 2vh;
+            margin-right: 6vw;
+            width: 20vw;
+            float: right;
+            text-align: right;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+
+        .wxShowBtn {
+            margin-top: 2vh;
+            margin-right: 6vw;
+            width: 20vw;
+            float: left;
+            text-align: right;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+
+        .creatUserShowBtn {
+            margin-top: 2vh;
+            margin-right: 6vw;
+            width: 27vw;
+            float: left;
+            text-align: right;
+            font-size: 0.36rem;
+            color: rgb(64, 112, 251);
+            text-decoration: underline;
+        }
+
+        .preview-cover {
+          position: absolute;
+          bottom: 0;
+          box-sizing: border-box;
+          width: 100%;
+          padding: 4px;
+          color: #fff;
+          font-size: 12px;
+          text-align: center;
+          background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div id='app' style="display: none;">
+    <div class="userFrame">
+        <img src="fiesc/images/common/close.png" class='closeBtn'>
+        <div class="title">账号登录</div>
+
+        <div class='item f-cb'>
+            <div class='label'>账号：</div>
+            <div class='input'><input placeholder="输入手机号或账号" v-model="account"></div>
+        </div>
+
+        <div class='item f-cb'>
+            <div class='label'>密码：</div>
+            <div class='input'><input placeholder="输入6-18位英文或数字密钥" v-model="passWord"></div>
+        </div>
+		
+		<!-- <div v-show="isWeiXin()" class='item f-cb'>
+		    <div class='label'>密码：</div>
+		    <div class='input'><input placeholder="输入数字密钥" v-model="passWordWx"></div>
+		</div>
+ -->
+      
+      <div style='width:80%;margin:0 auto;' class='f-cb'>
+       <!-- <div class='setPasswordShowBtn' @click='setPasswordShowBtn'>设置密码</div> -->
+        <!-- <div class='phoneShowBtn' @click='phoneShowBtn'>手机登陆</div> -->
+      </div>
+        <!-- <div class='enterBtn' v-show="isWeiXin()" @click='enterWxBtn'>微信直接登陆</div> -->
+		<div class='enterBtn'  @click='enterBtn'>进入游戏</div>
+        <div class='wxShowBtn' @click='enterWxBtn' v-if="isWxBtn">微信进入</div>
+        <div class='creatUserShowBtn' @click='creatUserShowBtn' v-if="isCreat">账号注册</div>
+        <div class='clearShowBtn' @click='clearLogin'>清理缓存</div>
+    </div>
+
+    <div class='phoneFrame'>
+        <img src="fiesc/images/common/close.png" class='closeBtn'>
+        <div class="title">手机登录</div>
+
+        <div class='item f-cb'>
+            <div class='input' style='float:left;'><input placeholder="输入11位手机号" v-model="phoneNum"></div>
+            <div class='codeBtn' v-show="show" @click='codeBtn'>发送验证码</div>
+            <div class='codeBtn cur' v-show="!show" class="count">{{count}} s</div>
+        </div>
+        <div class='item f-cb'>
+            <div class='input' style='width:100%;'><input placeholder="输入验证码" v-model="codeNum"></div>
+        </div>
+        <div class='enterBtn' @click='enterBtn_phone'>进入游戏</div>
+    </div>
+  
+  
+    <div class='setPassword'>
+        <img src="fiesc/images/common/close.png" class='closeBtn'>
+        <div class="title">设置密码</div>
+
+        <div class='item f-cb'>
+            <div class='input' style='float:left;'><input placeholder="输入11位手机号" v-model="phoneNum"></div>
+            <div class='codeBtn' v-show="show" @click='codeBtn'>发送验证码</div>
+            <div class='codeBtn cur' v-show="!show" class="count">{{count}} s</div>
+        </div>
+        <div class='item f-cb'>
+            <div class='input' style='width:100%;'><input placeholder="输入验证码" v-model="codeNum"></div>
+        </div>
+        <div class='item f-cb'>
+            <div class='label'>登录密码：</div>
+            <div class='input'><input placeholder="登录密码" v-model="passWord_phone"></div>
+        </div>
+        <div class='item f-cb'>
+            <div class='label'>再次确认：</div>
+            <div class='input'><input placeholder="再次确认" v-model="passWord_phone_en"></div>
+        </div>
+
+        <div class='enterBtn' @click='enterBtn_phone2'>确认修改</div>
+    </div>
+
+    <div class="creatUser">
+        <img src="fiesc/images/common/close.png" class='closeBtn'>
+        <div class="title">账号注册</div>
+
+        <div class="item f-cb">
+            <van-uploader :after-read="Uploader" >
+                 <img width="50px" style="border-radius: 50%;" :src="avatar" alt="">
+                 <van-button icon="plus" type="info" size="mini" block>上传头像</van-button>
+            </van-uploader>
+        </div>
+        <div class="item f-cb">
+            <div class="label">用户名：</div>
+            <div class="input"><input placeholder="输入用户名" v-model="nickname2"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">账号：</div>
+            <div class="input"><input placeholder="输入账号" v-model="account2"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">设置密码：</div>
+            <div class="input"><input placeholder="设置登录密码" type="password" v-model="passWord_phone2"></div>
+        </div>
+        <div class="item f-cb">
+            <div class="label">密码确认：</div>
+            <div class="input"><input placeholder="确认登录密码" type="password" v-model="passWord_phone_en2"></div>
+        </div>
+
+        <div v-if="isShowTip" style="color: red;">{{tipText}}</div>
+        <div class="enterBtn" @click="enterBtn_phone2">注册</div>
+    </div>
+  
+  
+    <div class='backBtn' @click='backBtn'>返回</div>
+</div>
+<script>
+    const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+    const regex = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+    const emailReg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+            count: '',
+            timer: null,
+            account: '',
+            passWord: '',
+            phoneNum: '',
+            codeNum: '',
+            passWord_phone: '',
+            passWord_phone_en: '',
+            phoneNum1: '', //修改密码
+            codeNum1: '',
+            passWord_phone1: '',
+            passWord_phone_en1: '',
+            account2: '', //用户注册
+            nickname2: '',
+            phoneNum2: '',
+            codeNum2: '',
+            passWord_phone2: '',
+            passWord_phone_en2: '',
+            isShowTip: false,
+            tipText: '',
+            isWeixin: false,
+            acode: '',
+            wxUrl: '',
+            isCreat: false,
+            isWxBtn: true,
+            avatar: './fiesc/images/avatar.jpeg',
+            file: '',
+        },
+        created: function () {
+            if(window.localStorage.getItem('bowerlogin') == 1){
+                window.location.href = return_url;
+            }
+            if (this.isWeiXin()) {
+                this.isWeixin = true;
+            }
+            if(result_code != 0) {
+                this.acode = wx_key;
+                this.wxUrl = oos_url2;
+                if(result_code == 1 && this.isWeixin) {
+                    this.enterWxBtn();
+                    return;
+                }
+                else if(result_code == 3) {
+                    this.isCreat = true;
+                }
+                $("#app").show();
+            }else{
+                this.isWxBtn = false;
+                vant.Toast('获取信息失败，暂时无法使用微信登录！');
+            }
+        },
+        methods: {
+            createXHR: function () {
+                var XHR = [  //兼容不同浏览器和版本得创建函数数组
+                    function () { return new XMLHttpRequest () },
+                    function () { return new ActiveXObject ("Msxml2.XMLHTTP") },
+                    function () { return new ActiveXObject ("Msxml3.XMLHTTP") },
+                    function () { return new ActiveXObject ("Microsoft.XMLHTTP") }
+                ];
+                var xhr = null;
+                //尝试调用函数，如果成功则返回XMLHttpRequest对象，否则继续尝试
+                for (var i = 0; i < XHR.length; i ++) {
+                    try {
+                        xhr = XHR[i]();
+                    } catch(e) {
+                        continue  //如果发生异常，则继续下一个函数调用
+                    }
+                    break;  //如果成功，则中止循环
+                }
+                return xhr;  //返回对象实例
+            },
+            hall: function (url){
+                var xhr = this.createXHR();  //实例化XMLHttpRequest 对象
+                if(url.indexOf('?') == -1){
+                    url = url + '?h=' + scrName;
+                }else{
+                    url = url + '&h=' + scrName;
+                }
+                xhr.open("GET", url, false);  //建立连接，要求同步响应
+                xhr.setRequestHeader('Authorization', ' Bearer ' +  this.getWwid());
+                xhr.withCredentials = true;
+                xhr.send(null);  //发送请求
+                return JSON.parse(xhr.responseText);
+            },
+            wxlog: function (url){
+                var xhr = this.createXHR();  //实例化XMLHttpRequest 对象
+                if(url.indexOf('?') == -1){
+                    url = url + '?h=' + scrName;
+                }else{
+                    url = url + '?h=' + scrName;
+                }
+                xhr.open("GET", url, false);  //建立连接，要求同步响应
+                //xhr.setRequestHeader('Authorization', ' Bearer ' +  this.getWwid());
+                //xhr.withCredentials = true;
+                xhr.send(null);  //发送请求
+                //console.log(url);
+                //console.log(xhr.responseText);  //接收数据
+                //return {"result":1,"data":[],"result_message":"\u8bf7\u5148\u767b\u5f55"};
+                return JSON.parse(xhr.responseText);
+            },
+            getWwid: function (){
+               return window.localStorage.getItem("wwid");
+            },
+            setWwid: function (wwid){
+                window.localStorage.setItem("wwid", wwid);
+            },
+            phoneShowBtn: function () {
+                this.isShowTip=false;
+                $(".userFrame").animate({left: "-50%", opacity: "0"});
+                $(".phoneFrame").animate({left: "50%", opacity: "1"});
+                $(".setPassword").animate({left: "-50%", opacity: "0"});
+                $(".creatUser").animate({left: "-50%", opacity: "0"});
+                $('.backBtn').animate({opacity: "1"});
+            },
+            setPasswordShowBtn: function () {
+                this.isShowTip=false;
+                $(".userFrame").animate({left: "-50%", opacity: "0"});
+                $(".phoneFrame").animate({left: "-50%", opacity: "0"});
+                $(".setPassword").animate({left: "50%", opacity: "1"});
+                $(".creatUser").animate({left: "-50%", opacity: "0"});
+                $('.backBtn').animate({opacity: "1"});
+            },
+            creatUserShowBtn: function() {
+                this.isShowTip = false;
+                $(".userFrame").animate({left: "-50%", opacity: "0"});
+                $(".phoneFrame").animate({left: "-50%", opacity: "0"});
+                $(".setPassword").animate({left: "-50%", opacity: "0"});
+                $(".creatUser").animate({left: "50%", opacity: "1"});
+                $('.backBtn').animate({opacity: "1"});
+            },
+            backBtn: function () {
+                this.isShowTip=false;
+                $('.backBtn').animate({opacity: "0"});
+                $(".userFrame").animate({left: "50%", opacity: "1"});
+                $(".phoneFrame").animate({left: "150%", opacity: "0"});
+                $(".setPassword").animate({left: "-50%", opacity: "0"});
+                $(".creatUser").animate({left: "-50%", opacity: "0"});
+            },
+            Uploader: function (e) {
+                this.file = e.file;
+                this.avatar = e.content;
+            },
+            enterWxBtn: function () {
+                if(!this.isWxBtn) {
+                    vant.Toast('获取信息失败，暂时无法使用微信登录！');
+                }else{
+                    if(!return_url){
+                        return_url = "http://"+ window.location.host
+                    }
+                    var redirect_uri = this.wxUrl + '?rurl=' + return_url;
+                    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ this.acode +'&redirect_uri='+ encodeURI(redirect_uri) +'&response_type=code&scope=snsapi_userinfo#wechat_redirect';
+                }
+            },
+            login: function (account, passWord, callback) {
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'loginPwd',
+                    data: {'phone': account, 'password': passWord, 'hallName': scrName},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        callback(data);
+                    },
+                    error: function (jqXHR) {
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            login_code: function (phone, code, password, callback) {
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'loginSms',
+                    data: {'phone': phone, 'code': code, 'password': password, 'hallName': scrName},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        //console.log(data);
+                        callback(data);
+                    },
+                    error: function (jqXHR) {
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            getCode: function (phone, callback) {
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'getLoginSms',
+                    data: {'phone': phone, 'hallName': scrName},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        if (data.result == 1) {
+                            console.log('验证码成功');
+                        }
+                        callback(data);
+                    },
+                    error: function (jqXHR) {
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            enterBtn: function () {
+                if (this.account.length == 0) {
+                    alert('请输入账号');
+                    return;
+                }
+                if (this.passWord == '') {
+                    alert('请输入密码');
+                    return;
+                }
+                this.login(this.account, this.passWord, function (value) {
+                    //console.log(value);
+                    
+                    if (value.result == 1) {
+                        //console.log('登录成功');
+                        alert('登录成功');
+						window.localStorage.setItem('bowerlogin',1)
+                        var _return_url= data.return_url;
+                        var  _url;
+                      console.log(_return_url)
+                       console.log(_return_url.indexOf('?')>0);
+                        if(_return_url.indexOf('?')>0){
+                           _url = _return_url;
+                          window.location.replace(_url);
+                        }else{
+                          window.location.replace(return_url);
+                        }
+                        window.localStorage.removeItem('token');
+                        window.localStorage.setItem('token', value.data.wwid);
+                        window.localStorage.removeItem('wwid');
+                        window.localStorage.setItem('wwid', value.data.wwid);
+                        
+                    } else {
+                        alert(value.result_message);
+                    }
+                })
+            },
+            isWeiXin: function () {
+                  var ua = window.navigator.userAgent.toLowerCase();
+                  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                    return true; //是微信浏览器
+                  } else {
+                    return false; //其他设备
+                  }
+            },
+            enterBtn_phone: function () {
+                if (this.phoneNum.length != 11) {
+                    alert('请输入正确的手机格式');
+                    return;
+                }
+                if (this.codeNum == '') {
+                    alert('请输入验证码');
+                    return;
+                }
+                this.login_code(this.phoneNum, this.codeNum, this.passWord_phone_en, function (value) {
+                    console.log(value);
+                    if (value.result == 1) {
+                        alert('登录成功');
+                        window.localStorage.removeItem('wwid');
+                        window.localStorage.setItem('wwid', value.data.wwid);
+                       // window.location.replace('/?code='+value.data.code);
+                      var _return_url='<?php echo $return_url; ?>';
+                        var  _url;
+                        if(_return_url.indexOf('?')>0){
+                           _url = _return_url +'&code='+value.data.code;
+                          window.location.replace(_url);
+                        }else{
+                          window.location.replace('/?code='+value.data.code);
+                        }
+                      
+                    } else {
+                        alert(value.result_message);
+                    }
+                })
+            },
+            enterBtn_phone1: function () {
+                var that = this;
+                if (this.phoneNum.length != 11) {
+                    alert('请输入正确的手机格式');
+                    return;
+                }
+                if (this.codeNum == '') {
+                    alert('请输入验证码');
+                    return;
+                }
+                this.login_code(this.phoneNum, this.codeNum, this.passWord_phone_en, function (value) {
+                    console.log(value);
+                    if (value.result == 1) {
+                        alert('修改成功');
+                        //window.location.replace('/?code='+value.data.code);
+                        that.backBtn();
+                    } else {
+                        alert(value.result_message);
+                    }
+                })
+            },
+            enterBtn_phone2: function() { //用户注册
+                this.isShowTip = false;
+                this.tipText = '';
+                let that = this;
+   
+                if (this.nickname2.length = '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入用户名';
+                    return;
+                }
+
+                if (this.account2.length = '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入账号';
+                    return;
+                }
+
+                if (this.passWord_phone2 == '') {
+                    this.isShowTip = true;
+                    this.tipText = '请输入登陆密码';
+                    return;
+                }
+
+                if (!regex.test(this.passWord_phone2)) {
+                    this.isShowTip = true;
+                    this.tipText = '密码格式为字母加数字组合，长度为6-18位';
+                    return;
+                }
+                   
+                if (this.passWord_phone_en2 == '') {
+                    this.isShowTip = true;
+                    this.tipText = '请确登陆认密码';
+                    return;
+                }
+                if (this.passWord_phone2 != this.passWord_phone_en2) {
+                    this.isShowTip = true;
+                    this.tipText = '两次密码不一致';
+                    return;
+                }
+                if(!this.file) {
+                    this.isShowTip = true;
+                    this.tipText = '头像不能为空';
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("file", that.file); //加入文件对象
+                formData.append("account", that.account2);
+                formData.append("nickname", that.nickname2);
+                formData.append("password", that.passWord_phone_en2);
+                formData.append("h", scrName);
+                
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'reg',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "JSON",
+                    // xhrFields: {
+                    //     withCredentials: true
+                    // },
+                    // crossDomain: true,
+                    // async: false,
+                    success: function (data) {
+                        that.isShowTip=true;
+                        that.tipText=data.result_message;
+                        if (data.result == 1) {
+                            that.isShowTip=true;
+                            that.tipText='注册成功';
+                            window.localStorage.removeItem('token');
+                            window.localStorage.setItem('token', data.data.wwid);
+                            window.localStorage.removeItem('wwid');
+                            window.localStorage.setItem('wwid', data.data.wwid);
+                            window.localStorage.setItem('bowerlogin',1);
+                            var return_url = window.localStorage.getItem('return_url');
+                            if(typeof return_url === "undefined" || !return_url) {
+                                return_url = 'http://' + window.location.host + '/';
+                            }
+                            window.location.replace(return_url);
+                        } else {
+                            that.isShowTip = true;
+                            that.tipText = data.result_message;
+                        }
+                    },
+                    error: function (jqXHR) {
+                        that.isShowTip=true;
+                        that.tipText=jqXHR.result_message;
+                        console.log("Error: " + jqXHR.status);
+                    }
+                });
+            },
+            codeBtn: function () {
+                var that = this;
+                if (this.phoneNum.length != 11) {
+                    alert('请输入正确的手机格式');
+                    return;
+                }
+                this.getCode(this.phoneNum, function (value) {
+                    console.log(value);
+                    if (value.result == 1) {
+                        var time_c = 60;
+                        if (!that.timer) {
+                            that.count = time_c;
+                            that.show = false;
+                            that.timer = setInterval(function() {
+                                if(that.count > 0 && that.count <= time_c){
+                                    that.count--;
+                                }else{
+                                    that.show = true;
+                                    clearInterval(that.timer);
+                                    that.timer = null;
+                                }
+                            },1000);
+                        }
+                    } else {
+                        alert(value.result_message);
+                    }
+                })
+            },
+			clearLogin: function (){
+				  //清理缓存
+			    window.localStorage.removeItem('wwid');
+			    window.localStorage.removeItem('ws_ip');
+			    window.localStorage.removeItem('token');
+				window.localStorage.removeItem('bowerlogin');
+			    window.localStorage.clear();
+				// if(rurl){
+				// 	 window.location.href = './login.html'+'?return_url=='+ encodeURI(rurl);
+				// }else{
+				// 	 window.location.href = './login.html'+'?return_url=='+ encodeURI(window.location.host);
+				// }
+			    window.location.href = '/';
+			},
+        }
+    })
+</script>
+<script>
+    $(document).on('click', 'img', function(e){
+        e.preventDefault();
+    })
+</script>
+
+</body>
+</html>

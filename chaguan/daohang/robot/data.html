@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>进房管理系统</title>
+    <script src="/files/js/jq.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+        document.write('<script type="text/javascript" src="/files/js/extend.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+</head>
+    <script>
+        var return_url = window.location.protocol+"//"+window.location.host+""+window.location.pathname;
+        window.localStorage.setItem('return_url', return_url);
+        var obj = null;
+        if(DynLoading.isWeiXin()){
+            var code = DynLoading.getUrlParam("code");
+            if(code){
+                DynLoading.loginWx(code);
+            }
+        }
+        obj = DynLoading.hall(BaseUrl + '/robot/index');
+        if(obj.code == 0) {
+            DynLoading.gotoWx();
+        }
+        else if(obj.code != 1){
+            window.location.href = 'http://www.baidu.com';
+        }
+    </script>
+<style type="text/css">
+    .radio.inline, .checkbox.inline {
+        display: inline-block;
+        padding-top: 10px;
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .controls > .radio:first-child, .controls > .checkbox:first-child {
+        padding-top: 5px;
+    }
+
+    .radio, .checkbox {
+        min-height: 20px;
+        padding-left: 20px;
+    }
+
+    label, input, button, select, textarea {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 20px;
+    }
+
+    a {
+        font-size: 10px;
+        color: #F44336;
+    }
+
+    body {
+        text-align: center
+    }
+
+
+    .alertB {
+        position: fixed;
+        z-index: 9999999999999999999999999999;
+        width: 150px;
+        height: 150px;
+        top: 45%;
+        left: 50%;
+        margin-top: -75px;
+        margin-left: -75px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .alertB .alertBackgroundB {
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        opacity: 0.5;
+        background: #000;
+        height: 100%;
+        width: 100%;
+    }
+
+    .alertB img {
+        position: absolute;
+        top: 10px;
+        left: 29px;
+    }
+
+    .alertB .alertTextB {
+        position: absolute;
+        top: 100px;
+        width: 150px;
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        filter: alpha(opacity=95);
+        -moz-opacity: 0.95;
+        opacity: 0.95;
+    }
+</style>
+<body>
+
+<div onclick="javascript:location.reload();">
+    <img src="/files/images/refresh.png" style="z-index: 99999; top: 50vh; position: fixed; width: 6vh;right: 1vh;">
+</div>
+
+<div onclick="javascrtpt:window.location.href='/robot/index.html'">
+    <img src="/files/images/left.png"
+         style="z-index: 99999; top: 0vh; position: fixed; width: 6vh;left: 1vh;">
+</div>
+
+<h1 style="font-size:20px;" align="center">机器人进房模式设置</h1>
+<div class="control-group">
+    <div class="controls">
+        <label class="radio inline" for="status_yes">
+            <input type="radio" name="type" value="0" id="status_yes"/>手动进房模式
+        </label>
+        <label class="radio inline" for="status_no">
+            <input type="radio" name="type" value="1" id="status_no"/>自动进房模式
+        </label>
+    </div>
+    <br/>
+    <div id="index">
+        <a>上座率</a>
+        <input id="indexmun" type="num" name="index" value="0" maxlength="1" autocomplete="off"
+               style="width:20px;"/>
+        <a>0%</a>
+    </div>
+    <br/>
+    <a>1:手动进房模式，指定房间进入，并且可设置房间内信息。(手动模式胜率0允许机器人进房,胜率以手动设置界面为准)</a>
+    <br/>
+    <a>2:自动进房模式，房间内进入玩家，机器人即上线(自动进房模式请在机器人列表设置积分和赢率，胜率为0的不会进房)。</a>
+    <br/>
+    <a>3:自动模式下请输入上座率1-9，房间座位数百分比得数取整计算。</a>
+    <br/>
+    <br/>
+    <button style="color: #fff;background-color: #E91E63;border-radius: 4px;" type="button" onclick="modify()">确定</button>
+
+</div>
+
+
+<div id="msg" class="alertB" style="display: none;">
+    <div class="alertBackgroundB"></div>
+    <img id="d" src="/files/images/alert1.png" style="display: none">
+    <img id="x" src="/files/images/alert2.png" style="display: none;">
+    <div class="alertTextB"></div>
+</div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        JqExtends.post('/robot/index', {}, function(e){
+            if(e.code == 1) {
+                if (e.data.auto == 1) {
+                    $("#status_no").attr("checked","checked");
+                    $("#status_yes").removeAttr("checked");
+                    $('#indexmun').attr('value', e.data.robot_ratio);
+                    $("#index").css("display", "inline");
+                } else {
+                    $("#status_yes").attr("checked","checked");
+                    $("#status_no").removeAttr("checked");
+
+                    $("#index").css("display", "none");
+                }
+            }else{
+                JqExtends.showmsg('未授权，获取信息失败');
+            }
+        });
+
+        $("input[name=type]").each(function () {
+            $(this).click(function () {
+                var discount = $(this).val();
+                if (discount == "0") {
+                    $("#index").css("display", "none");
+                }
+                if (discount == "1") {
+                    $("#index").css("display", "inline");
+                }
+            });
+        });
+    });
+
+    function modify() {
+        var type = $('input:radio[name=type]:checked').val();
+        var value = $('#indexmun').val();
+        if (type == 1) {
+            if (value <= 0 || value > 9 || value == "") {
+                JqExtends.showmsg('上座率输入有误', 0);
+                return false;
+            }
+        }
+        JqExtends.config(type, value);
+    }
+</script>
+</html>
+
+<html>

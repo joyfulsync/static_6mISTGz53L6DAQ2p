@@ -1,0 +1,373 @@
+#loadings {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000 url("../images/common/new_loading.jpg") no-repeat 0 0 / 100% 100%;
+    z-index: 999;
+    font-size: 16px;
+}
+#loadings .mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.1);
+}
+#loadings .circular {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -55px;
+    margin-top: -95px;
+    width: 110px;
+    height: 110px;
+    background: url("../images/common/new_loading1.png") no-repeat 0 0 / 100% 100%;
+    -webkit-animation: circular 1s infinite linear;
+    -o-animation: circular 1s infinite linear;
+    animation: circular 1s infinite linear;
+}
+#loadings .rotate {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -28px;
+    margin-top: -68px;
+    width: 56px;
+    height: 56px;
+    -webkit-animation: rotate_load 4s infinite ease-in;
+    -o-animation: rotate_load 4s infinite ease-in;
+    animation: rotate_load 4s infinite ease-in;
+    background-image: url("../images/common/new_load.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+@-webkit-keyframes circular {
+    from {
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circular {
+    from {
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate_load {
+    0% {
+        background-position: 0 0;
+        -webkit-transform: rotateY(90deg);
+        -moz-transform: rotateY(90deg);
+        -ms-transform: rotateY(90deg);
+        -o-transform: rotateY(90deg);
+        transform: rotateY(90deg);
+    }
+    24% {
+        background-position: 0 0;
+        -webkit-transform: rotateY(270deg);
+        -moz-transform: rotateY(270deg);
+        -ms-transform: rotateY(270deg);
+        -o-transform: rotateY(270deg);
+        transform: rotateY(270deg);
+    }
+    25% {
+        background-position: -56px 0;
+        -webkit-transform: rotateY(270deg);
+        -moz-transform: rotateY(270deg);
+        -ms-transform: rotateY(270deg);
+        -o-transform: rotateY(270deg);
+        transform: rotateY(270deg);
+    }
+    49% {
+        background-position: -56px 0;
+        -webkit-transform: rotateY(450deg);
+        -moz-transform: rotateY(450deg);
+        -ms-transform: rotateY(450deg);
+        -o-transform: rotateY(450deg);
+        transform: rotateY(450deg);
+    }
+    50% {
+        background-position: -112px 0;
+        -webkit-transform: rotateY(450deg);
+        -moz-transform: rotateY(450deg);
+        -ms-transform: rotateY(450deg);
+        -o-transform: rotateY(450deg);
+        transform: rotateY(450deg);
+    }
+    74% {
+        background-position: -112px 0;
+        -webkit-transform: rotateY(630deg);
+        -moz-transform: rotateY(630deg);
+        -ms-transform: rotateY(630deg);
+        -o-transform: rotateY(630deg);
+        transform: rotateY(630deg);
+    }
+    75% {
+        background-position: -168px 0;
+        -webkit-transform: rotateY(630deg);
+        -moz-transform: rotateY(630deg);
+        -ms-transform: rotateY(630deg);
+        -o-transform: rotateY(630deg);
+        transform: rotateY(630deg);
+    }
+    100% {
+        background-position: -168px 0;
+        -webkit-transform: rotateY(810deg);
+        -moz-transform: rotateY(810deg);
+        -ms-transform: rotateY(810deg);
+        -o-transform: rotateY(810deg);
+        transform: rotateY(810deg);
+    }
+}
+
+@keyframes rotate_load {
+    0% {
+        background-position: 0 0;
+        -webkit-transform: rotateY(90deg);
+        -moz-transform: rotateY(90deg);
+        -ms-transform: rotateY(90deg);
+        -o-transform: rotateY(90deg);
+        transform: rotateY(90deg);
+    }
+    24% {
+        background-position: 0 0;
+        -webkit-transform: rotateY(270deg);
+        -moz-transform: rotateY(270deg);
+        -ms-transform: rotateY(270deg);
+        -o-transform: rotateY(270deg);
+        transform: rotateY(270deg);
+    }
+    25% {
+        background-position: -56px 0;
+        -webkit-transform: rotateY(270deg);
+        -moz-transform: rotateY(270deg);
+        -ms-transform: rotateY(270deg);
+        -o-transform: rotateY(270deg);
+        transform: rotateY(270deg);
+    }
+    49% {
+        background-position: -56px 0;
+        -webkit-transform: rotateY(450deg);
+        -moz-transform: rotateY(450deg);
+        -ms-transform: rotateY(450deg);
+        -o-transform: rotateY(450deg);
+        transform: rotateY(450deg);
+    }
+    50% {
+        background-position: -112px 0;
+        -webkit-transform: rotateY(450deg);
+        -moz-transform: rotateY(450deg);
+        -ms-transform: rotateY(450deg);
+        -o-transform: rotateY(450deg);
+        transform: rotateY(450deg);
+    }
+    74% {
+        background-position: -112px 0;
+        -webkit-transform: rotateY(630deg);
+        -moz-transform: rotateY(630deg);
+        -ms-transform: rotateY(630deg);
+        -o-transform: rotateY(630deg);
+        transform: rotateY(630deg);
+    }
+    75% {
+        background-position: -168px 0;
+        -webkit-transform: rotateY(630deg);
+        -moz-transform: rotateY(630deg);
+        -ms-transform: rotateY(630deg);
+        -o-transform: rotateY(630deg);
+        transform: rotateY(630deg);
+    }
+    100% {
+        background-position: -168px 0;
+        -webkit-transform: rotateY(810deg);
+        -moz-transform: rotateY(810deg);
+        -ms-transform: rotateY(810deg);
+        -o-transform: rotateY(810deg);
+        transform: rotateY(810deg);
+    }
+}
+
+.rules-mask, .focus-mask, .share-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+.rules-mask .close, .focus-mask .close, .share-mask .close {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    -o-transform: translate(-50%);
+    transform: translate(-50%);
+    width: .2688rem;
+    height: .2688rem;
+    background: url("../images/newgame/niuniu-close.png") no-repeat;
+    background-size: 100% 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.rules-mask .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: .0720rem;
+    width: 2.9856rem;
+    background-color: rgba(255, 255, 255, .2);
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    -webkit-box-shadow: 0 0 .0720rem #153b72 inset;
+    -moz-box-shadow: 0 0 .0720rem #153b72 inset;
+    box-shadow: 0 0 .0720rem #153b72 inset;
+    text-align: center;
+}
+
+.rules-mask .content .niuniu-rules {
+    background-color: #bbdaff;
+    -webkit-box-shadow: 0 0 .0720rem #153b72 inset;
+    -moz-box-shadow: 0 0 .0720rem #153b72 inset;
+    box-shadow: 0 0 .0720rem #153b72 inset;
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    margin-bottom: .0720rem;
+    height: 3.3000rem;
+    overflow-x: hidden;
+}
+
+.rules-mask .content .text {
+    display: inline-block;
+    height: .1536rem;
+    line-height: 1;
+    color: #ffffff;
+    font-size: .1152rem;
+}
+
+.rules-mask .content .flex-cont {
+    align-items: center;
+    padding: .0520rem 0 .0520rem .3168rem;
+    font-size: .1152rem;
+    line-height: 1.5;
+    text-align: left;
+    background: url("../images/newgame/niuniu-rules-line.png") no-repeat left bottom;
+    background-size: 100% auto;
+}
+
+.rules-mask .content .niuniu-rules::-webkit-scrollbar {
+    display: none;
+}
+
+.rules-mask .content .niuniu-rules .rules-text {
+    text-align: justify;
+    padding: 0 .0960rem 0 .310rem;
+    line-height: 2;
+    text-indent: -.2rem;
+}
+
+.rules-mask .content .flex-cont.rules-title {
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: .1920rem;
+    color: #333;
+    padding: .0480rem 0;
+}
+
+.rules-mask .content .flex-cont .name {
+    color: #666;
+    letter-spacing: .0240rem;
+}
+
+.rules-mask .content .flex-cont .flex-item {
+    color: #333;
+}
+
+.rules-mask .content .rules-item span {
+    display: inline-block;
+    width: 50%;
+    float: left;
+}
+.chat-list-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+.chat-list-ul {
+    box-sizing: border-box;
+    width: 2.1696rem;
+    height: 3.2352rem;
+    overflow-x: hidden;
+    margin: .0672rem;
+    padding: .0672rem .0672rem .0240rem .0672rem;
+    background-color: #a7aeb2;
+    -webkit-border-radius: .096rem;
+    -moz-border-radius: .096rem;
+    border-radius: .096rem;
+}
+.chat-list {
+    position: fixed;
+    right: .0750rem;
+    bottom: .6000rem;
+    z-index: 99;
+    width: 2.3040rem;
+    border: .0096rem solid #919191;
+    -webkit-border-radius: .096rem;
+    -moz-border-radius: .096rem;
+    border-radius: .096rem;
+    transition: display 1s;
+    background-color: rgba(255, 255, 255, .2);
+}
+.chat-list li {
+    height: .2688rem;
+    line-height: .2688rem;
+    margin: 0 0 .0480rem 0;
+    padding: 0 .1056rem;
+    color: #9a3a00;
+    font-size: .1200rem;
+    text-align: left;
+    font-weight: bold;
+    -webkit-border-radius: .0480rem;
+    -moz-border-radius: .0480rem;
+    border-radius: .0480rem;
+    background-color: #eff8fb;
+}
