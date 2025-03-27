@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <title>查询</title>
+    <link rel="stylesheet" href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vant/2.12.5/index.css" />
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vant/2.12.5/vant.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/dh/src/geturlparam.js"></script>
+    <style type="text/css">
+        html,body{margin: 0;padding: 0;}
+        .header, .header1{
+            width: 100%;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.63);
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+            align-items: flex-end;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .header span{
+            width: calc(100% / 5);
+            height: 35px;
+            color:#fff;
+        }
+        .header1 span{
+            width: calc(100% / 4);
+            height: 35px;
+            color:#fff;
+        }
+        .header-item, .header-item1{
+            width: 100%;
+            height: 30px;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-item span{
+            width: calc(100% / 5);
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+        }
+        .header-item1 span{
+            width: calc(100% / 4);
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+        }
+        .header-item img{
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            margin-top: 6px;
+        }
+        .header-item1 img{
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            margin-top: 6px;
+        }
+        .van-nav-bar__text {
+            color: #000;
+        }
+        .van-nav-bar .van-icon {
+            color: #000;
+        }
+		#wrap{
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="' + 'http://' + window.location.host + '/js/config.js?v=' + new Date().getTime() + '"> <\/script>');
+</script>
+<div id="app">
+    <van-nav-bar :title="title" left-arrow @click-left="onClickLeft">
+        <template #right>
+            <van-button style="border: none;" icon="cluster-o" @click="onClickRight">{{lobbyName ? lobbyName : '选择大厅'}}</van-button>
+        </template>
+    </van-nav-bar>
+
+    <van-search show-action v-model="search.id" shape="round" background="#01978A" :placeholder="active?'请输入用户ID':'请输入搜索的房间号'" @search="onRefresh">
+        <template #action>
+            <div @click="onSearch" style="color: white;">{{active ? '添加' : '搜索'}}</div>
+        </template>
+    </van-search>
+
+    <van-tabs v-model="active" :before-change="beforeChange">
+        <van-tab title="防反杀">
+            <div class="header">
+                <span>玩家ID</span>
+                <span>昵称</span>
+                <span>头像</span>
+                <span>状态</span>
+                <span>操作</span>
+            </div>
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                    <div class="header-item" v-for="(item, index) in roomList" :key="index">
+                        <span>{{item.user_id}}</span>
+                        <span id="wrap">{{item.user_nickname}}</span>
+                        <span><img :v-show="item.user_cover_url" :src="item.user_cover_url" /></span>
+                        <span>{{item.is_enable ? '启用' : '未启用'}}</span>
+                        <span>
+                            <a href="javascript:;" @click="updatestatus(item)" v-show="item.is_enable" style="color: red;">
+                                关闭
+                            </a>
+                        </span>
+                    </div>
+                </van-list>
+            </van-pull-refresh>
+        </van-tab>
+
+        <van-tab title="白名单">
+
+            <div class="header1">
+                <span>玩家ID</span>
+                <span>昵称</span>
+                <span>头像</span>
+                <span>操作</span>
+            </div>
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                    <div class="header-item1" v-for="(item, index) in roomList" :key="index">
+                        <span>{{item.to_user_id}}</span>
+                        <span id="wrap">{{item.user.nickname}}</span>
+                        <span><img :v-show="item.user.cover_url" :src="item.user.cover_url" /></span>
+                        <span>
+                            <a href="javascript:;" @click="onWhite(item)" style="color: red;">移除</a>
+                        </span>
+                    </div>
+                </van-list>
+            </van-pull-refresh>
+        </van-tab>
+    </van-tabs>
+    <div id="action_sheet">
+        <van-action-sheet v-model="show" :actions="actions" cancel-text="取消" round @select="onSelect" />
+    </div>
+</div>
+    <script>
+        document.write('<script src="/dh/src/vm.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+</body>
+</html>

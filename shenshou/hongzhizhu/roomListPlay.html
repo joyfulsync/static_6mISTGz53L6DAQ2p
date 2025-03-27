@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta charset="utf-8" >
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<title>个人战绩查询</title>
+
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/fastclick.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/css/alert.css">
+
+<style type="text/css">
+.rowGame{position:relative;top: 0vw;margin-top: 5vw;left:0;width:100vw;height:28vw;overflow:hidden;    background: rgb(41, 28, 77);}
+.rowGame .item{position: absolute;width:18vw;height:25vw;text-align: center;color:#fff;opacity: 0.3}
+.rowGame .item img{position: absolute;top: 1.5vw;left: 1vw;width: 16vw;height: 16vw;}
+.rowGame .item .gamename{position: absolute;bottom: 1.5vw;width: 100%;text-align: center;font-size: 11pt;}
+.gameScoreTitle{position:relative;top: 0vw;margin-top: 1vw;left:0;width:100vw;height:13vw;line-height: 13vw;overflow:hidden;background: rgb(41, 28, 77);}
+.scoreRow{position: relative;top: 0vw;margin-top:1vw;overflow-y: scroll;height: 65vh;}
+ 
+</style>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="/js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+    document.write('<script type="text/javascript" src="/js/load.js?v='+ new Date().getTime() +'"> <\/script>');
+</script>
+<script type="text/javascript">
+    //
+    window.addEventListener('load', function() {
+        FastClick.attach(document.body);
+    }, false);
+	var obj = DynLoading.hall(BaseUrl + '/home1/index');
+	if(obj.result != 0){
+	  alert(obj.result_message);
+	  var return_url = window.location.href;
+	  console.log(return_url);
+	  window.location.href = '/index.html?return_url=' + return_url + '&t=' + obj.data.t;
+	}
+
+    var newNum = "";
+    var per = window.innerWidth / 530;
+    var globalData = {
+        // "baseUrl": "",
+        // "fileUrl": "",
+        // "cfileUrl": "",
+		"baseUrl": BaseUrl + "/",
+		"fileUrl": obj.data.fileUrl,
+		"cfileUrl": obj.data.cfileUrl,
+        "gameList": [
+            {"game_type":"1","select_type":"1","game_name":"九人斗牛","game_icon":"icon_bull9.png","max_count": 9,"play_type":1},
+            {"game_type":"1","select_type":"2","game_name":"六人斗牛","game_icon":"icon_bull6.png","max_count": 6,"play_type":1},
+            {"game_type":"1","select_type":"3","game_name":"十二牛牛","game_icon":"icon_bull12.png","max_count": 12,"play_type":1},
+            {"game_type":"4","select_type":"4","game_name":"炸金花","game_icon":"icon_flower.png","max_count": 6,"play_type":1},
+            {"game_type":"4","select_type":"5","game_name":"超级炸金花","game_icon":"icon_flowercj.png","play_type":5},
+            {"game_type":"4","select_type":"6","game_name":"血战炸金花","game_icon":"icon_flowerxp.png","play_type":3},
+            {"game_type":"4","select_type":"7","game_name":"换牌炸金花","game_icon":"icon_flowerhp.png","play_type":4},
+            {"game_type":"4","select_type":"8","game_name":"九人炸金花","game_icon":"icon_flower9.png","max_count": 9,"play_type":1},
+            {"game_type":"10","select_type":"9","game_name":"牌九","game_icon":"icon_paijiu.png","play_type":1},
+            {"game_type":"14","select_type":"10","game_name":"赖子牛牛","game_icon":"icon_laibull.png","max_count": 9},
+            {"game_type":"17","select_type":"11","game_name":"超级三加一","game_icon":"icon_jia31.png"},
+            {"game_type":"0","select_type":"12","game_name":"赖子三加一","game_icon":"icon_jia31lz.png"},
+            {"game_type":"0","select_type":"13","game_name":"12赖子","game_icon":"icon_laibull12.png","max_count": 12},
+            {"game_type":"14","select_type":"14","game_name":"三加一","game_icon":"icon_jia12.png","max_count": 12},
+            {"game_type":"0","select_type":"15","game_name":"吉祥三公","game_icon":"icon_sangongjx.png","max_count": 12},
+            {"game_type":"18","select_type":"16","game_name":"大牌九","game_icon":"icon_dpaijiu.png"},
+            {"game_type":"5","select_type":"17","game_name":"九人三公","game_icon":"icon_sangong.png","max_count": 9},
+            {"game_type":"0","select_type":"18","game_name":"二加一","game_icon":"icon_jia21.png","max_count": 9},
+            {"game_type":"6","select_type":"19","game_name":"二八杠","game_icon":"icon_erbagang.png"},
+            {"game_type":"13","select_type":"20","game_name":"撑船三公","game_icon":"icon_dcx.png"},
+            {"game_type":"0","select_type":"21","game_name":"跑得快","game_icon":"icon_pdk.png"},
+            {"game_type":"7","select_type":"22","game_name":"斗地主","game_icon":"icon_landlord.png"},
+            {"game_type":"12","select_type":"23","game_name":"大吃小","game_icon":"icon_dxbull.png"},
+            {"game_type":"8","select_type":"24","game_name":"广东麻将","game_icon":"icon_majiang.png"},
+            {"game_type":"0","select_type":"25","game_name":"二十一点","game_icon":"icon_21point.png"},
+            {"game_type":"0","select_type":"26","game_name":"德州扑克","game_icon":"icon_dzpk.png"},
+            {"game_type":"0","select_type":"27","game_name":"炸金牛","game_icon":"icon_zjn.png"},
+            {"game_type":"0","select_type":"28","game_name":"超级庄牛","game_icon":"icon_cjzj.png"},
+            {"game_type":"16","select_type":"29","game_name":"十三水","game_icon":"icon_s13s.png"},
+            {"game_type":"16","select_type":"30","game_name":"十三水","game_icon":"icon_s13smp.png"},
+            {"game_type":"0","select_type":"31","game_name":"干瞪眼","game_icon":"icon_gdy.png"},
+            {"game_type":"0","select_type":"32","game_name":"射门","game_icon":"icon_sm.png"},
+            {"game_type":"0","select_type":"33","game_name":"牛三张","game_icon":"icon_nsz.png"},
+            {"game_type":"0","select_type":"34","game_name":"天地人和","game_icon":"icon_tdrh.png"},
+            {"game_type":"8","select_type":"35","game_name":"广东麻将","game_icon":"icon_majiang2.png"},
+            {"game_type":"0","select_type":"36","game_name":"跑得快","game_icon":"icon_pdk2.png"},
+            {"game_type":"0","select_type":"37","game_name":"骰子牛牛","game_icon":"icon_sznn.png"},
+            {"game_type":"0","select_type":"38","game_name":"超级骰子","game_icon":"icon_cjsz.png"},
+            {"game_type":"0","select_type":"39","game_name":"大话骰","game_icon":"icon_dhs.png"},
+        ],
+        // const FlowerGameJd     = 1;   //经典炸金花
+		// const FlowerGameDp = 2;   //大牌
+		// const FlowerGameXp    = 3;   //血拼扎金花
+		// const FlowerGameHp = 4;   //换牌扎金花
+		// const FlowerGameCj = 5;   //超级扎金花
+        "hallPath":"/index.html"
+    };
+    globalData.wid = obj.data.wid; globalData.tt = obj.data.tt;
+    var userData = {
+        "accountId":obj.data.user.account_id,
+            "nickname":obj.data.user.nickname,
+            "avatar":obj.data.user.headimgurl,
+    };
+    var configData = {
+       "appId":obj.data.config_ary.appId,
+            "timestamp":obj.data.config_ary.timestamp,
+            "nonceStr":obj.data.config_ary.nonceStr,
+            "signature":obj.data.config_ary.signature,
+    };
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+</head>
+
+<body style="position: fixed; width: 100%;margin: 0 auto;background: #0e0226;">
+
+    <div id="loading" style="position: fixed;width:100%;height:100%;top:0;left:0;background: #000" >
+        <img src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/images/hongzhizhu/common/loading.gif" style="top: 40%;position: absolute;left: 50%;margin-left: -45px;margin-top: -45px;" />
+    </div>
+    <div class="main" id="app-main" style="position: relative; width: 100%;margin: 0 auto; display: none;">
+        <img src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/images/hongzhizhu/index/common_back.png" style="position: fixed;bottom: 0;width: 100vw;height: 14vw; z-index: 999;" @click="goBack">
+
+        <div id="memberDiv" class="rowGame" >
+            <div v-bind:style="'position: relative;z-index:1;width:' + gameItems.length * 0.215 * width + 'px;'">
+                <div v-for="(item,index) in gameItems" class="item" v-bind:style="'left:' + (3+(18+3)*index) + 'vw;'" @click="clickGame(item)" v-bind:id="'game'+item.select_type">
+                    <img v-bind:src="item.avatar+'?v=123'">
+                    <div class="gamename">{{item.name}}</div>
+                </div>
+            </div>
+            <div class="backcolor"></div>
+        </div>
+
+        <div class="gameScoreTitle" >
+            <div class="backcolor"></div>
+            <div style="position: absolute;left: 5vw;font-size: 12pt;color: white">
+                房间号
+            </div>
+            <div style="position: absolute;width: 100%;font-size: 12pt;color: white;text-align: center;">
+                结束时间
+            </div>
+            <div style="position: absolute;right: 5vw;font-size: 12pt;color: white;text-align: right;">
+                当局积分
+            </div>
+        </div>
+
+        <div class="scoreRow">
+            <div class="backcolor"></div>
+            <div style="position: relative;">
+                <div v-for="(item, index) in gameScoreList" style="position: relative;background: rgb(41, 28, 77);width: 100%;height: 13vw;line-height: 13vw;text-align: center;color: white;overflow:hidden;" v-on:click="clickScoreItem(item)">
+                    <div style="position: absolute;left: 5vw;font-size: 12pt;color: orange;text-align: left;">
+                        {{item.number}}
+                    </div>
+                    <div style="position: absolute;width: 100%;font-size: 12pt;color: white;text-align: center;">
+                        {{item.time}}
+                    </div>
+                    <div style="position: absolute;right: 5vw;font-size: 12pt;color: white;text-align: right;">
+                        {{item.score}}
+                    </div>
+                </div>
+                <div id="moretext" style="position: relative;margin-top: 4px;color: #39d7ff;height: 13vw;text-align: center;line-height: 13vw;font-size: 2.2vh;display: none;" v-on:click="clickMore">
+                <div class="backcolor"></div>
+                    点击加载更多
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/bscroll.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/vue.min.js" ></script>
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/vue-resource.min.js" ></script>
+<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/kanong/commonxmz67/files/js/roomListPlay_shenshou.js?v=1"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+<script>
+    $(document).on('click', 'img', function(e){
+        e.preventDefault();
+    })
+</script>
+
+</html>

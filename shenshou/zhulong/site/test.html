@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" id="ben">
+<head>
+	<meta charset="UTF-8">
+	<title>修改头像</title>
+ 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+ 	<meta name="apple-mobile-web-app-capable" content="yes" />
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+ 	<meta name="format-detection" content="telphone=no,email=no" />
+
+	<link rel="stylesheet" type="text/css" href="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/upload/css/style.css" />
+	<!-- <script type="text/javascript" src="https://commonyh7.oss-cn-hangzhou.aliyuncs.com/upload/scripts/jquery-1.8.2.min.js"></script> -->
+	<script type="text/javascript" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/files/js/jquery-1.9.1.min.js"></script>
+
+ 	<script type="text/javascript">
+	 var _width = $(window).width();
+		var _ziHao = 20 * (_width/320);
+		if(_width < 641){
+			$("#ben").css({"font-size":_ziHao + "px"})
+		}
+ 	</script>
+</head>
+<body>	
+<div class='loading' style="display:none;position: fixed;
+    line-height: 100vh;
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+    top: 0;z-index:9999999999999;color: red;">上传服务器中</div>
+	<section class="logo-license" style="text-align: center;top: 40%;position: fixed;width: 100%;">
+		<div class="half">
+			<a class="logo" id="logox">
+				<img id="bgl" src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/upload/images/tx.png?v=1">
+			</a>
+		</div>
+		<div id='tips'>点击上传头像</div>
+		<div id='success' style="word-wrap:break-word;display:none">上传成功</div>
+		<div id='back'style="    background-color: #5cb85c;
+    width: 100px;
+    padding: 5px 10px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 6px;
+    margin: 60px auto;">返回游戏</div>
+		<div class="clear"></div>
+	</section>
+	<article class="htmleaf-container">
+		<div id="clipArea"></div>
+		<div class="foot-use">
+			<div class="uploader1 blue">
+				<input type="button" name="file" class="button" value="打开">
+				<input id="file" type="file" accept="image/*" multiple  />
+			</div>
+			<button id="clipBtn">确定</button>
+		</div>
+		<div id="view"></div>
+	</article>
+
+	<script src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/upload/scripts/iscroll-zoom.js"></script>
+	<script src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/upload/scripts/hammer.js"></script>
+	<script src="http://ssxss8.oss-cn-hangzhou.aliyuncs.com/zhulong/commonxmz67/upload/scripts/jquery.photoClip.js"></script>
+	<script>
+	var apiUrl = '';
+	var t = '';
+	var qn_token = '';
+	// var head_token = window.localStorage.getItem('token');
+	var head_token ='';
+	var obUrl = '';
+	var return_url = '';
+	
+	
+	$('#back').click(function(){
+		//console.log(window.location.host)
+		if(return_url.indexOf('http') != -1){
+			window.location.href = return_url + '&v=' + Date.parse(new Date());	
+		}else{
+			window.location.href = 'http://' + window.location.host + '/?v=' + Date.parse(new Date());	
+		}
+	    
+	});
+	
+	$("#clipArea").photoClip({
+		width: 300,
+		height: 300,
+		file: "#file",
+		view: "#view",
+		ok: "#clipBtn",
+		loadStart: function() {
+			//console.log("照片读取中");
+		},
+		loadComplete: function() {
+			//console.log("照片读取完成");
+		},
+		clipFinish: function(dataURL) {
+			//console.log(dataURL);//图片路径
+			$('#tips').hide();
+			$('#success').show();
+                $.ajax({
+                    type: "POST",
+                    url: 'http://upload-z2.qiniu.com/putb64/-1',
+                    headers:{
+                        "Content-Type": "application/octet-stream",
+                        "Authorization": "UpToken " + qn_token,
+                    },
+                    data: dataURL.split(',')[1],
+                    success: function (data) {
+                        //console.log(data);
+                        
+                        
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + 'site/upload',
+                    data: {'avatar': data.key,'t':t,'token':head_token},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                       // console.log(data);
+                    },
+                    error: function (jqXHR) {
+                        //console.log("Error: " + jqXHR.status);
+                    }
+                });
+                        
+                        
+                        
+                    },
+                    error: function (jqXHR) {
+                       // console.log("Error: " + jqXHR.status);
+                    }
+                });
+                return;
+		}
+	});
+	</script>
+	<script>
+	$(function(){
+		$("#logox").click(function(){
+			$(".htmleaf-container").show();
+		})
+		$("#clipBtn").click(function(){
+			$('#loading').show();
+			$("#logox").empty();
+			$('#logox').append('<img src="' + imgsource + '" align="absmiddle" style=" width: 3rem;height: 3rem;">');
+			$(".htmleaf-container").hide();
+		})
+	});
+	</script>
+
+
+
+</body>
+</html>
