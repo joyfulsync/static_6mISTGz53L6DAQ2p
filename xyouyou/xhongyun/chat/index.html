@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>聊天室</title>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name=full-screen content=yes>
+    <meta name=x5-fullscreen content=true>
+    <link href="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/v3/static/css/app.b45c646ee20993735ed98b032ca94b83.css" rel=stylesheet>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/wx.js" ></script>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="../js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+    </script>
+    <script type="text/javascript" src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/js/load.js"></script>
+    <script>
+
+    var obj = DynLoading.hall(BaseUrl + '/chat1/index');
+    if(obj.result != 0){
+        alert(obj.result_message);
+        var return_url = window.location.href;
+        console.log(return_url);
+        window.location.href = '/?return_url=' + return_url + '&t=' + obj.data.t;
+    }
+    console.log(obj);
+    // 聊天室
+    //v3
+    var phpVhref = '';
+    var phpIsWx = obj.data.is_weixin;
+    var phpIsXl = obj.data.is_xianliao;
+    var phpWxUrl = 'xiyu.fjmkuqw.cn';
+    var phpWxIp = obj.data.ws_host;
+    var PhpAurl = obj.data.base_url;
+    var PhpChatUrl = "/chat/index";
+    var wxConfig = obj.data.wx_config;
+    var group_id = obj.data.group_id;
+    var baseUrl = BaseUrl + "/";
+    var hallName = obj.data.platfrom_name;
+    var hallRul = "/index.html";
+    var ChatUrl = "http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi";
+    window.localStorage.setItem('token', obj.data.tk);
+
+    function index_GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    };
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 通过下面这个API隐藏右上角按钮
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+    </script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/rw.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/q.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/aes.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/aesjj.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/md5.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/utf.js" ></script>
+    <script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/jquery.qrcode.js" ></script>
+    <style>
+        .content {
+            padding-bottom: 40px;
+            background-color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+<div id=app></div>
+<div class=images></div>
+<script type=text/javascript src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/v3/static/js/manifest.e662d2eaedc6c57932c5.js?v=2"></script>
+<script type=text/javascript src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/v3/static/js/vendor.6ecd40b864f0e8680fa6.js?v=2"></script>
+<script type=text/javascript src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/v3/static/js/app.16046541d4a9de0084a8.js?v=211"></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/hc.js" ></script>
+<script src="http://yyxyy8.oss-cn-hangzhou.aliyuncs.com/juzi/super_chat/js/cb.js" ></script>
+<script>
+    var el = document.createElement("textarea");
+    el.setAttribute("readonly", "readonly");
+    el.setAttribute("id", "copy");
+    el.style.position = "absolute";
+    el.style.fontSize = "12px";
+    el.style.left = "-99999px";
+    document.body.appendChild(el);
+</script>
+
+</body>
+</html>

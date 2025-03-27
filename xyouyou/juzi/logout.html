@@ -1,0 +1,9 @@
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="../js/config.js?v='+ new Date().getTime() +'"> <\/script>');
+</script>
+<script>
+    window.localStorage.removeItem('wwid');
+    window.localStorage.removeItem('ws_ip');
+    window.localStorage.removeItem('token');
+    window.location.href = 'login.html';
+</script>
